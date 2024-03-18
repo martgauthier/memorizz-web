@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+<title>Matrio</title>
+<link href="./style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
+<meta charset="utf-8"/>
+</head>
+<body>
+
+<div id="top">
+<div id="top_bg"></div>
+<img alt="logo" id="logo" src="../../assets/icon.png"/>
+<h1 id="profil_name">Pierre</h1>
+<div id="menu">
+<div class="barre"></div>
+<div class="barre"></div>
+<div class="barre"></div>
+</div>
+</div>
+
+<div class="template">
+<div class="gauche">
+<div id="text-diff-center">
+<h3 class="text-diff">Difficulté</h3>
+</div>
+<div class="choix_diff">
+<div class="niveau" style="background-color: #209188;">
+<h3 class="nv_txt white pas_cocher" style="color: rgba(255, 255, 255, 0.7);">Facile</h3>
+</div>
+<div class="niveau">
+<h3 class="nv_txt white">Moyen</h3>
+</div>
+<div class="niveau" style="background-color: #209188;">
+<h3 class="nv_txt white pas_cocher" style="color: rgba(255, 255, 255, 0.7);">Difficile</h3>
+</div>
+</div>
+<div id="jouer">
+<h2 class="white" id="jouer_txt">JOUER</h2>
+</div>
+</div>
+<div class="droite">
+<div id="ligne"></div>
+<h6 class="text-center">Nombre de paire</h6>
+<div class="input-group input-number-group">
+<div class="input-group-button">
+<span class="input-number-decrement white">-</span>
+</div>
+<input class="input-number white" max="1000" min="0" type="number" value="4"/>
+<div class="input-group-button">
+<span class="input-number-increment white">+</span>
+</div>
+</div> <h6 class="text-center">Positions des cartes</h6>
+<div class="choix">
+<h4 class="case white">cachées</h4>
+<h4 class="case white" style="background-color: #209188;color: rgba(255, 255, 255, 0.7);">visibles</h4>
+</div><h6 class="text-center">Types de paires</h6>
+<div class="choix_type">
+<div class="case_img" style="background-color: #209188;;">
+<img alt="image poisson" class="image" src="../../assets/george.png" style="opacity: 60%;"/>
+<img alt="image poisson" class="image" src="../../assets/george.png" style="opacity: 60%;"/>
+</div>
+<div class="case_img">
+<img alt="image poisson" class="image" src="../../assets/george.png"/>
+<h4 class="image" id="text_george">Mon poisson bubule</h4>
+</div>
+</div>
+<div class="btn_bas">
+<h6 class="btn_bas_txt white">Enregistrer les modifications</h6>
+</div>
+<div class="btn_bas">
+<h6 class="btn_bas_txt white">Paramètres par défaut</h6>
+</div>
+</div>
+</div>
+<script src="scripts/websockets.js"></script></body>
+</html>
