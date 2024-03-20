@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Bouton } from './bouton.component';
+import { Template } from './config/template.component';
+import { NbCard } from './config/nbCard/nbCard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    Bouton,
+    Template,
+    NbCard
   ],
   imports: [
     BrowserModule,

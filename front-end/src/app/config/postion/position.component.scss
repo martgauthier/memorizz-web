@@ -1,0 +1,15 @@
+.choix {
+    display: grid;
+    width: 333px;
+    margin-left: 18%;
+    grid-template-columns: 1fr 1fr;
+    height: 67px;
+    gap: 8px;
+}
+.case{
+    font-size: x-large;
+    background-color: #01274a;
+    padding: 15px 0% 0% 20%;
+    margin: 0;
+    cursor: pointer;
+}

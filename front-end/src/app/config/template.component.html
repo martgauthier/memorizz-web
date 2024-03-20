@@ -1,0 +1,23 @@
+<div class="template">
+    <div class="gauche">
+        <div id="text-diff-center">
+            <h3 class="text-diff">Difficulté</h3>
+        </div>
+        <div class="choix_diff">
+            <app-bouton id="facile" [text]="'facile'" (click)="onclick_difficulties('facile')"></app-bouton>
+            <app-bouton id="moyen" [text]="'moyen'" (click)="onclick_difficulties('moyen')"></app-bouton>
+            <app-bouton id="difficile" [text]="'difficile'" (click)="onclick_difficulties('difficile')"></app-bouton>
+        </div>
+            <app-bouton id="jouer" [text]="'JOUER'" (click)="onclick_jouer()" style="display: none;"></app-bouton>
+    </div>
+    <div class="droite">
+        <div id="ligne"></div>
+        <app-nbcard></app-nbcard>
+        <div class="btn_bas">
+            <h6 class="btn_bas_txt white">Enregistrer les modifications</h6>
+        </div>
+        <div class="btn_bas">
+            <h6 class="btn_bas_txt white">Paramètres par défaut</h6>
+        </div>
+    </div>
+</div>

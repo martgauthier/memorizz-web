@@ -1,0 +1,28 @@
+@import "../styles/variables.scss";
+
+.niveau{
+    width: 335px;
+    height: 75px;
+    cursor: pointer;
+    background-color: $light-blue;
+}
+.nv_txt{
+    text-align: center;
+    padding-top: 4%;
+    margin: 0;
+}
+.jouer{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+    width: 550px;
+    height: 85px;
+    background-color: #01274a;
+    cursor: pointer;
+}
+
+.jouer_txt{
+    padding-top: 6px;
+    margin: 2% 33%;
+    font-size: xxx-large;
+}
