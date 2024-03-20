@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { Bouton } from './bouton.component';
 import { Template } from './config/template.component';
 import { NbCard } from './config/nbCard/nbCard.component';
+import { Position } from './config/postion/position.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Bouton,
     Template,
-    NbCard
+    NbCard,
+    Position
   ],
   imports: [
     BrowserModule,
