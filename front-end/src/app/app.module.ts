@@ -7,6 +7,7 @@ import { Bouton } from './bouton.component';
 import { Template } from './config/template.component';
 import { NbCard } from './config/nbCard/nbCard.component';
 import { Position } from './config/postion/position.component';
+import { Type } from './config/type/type.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { Position } from './config/postion/position.component';
     Bouton,
     Template,
     NbCard,
-    Position
+    Position,
+    Type
   ],
   imports: [
     BrowserModule,
