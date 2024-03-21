@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from 'src/services/config-service.service';
 
 @Component({
     selector: 'app-typeCard',
@@ -8,7 +7,6 @@ import { ConfigService } from 'src/services/config-service.service';
 })
 
 export class Type implements OnInit {
-    constructor(public configService: ConfigService){}
     ngOnInit(): void {
         this.onclick("img");
     }
@@ -23,7 +21,6 @@ export class Type implements OnInit {
                 document.querySelector("#txt")?.classList.add("pas_cocher");
                 document.querySelector("#txt #un")?.classList.add("img_pas_cocher");
                 document.querySelector("#text_george")?.classList.add("img_pas_cocher");
-                this.configService.type_img = true;
                 break;
             case "txt":
                 document.querySelector("#txt")?.classList.remove("pas_cocher");
@@ -34,7 +31,6 @@ export class Type implements OnInit {
                 document.querySelector("#img")?.classList.add("pas_cocher");
                 document.querySelector("#img #un")?.classList.add("img_pas_cocher");
                 document.querySelector("#img #deux")?.classList.add("img_pas_cocher");
-                this.configService.type_img = false;
                 break;
         }
     }
