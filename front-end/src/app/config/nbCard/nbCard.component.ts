@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ConfigService } from 'src/services/config-service.service';
 
 @Component({
     selector: 'app-nbcard',
@@ -9,17 +10,20 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NbCard implements OnInit {
     ngOnInit(): void {}
 
+    constructor(public configService : ConfigService){}
     public changeInput(op : string){
-        let element : HTMLInputElement;
-        element = (document.querySelector(".input-number") as HTMLInputElement);
         switch (op) {
             case '+':
-                element.value = element.valueAsNumber + 1 +"";
+                this.setInput(this.configService.nbCard+1);
                 break;
             case '-':
-                element.value = element.valueAsNumber - 1 +"";
+                this.setInput(this.configService.nbCard-1);
                 break;
         }
-        //alert(op);
+    }
+
+    public setInput(value : number){
+        this.configService.nbCard = value;
+        (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
     }
 }
