@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ConfigService } from 'src/services/config-service.service';
+import { NbCard } from './nbCard/nbCard.component';
+import { Niveau } from 'src/models/niveau.models';
 
 @Component({
     selector: 'app-template',
@@ -8,7 +11,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class Template implements OnInit {
     public beginning : boolean = true;
-
+    constructor(public configService : ConfigService){}
     ngOnInit(): void {}
     public onclick_jouer(){
 
@@ -30,6 +33,7 @@ export class Template implements OnInit {
             (document.querySelector("#"+id+" div") as HTMLDivElement)!.style.backgroundColor = "#01274a" ;
             document.querySelector("#"+id+">div>h3")!.classList.add("cocher");
             document.querySelector("#"+id+">div>h3")!.classList.remove("pas_cocher");
+            new Niveau(id,this.configService);
           }
           else{
             (document.querySelector("#"+difficulties[difficulty]+" div") as HTMLDivElement)!.style.backgroundColor = "#209188";

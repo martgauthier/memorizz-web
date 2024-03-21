@@ -14,16 +14,16 @@ export class NbCard implements OnInit {
     public changeInput(op : string){
         switch (op) {
             case '+':
-                this.setInput(this.configService.nbCard+1);
+                this.configService.setNbCard(this.configService.nbCard+1);
                 break;
             case '-':
-                this.setInput(this.configService.nbCard-1);
+                this.configService.setNbCard(this.configService.nbCard-1);
                 break;
         }
     }
-
+/*
     public setInput(value : number){
         this.configService.nbCard = value;
         (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
-    }
+    }*/
 }
