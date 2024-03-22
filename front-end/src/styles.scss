@@ -11,3 +11,23 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.cocher{
+  font-size: xx-large;
+  color: white;
+  filter: none;
+}
+.pas_cocher{
+  background-color: $light-blue;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 27px;
+}
+
+.text-center{
+  font-size: x-large;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  width: 247px;
+  overflow: hidden;
+}
