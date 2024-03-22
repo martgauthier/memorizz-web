@@ -3,18 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MemorytemplateComponent} from "./memory/memorytemplate/memorytemplate.component";
 import {MemorycardComponent} from "./memory/memorycard/memorycard.component";
-
+import {MemoryComponent} from "./memory/memory.component";
 @NgModule({
   declarations: [
     AppComponent,
-    MemorytemplateComponent,
+    MemoryComponent,
     MemorycardComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

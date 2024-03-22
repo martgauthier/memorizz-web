@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title: string = 'Hello world!';
   public showSuccess = false;
 
@@ -13,5 +13,8 @@ export class AppComponent {
 
   showHideSuccess() {
     this.showSuccess = !this.showSuccess;
+  }
+
+  ngOnInit(): void {
   }
 }
