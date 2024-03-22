@@ -30,5 +30,23 @@ export interface FullDataForSingleStat {
  */
 export interface DataPerDifficultyForSingleStat {
   lastTimeValue: number,
-  nowValue: number
+  nowValue: number,
+  dates: {
+    lastTimeDate: string,
+    nowDate: string
+  }
+}
+
+/**
+ * Function used to fill an empty DatePerDifficultyForSingleStat instance
+ */
+export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficultyForSingleStat {
+  return {
+    dates: {
+      lastTimeDate: "",
+      nowDate: ""
+    },
+    lastTimeValue: 0,
+    nowValue: 0
+  }
 }
