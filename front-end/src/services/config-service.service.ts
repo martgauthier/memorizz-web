@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Niveau } from 'src/models/niveau.models';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,15 @@ export class ConfigService {
     public nbCard : number = 4;
     public position_cachees : boolean = true;
     public type_img : boolean = true;
+    private niveau : string = "moyen";
     onstructor() {}
+
     public setNbCard(value : number){
         this.nbCard = value;
         (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
+        if(value <= 4 && this.niveau != "facile"){
+            new Niveau("facile",this);
+        }
     }
     public setPosition(cachees : boolean){
         if(cachees){
@@ -53,5 +59,8 @@ export class ConfigService {
             document.querySelector("#img #deux")?.classList.add("img_pas_cocher");
             this.type_img=false;
         }
+    }
+    public setNiveau(niveau : string){
+        this.niveau = niveau;
     }
 }

@@ -2,6 +2,7 @@ import { ConfigService } from "src/services/config-service.service";
 
 export class Niveau{
     constructor(niveau : string, public configService : ConfigService){
+        configService.setNiveau(niveau);
         switch (niveau) {
             case "facile":
                 configService.setNbCard(3);
@@ -9,7 +10,7 @@ export class Niveau{
                 configService.setType(true);
                 break;
             case "moyen":
-                configService.setNbCard(4);
+                configService.setNbCard(5);
                 configService.setPosition(true);
                 configService.setType(true);
                 break;
