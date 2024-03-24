@@ -1,0 +1,41 @@
+@import "../../../styles/variables.scss";
+
+.choix_type {
+    display: grid;
+    width: 65%;
+    margin-left: 18%;
+    grid-template-columns: 1fr 1fr;
+    height: 80px;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+.case_img{
+    //background-color: #01274a;
+    padding: 15px 10% 0% 10%;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.cocher{
+    background-color: $dark-blue;
+}
+.image{
+    width: 50px;
+    height: 50px;
+    background-color: rgb(125, 150, 167);
+}
+#text_george{
+    text-align: center;
+    font-size: 11px;
+    color: white;
+    margin: 0;
+}
+#titre{
+    width: 194px;
+}
+.img_pas_cocher{
+    opacity: 60%;
+}

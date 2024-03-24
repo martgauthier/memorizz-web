@@ -1,0 +1,713 @@
+/* Content from src/components/courbe/courbe.css */
+.courbe {
+    background-image: url("assets/courbetempsmis.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Content from src/components/statsforcards/statsforcards.css */
+.statsforcards {
+    height: 73%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.main-statsforcards-container {
+    margin: 0;
+    bottom: 0;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.for-all-difficulty>p {/* title */
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.courbe {
+    height: 800px;
+    width: 90%;
+}
+
+.questionselector-descriptor {
+    width: 32%;
+    padding: 15px;
+    margin: 0;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    font-style: italic;
+    text-align: center;
+    font-size: 17px;
+}
+
+.stat-to-enhance {
+    font-weight: bold;
+    font-size: 1.5em;
+    width: 80%;
+    margin: 20px auto;
+    color: #E8ECEB;
+}
+
+.main-statsforcards-container .courbe {
+    max-height: 600px;
+    width: 60%;
+}
+
+.choose-difficulty {
+    width: 30%;
+}
+
+.choose-difficulty ul {
+    flex-direction: column;
+}
+
+.courbe-and-difficulty {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+/* Content from src/components/statistiques/statistiques.css */
+.statistiques h1 {
+    color: #E8ECEB;
+    text-align: center;
+}
+
+.statistiques {
+    height: 100%;
+    position:relative;
+    background-color: #01274a;
+}
+
+.reglagesOrCardChoice {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    padding: 0;
+    width: 25%;
+    height: 40px;
+    border-radius: 12px;
+    background-color: #1b4a46;
+    position: relative;
+}
+
+.reglagesOrCardChoice>li {
+    text-align: center;
+    flex: 1;
+    padding: 5px;
+    border-radius: inherit;
+    color: white;
+    z-index: 4000;
+    transition: font-size 0.4s, filter 0.1s;
+    font-size: 1em;
+    filter: opacity(0.7);
+}
+
+.reglagesOrCardChoice>li:hover {
+    cursor: pointer;
+}
+
+.reglagesOrCardChoice>.focused-li {
+    font-size: 1.1rem;
+    filter: opacity(1);
+}
+
+.reglagesOrCardChoice>.focused-background {
+    position: absolute;
+    top: 0;
+    left: 0%;
+    height: 100%;
+    width: 50%;
+    border-radius: inherit;
+    background-color: #209188;
+    transition: left 0.2s ease-in-out;
+}
+/* Content from src/components/period-selector/period-selector.css */
+.period-selector {
+    position: absolute;
+    top: 60px;
+    right: 30px;
+}
+
+.period-selector * {
+    font-size: 0.9em;
+    color: #E8ECEB;
+}
+/* Content from src/components/questionselector/questionselector.css */
+.questionselector {
+    background-color: #01274a;
+    padding: 0;
+    position: absolute;
+    top: -45px;
+    width: 100%;
+    height: 800px;
+    z-index: 4000;
+    height: 12%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.questionselector * {
+    color: #E8ECEB;
+}
+
+.selector-options-list {
+    width: 30%;
+    overflow: hidden;
+    position: relative;
+}
+
+.selector-options-list * {
+    font-weight: bold;
+    overflow-x: visible;
+}
+
+.selector-options-list:hover {
+    background: gray;
+    height: 600px;
+    overflow-y: visible;
+}
+
+.questionselector hr {
+    width: 200px;
+    overflow: hidden;
+}
+
+span.question, .questionselector ul>li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: gray;
+    opacity: 0.9;
+    background-image: linear-gradient(to bottom right, #d9d9d9, #f5f2f2);
+    text-align: left;
+    position: relative;
+    font-size: 1.5em;
+    width: 100%;
+    
+    margin: 5px 0;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+}
+
+span.question {
+    text-align: center;
+}
+
+span.question:hover, .questionselector ul>li:hover {
+    cursor: pointer;
+    border-color: black;
+    box-sizing: border-box;
+}
+
+span.question.focused, .questionselector ul>li.focused {
+    color: black;
+    opacity: 1;
+    border: 2px solid #ffd9ad;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.questionselector ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.questions-list img {
+    max-width: 130px;
+    max-height: 100px;
+    margin-left: 20px;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateY(95%);
+    padding-right: 20px;
+    filter: invert();
+}
+/* Content from src/components/choosedifficulty/choosedifficulty.css */
+.choose-difficulty ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.choose-difficulty li {
+    background-color: #dadae6;
+    padding: 10px;
+    flex: 1;
+    margin: 10px;
+    transition: border-color 0.1s, box-shadow 0.1s, opacity 0.1s;
+    font-size: small;
+    border: 3px solid transparent;
+    box-sizing: border-box;
+}
+
+.choose-difficulty li:hover {
+    cursor: pointer;
+    border-color: white;
+    box-shadow: 0 0 3px white;
+    opacity: 0.9;
+}
+
+.choose-difficulty span {
+    display: inline-block;
+    width: 30px;
+    height: 7px;
+    margin-right: 10px;
+    padding: 0;
+}
+
+.not-displayed {
+    opacity: 0.6;
+    color: gray;
+}
+
+.choose-difficulty-explanation {
+    font-style: italic;
+    text-align: center;
+    margin: 0 auto 20px auto;
+    padding: 0;
+    font-size: 1em;
+    font-weight: normal;
+    color: white;
+}
+/* Content from src/components/top/top.css */
+body {
+	background: #f7fcff;
+	padding: 0;
+	margin: 0;
+    overflow: hidden;
+}
+#top{
+    width: 100%;
+}
+#top_bg{
+    background-color: #01274a;
+    height: 60px;
+}
+#profil_name{
+    position: absolute;
+    top: 15px;
+    left: 65px;
+    margin: 0;
+    color: #f7fcff;
+    font-size: 1.4em;
+}
+#logo{
+    position: absolute;
+    top: 10px;
+    height: 40px;
+}
+.barre {
+    border-radius: 2px;
+    background-color: #f7fcff;
+}
+#menu {
+    position: absolute;
+    display: grid;
+    right: 15px;
+    grid-template-rows: 5px 5px 5px;
+    top: 12px;
+    gap: 9px;
+    width: 40px;
+    height: 40px;
+}
+
+#menu:hover {
+    cursor: pointer;
+}
+/* Content from src/components/difficulty_data_displayer/difficulty_data_displayer.css */
+.difficulty_data_displayer {
+    margin-right: 25px;
+}
+
+.difficulty_data_displayer * {
+    color: #E8ECEB;
+}
+
+.difficulty_data_displayer h3 {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.for-all-difficulty {
+    background: red;
+}
+
+.difficulty_data_displayer * {
+    text-align: center;
+}
+
+.data-container {
+    margin: 25px;
+    flex: 1;
+}
+
+.other-difficulty>p {
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    padding-top: 20px;
+}
+
+.other-difficulty-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.for-all-difficulty > .data-container {
+    display: flex;
+}
+
+.stat-object {
+    margin: 25px;
+    flex: 1;
+    border: 1px solid black;
+}
+
+.stat-title {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+.monitoring-icon {
+    padding: 5px !important;
+    width: 50px !important;
+    transition: background-color 0.4s;
+}
+
+.monitoring-icon:hover {
+    cursor: pointer;
+    background-color: aqua;
+}
+
+.other-difficulty-container>.data-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.difficulty_data_displayer .little-stat {
+    box-sizing: border-box;
+    margin: 6px auto;
+    width: 95%;
+    position: relative;
+    box-shadow: 0 0 8px #874a03;
+}
+
+.little-stat-text {
+    width: 90%;
+}
+
+.little-stat-title {
+    display: block;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.little-stat-desc {
+    font-style: italic;
+    display: block;
+    font-size: 14px;
+}
+
+.error-ratio {
+    position: relative;;
+}
+
+.error-ratio > .monitoring-icon {
+    /*top: auto;
+    bottom: 0;
+    left: 50%;*/
+    transform: none;
+    margin: 15px auto;
+    width: 60px;
+    display: block;
+    position: static;/* overrides absolute */
+}
+
+.preferred-difficulties>img {
+    display: block;
+    width: 80%;
+    margin: auto;
+}
+
+.difficulty-stat-title {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+}
+
+.choose-difficulty {
+    width: 80%;
+    margin: auto;
+}
+
+.on-month-text {
+    font-style: italic;
+    font-size: 0.9em;
+}
+/* Content from src/components/statsforlevels/statsforlevels.css */
+.statsforlevels {
+    overflow-y: scroll;
+    height: 81%;
+    position: absolute;
+    display: none;
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    background-color: white;
+    transform: translateX(-50%);
+}
+
+.statsforlevels .courbe {
+    max-height: 600px;
+    width: 60%;
+}
+
+.statsforlevels .courbe-and-difficulty {
+    background-color: #01274a;
+}
+/* Content from src/pages\index.css */
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-decoration: underline;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.card {
+  display: flex;
+  min-width: 300px;
+  width: 100%;
+  height: 4rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.card.blue {
+  background-color: #7C98C4;
+}
+
+.card.brown {
+  background-color: #B79D59;
+}
+
+.card.gray {
+  background-color: #D0C9B7;
+}
+/* Content from src/components/carddatadisplayer/carddatadisplayer.css */
+.card_data_displayer h3 {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.card_data_displayer {
+    background: white;
+}
+
+.for-all-difficulty {
+    background: red;
+}
+
+.card_data_displayer * {
+    text-align: center;
+    color: #fff7ed;
+}
+
+.data-container {
+    position: relative;
+    margin: 25px;
+    flex: 1;
+}
+
+.monitoring-explanation {
+    font-style: italic;
+    padding: 0;
+    margin: 10px 0;
+    font-size: 0.8em;
+}
+
+.data-container.focused {
+    border: 3px solid #ffd9ad;
+}
+
+.other-difficulty>p {
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    padding-top: 20px;
+}
+
+.other-difficulty-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.other-difficulty-container>.data-container {
+    background-color: #209188;
+}
+
+.for-all-difficulty > .data-container {
+    display: flex;
+}
+
+.stat-object {
+    margin: 25px;
+    flex: 1;
+    border: 1px solid black;
+}
+
+.stat-title {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+.monitoring-icon {
+    padding: 5px;
+    width: 40px;
+    background-color: #E09E50;
+    transition: background-color 0.4s;
+}
+
+.monitoring-icon:hover {
+    cursor: pointer;
+    background-color: aqua;
+}
+
+.other-difficulty-container>.data-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.statsforcards .monitoring-icon {
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+.little-stat {
+    box-sizing: border-box;
+    margin: 6px auto;
+    width: 95%;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    background-color: #874a03;
+}
+
+.little-stat * {
+    margin: auto;
+    text-align: center;
+}
+
+.little-stat-text {
+    width: 90%;
+    text-align: center;
+}
+
+.little-stat-title {
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.little-stat-desc {
+    font-style: italic;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+}
+
+
+.help-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    font-size: 31px !important;
+}
+
+.help-icon:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px white;
+}
+
+.statsforcards .data-container .monitoring-icon {
+    display: block;
+    position: static;
+    margin: 40px auto 0 auto;
+}
+
+.mean-big-info {
+    font-weight: bold;
+    font-size: 40px;
+    width: 90%;
+    margin: auto;
+}
+
+.mean-descriptor {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-style: italic;
+    text-align: center;
+}
+
+.simple-mode {
+    background-color: #104508;
+    box-shadow: 0 0 8px #104508;
+}
+
+.medium-mode {
+    background-color: #454508;
+    box-shadow: 0 0 8px #454508;
+}
+
+.hard-mode {
+    background-color: #450808;
+    box-shadow: 0 0 8px #450808;
+}

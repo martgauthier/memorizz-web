@@ -1,0 +1,65 @@
+.template {
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto 0%;
+    height: 100%;
+
+    animation-name: changeWidth;
+    animation-play-state: paused;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+#ligne{
+    position: absolute;
+    margin-top: 68Px;
+    margin-bottom: 30px;
+    width: 6px;
+    height: 73%;
+    background-color: #01274a;
+}
+
+.droite {
+    overflow: hidden;
+}
+
+@keyframes changeWidth {
+    from {
+        grid-template-columns: auto 0%;
+    }
+    to {
+        grid-template-columns: auto 40%;
+    }
+}
+
+.btn_bas {
+    text-align: right;
+    padding-left: 74%;
+    width: 107px;
+    height: 43px;
+    cursor: pointer;
+}
+.btn_bas_txt{
+    font-size: smaller;
+    background-color: #01274a;
+    margin: 0;
+    padding-right: 3px;
+}
+.white{
+    color: white;
+    font-family: 'Poppins';
+}
+.text-diff{
+    font-size: xx-large;
+}
+#text-diff-center{
+    margin-left: auto;
+    margin-right: auto;
+    width: 130px;
+}
+.choix_diff {
+    display: grid;
+    width: 335px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 8px;
+}
