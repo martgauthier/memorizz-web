@@ -2,7 +2,8 @@ import {FullDataForSingleStat} from "../models/stats-data.model";
 
 const ERRORS_PER_GAME_MOCK: FullDataForSingleStat = {
   "statType": "errorPerGame",
-  "statDescription": "Nombre d'erreurs après découverte des deux cartes de la paire",
+  "statTitle": "Nombre d'erreurs après découverte des deux cartes de la paire",
+  "statDescription": "Compte le nombre d'erreurs pour retrouver la paire. Le compteur est à 0, jusqu'au moment où la première carte est retournée. Ensuite, chaque erreur incrémente le compteur. Le compteur n'est plus incrémenté lorsque les deux cartes sont retournées.",
   "duration": 1,
   "lastTimeDate": "23 avril",
   "nowDate": "23 mai",
@@ -44,7 +45,8 @@ const ERRORS_PER_GAME_MOCK: FullDataForSingleStat = {
 
 const TIME_TO_DISCOVER_FULL_PAIR_MOCK: FullDataForSingleStat = {
   "statType": "timeToDiscoverFullPair",
-  "statDescription": "Temps pour trouver la bonne paire après découverte de la première carte",
+  "statTitle": "Temps pour trouver la bonne paire après découverte de la première carte",
+  "statDescription": "Temps mis pour retrouver toute la paire, chronométré à partir du moment où au moins une carte de la paire est retournée. Le compteur s'arrête lorsque les deux cartes de la paire sont trouvées consécutivement.",
   "duration": 1,
   "lastTimeDate": "23 avril",
   "nowDate": "23 mai",
