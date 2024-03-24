@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 
-import { Bouton } from './bouton.component';
 import { Template } from './config/template.component';
 import { NbCard } from './config/nbCard/nbCard.component';
 import { Position } from './config/postion/position.component';
@@ -15,17 +14,16 @@ import { AjoutImage } from './ajoutImage/ajoutImage.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    MyHeader, 
+    AppComponent,
+    MyHeader,
     AjoutImage,
     AppComponent,
-    Bouton,
     Template,
     NbCard,
     Position,
     Type
     ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule
