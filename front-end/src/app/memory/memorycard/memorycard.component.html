@@ -1,10 +1,10 @@
-<div class="memorycard" *ngIf="memorycard">
-  <div class="back" *ngIf="memorycard.state=='default' ">
+<div  *ngIf="memorycard">
+  <div class="back" *ngIf="memorycard.state=='default'; else elseBlock ">
     MEMORIZZ
   </div>
-  <div class="front" *nfIf="memorycard.state!=='default'">
-    Intérieur de la carte
-  </div>
+  <ng-template class="front" #elseBlock>
+    <img src="{{ memorycard.src }}" alt="memory-img" class="memorycard-img"/>
+  </ng-template>
 </div>
 
 

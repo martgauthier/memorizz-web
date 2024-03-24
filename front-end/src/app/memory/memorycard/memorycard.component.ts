@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, NgModule} from "@angular/core";
+
 
 import {MemoryCard} from "../../../models/memorycard.model";
+
 
 @Component({
   selector: 'app-memorycard',

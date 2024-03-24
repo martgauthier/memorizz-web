@@ -1,5 +1,5 @@
 <div class="memory" >
-  <div class="memorycarddiv" *ngFor="let card of memoryCardList">
-    <app-memorycard [memorycard]="card" (click)="memoryCardClicked(card)"></app-memorycard>
+  <div class="memorycarddiv" *ngFor="let card of memoryCardList" >
+    <app-memorycard class="memorycard notmatched" [memorycard]="card" id="{{ 'memorycard'+ card.cardId }}" (click)="memoryCardClicked(card)"></app-memorycard>
   </div>
 </div>
