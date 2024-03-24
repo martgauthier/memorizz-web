@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyHeader } from './header/header.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
+import {Bouton} from "./bouton.component";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AjoutImage } from './ajoutImage/ajoutImage.component';
     Template,
     NbCard,
     Position,
-    Type
+    Type,
+    Bouton
     ],
 
   imports: [
