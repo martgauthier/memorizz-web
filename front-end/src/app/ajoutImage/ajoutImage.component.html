@@ -1,10 +1,10 @@
 <div id="main-ajoutImage">
-    <nav>
+    <div id="titrePage">
         <h2>Ajoutez une image pour votre Memory</h2>
-    </nav>
+    </div>
     <div id="glisser-deposer">
-        <p> Chargez une image </p>
-        <input type="file" id="file-input" accept="image/*"/>
+        <img id="preview" [src]="imageSrc" alt="your image" />
+        <input type="file" id="file-input" accept="image/*" (change)="readURL($event);"/>
     </div>
 
     <div id="texte">
