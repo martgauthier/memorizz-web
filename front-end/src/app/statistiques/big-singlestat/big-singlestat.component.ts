@@ -5,6 +5,7 @@ import {
 } from "../../../models/stats-data.model";
 import {StatistiquesService} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
+import {HelpIconComponent} from "../help-icon/help-icon.component";
 
 @Component({
   selector: 'app-big-singlestat',

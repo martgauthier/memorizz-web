@@ -1,7 +1,7 @@
-<p class="title">{{statData?.statDescription}}</p>
+<p class="title">{{statData?.statTitle}}</p>
 <p class="mean-big-info">+{{getEvolutionPercentage()}}% d'erreurs</p>
 <p class="mean-descriptor">En moyenne sur {{(statData!=null) ? statData.duration : "..."}} mois</p>
-<app-help-icon></app-help-icon>
+<app-help-icon (click)="HelpIconComponent.displayHelp(statData?.statDescription)"></app-help-icon>
 <app-singledata-for-singledifficulty [difficulty]="'simple'" [statData]="(statData!=null) ? statData.difficulty.simple : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" class="simple-mode"></app-singledata-for-singledifficulty>
 <app-singledata-for-singledifficulty [difficulty]="'medium'" [statData]="(statData!=null) ? statData.difficulty.medium : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" class="medium-mode"></app-singledata-for-singledifficulty>
 <app-singledata-for-singledifficulty [difficulty]="'hard'" [statData]="(statData!=null) ? statData.difficulty.hard : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" class="hard-mode"></app-singledata-for-singledifficulty>

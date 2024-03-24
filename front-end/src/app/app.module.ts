@@ -11,6 +11,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
 import {Bouton} from "./bouton.component";
+import { StatistiquesDisplayerComponent } from './statistiques/statistiques-displayer/statistiques-displayer.component';
+import {BigSinglestatComponent} from "./statistiques/big-singlestat/big-singlestat.component";
+import {HelpIconComponent} from "./statistiques/help-icon/help-icon.component";
+import {
+  MonitoringCallToActionComponent
+} from "./statistiques/monitoring-call-to-action/monitoring-call-to-action.component";
+import {
+  SingledataForSingledifficultyComponent
+} from "./statistiques/singledata-for-singledifficulty/singledata-for-singledifficulty.component";
 
 
 @NgModule({
@@ -23,8 +32,13 @@ import {Bouton} from "./bouton.component";
     NbCard,
     Position,
     Type,
-    Bouton
-    ],
+    Bouton,
+    StatistiquesDisplayerComponent,
+    BigSinglestatComponent,
+    HelpIconComponent,
+    MonitoringCallToActionComponent,
+    SingledataForSingledifficultyComponent
+  ],
 
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-help-icon',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './help-icon.component.scss'
 })
 export class HelpIconComponent {
-
+  public static displayHelp(alertText?: string): void {
+    alert(alertText);
+  }
 }
