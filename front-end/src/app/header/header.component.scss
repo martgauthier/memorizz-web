@@ -1,9 +1,21 @@
-
-#top{
-    position: absolute;
+#global-header{
     width: 100%;
     display: flex;
     flex-direction: row;
+    background-color: rgb(62, 90, 107);
+    position: absolute;
+    align-items: center;
+}
+
+#titre-site{
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    text-align: center;
+    color: #ffff;
+    margin: 0px;
+}
+
+#top{
     background-color: rgb(62, 90, 107);
     height: 60px;
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { JACQUELINE } from 'src/mocks/user.mock';
+import { User } from 'src/models/user.model';
 
 @Component({
     selector: 'app-header',
@@ -7,6 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MyHeader implements OnInit {
-    constructor() {}
+    
+    @Output()
+    user : User ;
+
+    constructor() {
+        this.user = JACQUELINE
+    }
     ngOnInit(): void {}
+    
 } 
