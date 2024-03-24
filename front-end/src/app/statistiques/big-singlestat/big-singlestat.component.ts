@@ -41,5 +41,6 @@ export class BigSinglestatComponent implements OnInit {
     }
   }
 
+  protected readonly HelpIconComponent = HelpIconComponent;
   protected readonly createDefaultDataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat;
 }
