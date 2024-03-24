@@ -10,9 +10,9 @@ import {
   styleUrls: ['./singledata-for-singledifficulty.component.scss']
 })
 export class SingledataForSingledifficultyComponent implements OnInit {
-  @Input() difficulty: "simple" | "medium" | "hard" = "simple";//arbitrary default value
-  @Input() statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
-  @Input() duration?: number = 0;
+  @Input({required: true}) difficulty: "simple" | "medium" | "hard" = "simple";//arbitrary default value
+  @Input({required: true}) statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
+  @Input({required: true}) duration?: number = 0;
 
   difficultyDescriptor: string = "simple";//arbitrary default value
 
