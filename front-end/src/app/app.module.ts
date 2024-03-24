@@ -8,7 +8,7 @@ import { Position } from './config/postion/position.component';
 import { Type } from './config/type/type.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MyHeader } from './header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
 import {Bouton} from "./bouton.component";
 
@@ -16,7 +16,7 @@ import {Bouton} from "./bouton.component";
 @NgModule({
   declarations: [
     AppComponent,
-    MyHeader,
+    HeaderComponent,
     AjoutImage,
     AppComponent,
     Template,
