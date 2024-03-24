@@ -1,0 +1,22 @@
+@import "../../../styles/variables.scss";
+
+.monitoring-icon {
+  padding: 5px !important;
+  width: 50px !important;
+  transition: background-color 0.4s;
+  display: block;
+  margin: 50px auto auto auto;
+  background-color: $light-orange;
+}
+
+.monitoring-icon:hover {
+  cursor: pointer;
+  background-color: aqua;
+}
+
+.monitoring-explanation {
+  font-style: italic;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 0.9em;
+}
