@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/services/user/user.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,13 +9,30 @@ import { Router } from '@angular/router';
 })
 export class PageNavComponent implements OnInit {
 
-    ngOnInit(): void {}
+    choosedUser : number;
 
-    constructor(private router: Router){
-        
+    ngOnInit(): void {
+        }
+
+
+    constructor(private router: Router, private userService : UserService){
+        this.choosedUser= 0;
+    }
+
+    callService(str : string){
+        let id = parseInt(str);
+        if(id != 0) {
+            this.choosedUser = id;
+            this.userService.setFullDataForUser(id);
+        }
     }
 
     goTo(str : string){
-        this.router.navigate([str]);
+        if(this.choosedUser !=0){
+            this.router.navigate([str]);
+        }
+        else{
+            alert("Veuillez choisir un User avant de continuer.");
+        }
     }
 }
