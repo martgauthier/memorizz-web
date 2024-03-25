@@ -17,7 +17,7 @@ export class StatistiquesService {
   };
 
   constructor(private userService: UserService) {
-    userService.identification$.subscribe((identification) => {
+    this.userService.identification$.subscribe((identification) => {
       if(identification.id===1) {//jacqueline
         this.data["errorsPerGame$"].next(JACQUELINE_ERRORS_PER_GAME_MOCK);
         this.data["timeToDiscoverFullPair$"].next(JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK);
@@ -31,5 +31,4 @@ export class StatistiquesService {
       }
     });
   }
-
 }
