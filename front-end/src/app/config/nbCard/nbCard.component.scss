@@ -16,11 +16,13 @@
   appearance: none;
 }
 
+
 .input-number-group .input-number {
   width: 80px;
   padding: 0 12px;
   text-align: center;
   background-color: $light-blue;
+  outline: none;
 } 
 
 .input-number-group .input-number,
@@ -38,7 +40,6 @@
   width: 40px;
   background: $dark-blue;
   text-align: center;
-  cursor: pointer;
   font-size: 2rem;
   font-weight: 400;
 }
@@ -52,4 +53,12 @@
 }
 #titre{
   width: 210px;
+}
+.clickable{
+  color: white;
+  cursor: pointer;
+}
+.not_clickable{
+  color: #ffffff4d;
+  cursor: no-drop;
 }
