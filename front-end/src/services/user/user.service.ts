@@ -6,7 +6,11 @@ import {
   JACQUELINE_PRESET_DICT, JEANMICHEL_AVAILABLE_CARDS,
   JEANMICHEL_IDENTIFICATION, JEANMICHEL_PRESET_DICT
 } from "../../mocks/user.mock";
+import {Injectable} from "@angular/core";
 
+@Injectable({
+  providedIn: "root"
+})
 export class UserService {
   /**
    * Observable that contains data about identification, mostly used in HeaderComponent
@@ -26,6 +30,13 @@ export class UserService {
    * Observable that stores every card for profile
    */
   public availableCards$: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
+
+  constructor() {
+    this.setFullDataForUser(1);//debug that changes data
+    setTimeout(() => {
+      this.setFullDataForUser(2);//debug that changes data
+    }, 5000);
+  }
 
   setFullDataForUser(id: number) {
     if(id===1) {//jacqueline
