@@ -86,6 +86,92 @@ const JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK: FullDataForSingleStat = {
   }
 };
 
+const JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK: FullDataForSingleStat = {
+  "statType": "errorPercentageOnWholeGame",
+  "statTitle": "JACQUELINE Pourcentage d'erreurs sur toute la partie",
+  "statDescription": "Pourcentage d'erreurs. Comptabilise toutes les erreurs sur la partie.",
+  "duration": 1,
+  "lastTimeDate": "23 avril",
+  "nowDate": "23 mai",
+  "difficulty": {
+    "simple": {
+      "lastTimeValue": 8.5,
+      "nowValue": 11.1,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "medium": {
+      "lastTimeValue": 12.8,
+      "nowValue": 14.7,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "hard": {
+      "lastTimeValue": 14.7,
+      "nowValue": 21.9,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "overall": {
+      "lastTimeValue": 12.8,
+      "nowValue": 18.6,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    }
+  }
+};
+
+const JACQUELINE_MEAN_GAME_DURATION_MOCK: FullDataForSingleStat = {
+  "statType": "meanGameDuration",
+  "statTitle": "JACQUELINE Durée moyenne d'une partie",
+  "statDescription": "Durée moyenne d'une partie, en minutes.",
+  "duration": 1,
+  "lastTimeDate": "23 avril",
+  "nowDate": "23 mai",
+  "difficulty": {
+    "simple": {
+      "lastTimeValue": 8.5,
+      "nowValue": 11.1,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "medium": {
+      "lastTimeValue": 12.8,
+      "nowValue": 14.7,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "hard": {
+      "lastTimeValue": 14.7,
+      "nowValue": 21.9,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "overall": {
+      "lastTimeValue": 12.8,
+      "nowValue": 18.6,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    }
+  }
+};
+
 const JEANMICHEL_ERRORS_PER_GAME_MOCK: FullDataForSingleStat = {
   "statType": "errorPerGame",
   "statTitle": "JEANMICHEL Nombre d'erreurs après découverte des deux cartes de la paire",
@@ -172,4 +258,99 @@ const JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK: FullDataForSingleStat = {
   }
 };
 
-export {JACQUELINE_ERRORS_PER_GAME_MOCK, JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK, JEANMICHEL_ERRORS_PER_GAME_MOCK, JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK};
+const JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK: FullDataForSingleStat = {
+  "statType": "errorPercentageOnWholeGame",
+  "statTitle": "JACQUELINE Pourcentage d'erreurs sur toute la partie",
+  "statDescription": "Pourcentage d'erreurs. Comptabilise toutes les erreurs sur la partie.",
+  "duration": 1,
+  "lastTimeDate": "23 avril",
+  "nowDate": "23 mai",
+  "difficulty": {
+    "simple": {
+      "lastTimeValue": 8.5,
+      "nowValue": 11.1,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "medium": {
+      "lastTimeValue": 12.8,
+      "nowValue": 14.7,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "hard": {
+      "lastTimeValue": 14.7,
+      "nowValue": 21.9,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "overall": {
+      "lastTimeValue": 12.8,
+      "nowValue": 18.6,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    }
+  }
+};
+
+const JEANMICHEL_MEAN_GAME_DURATION_MOCK: FullDataForSingleStat = {
+  "statType": "meanGameDuration",
+  "statTitle": "JACQUELINE Durée moyenne d'une partie",
+  "statDescription": "Durée moyenne d'une partie, en minutes.",
+  "duration": 1,
+  "lastTimeDate": "23 avril",
+  "nowDate": "23 mai",
+  "difficulty": {
+    "simple": {
+      "lastTimeValue": 8.5,
+      "nowValue": 11.1,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "medium": {
+      "lastTimeValue": 12.8,
+      "nowValue": 14.7,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "hard": {
+      "lastTimeValue": 14.7,
+      "nowValue": 21.9,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    },
+    "overall": {
+      "lastTimeValue": 12.8,
+      "nowValue": 18.6,
+      "dates": {
+        "lastTimeDate": "23 avril",
+        "nowDate": "23 mai",
+      }
+    }
+  }
+};
+
+export {JACQUELINE_ERRORS_PER_GAME_MOCK,
+  JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK,
+  JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
+  JACQUELINE_MEAN_GAME_DURATION_MOCK,
+
+  JEANMICHEL_ERRORS_PER_GAME_MOCK,
+  JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK,
+  JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
+  JEANMICHEL_MEAN_GAME_DURATION_MOCK
+};
