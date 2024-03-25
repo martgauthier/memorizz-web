@@ -3,10 +3,22 @@
 :host {
   background-color: $dark-blue;
   display: block;
-  padding: 20px;
   position: sticky;
-  top: 0;
+  top: -1px; /* a little transparent line appears if we don't put this, it is a bug */
+  padding: 20px 0;
   z-index: 4000;
+}
+
+hr {
+  margin: 0 auto;
+  width: 50%;
+}
+
+h3 {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 p {
@@ -22,8 +34,9 @@ ul {
   height: 40px;
   border-radius: 12px;
   background-color: $dark-orange;
-  position: relative;
   margin: auto;
+  position: sticky;
+  top: 0;
 }
 
 li {
