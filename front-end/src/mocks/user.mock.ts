@@ -1,6 +1,6 @@
-import { User } from "src/models/user.model";
+import { Identification } from "src/models/user.model";
 
-export const JACQUELINE : User = {
+export const JACQUELINE : Identification = {
     nom : "STADCAT",
     prenom : "Jacqueline",
     id : 1
