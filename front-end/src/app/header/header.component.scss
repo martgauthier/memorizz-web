@@ -1,8 +1,11 @@
+@import '../../styles/variables.scss';
+
 #global-header{
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: rgb(62, 90, 107);
+    background-color: $dark-blue;
+    position: absolute;
     align-items: center;
     padding: 15px 0;
     position: relative;
@@ -12,11 +15,14 @@
     font-family: 'Poppins', sans-serif;
     width: 100%;
     text-align: center;
-    color: #ffff;
-    margin: 0;
+    color: white;
+    margin: 0px;
 }
 
 #top{
+    background-color: $dark-blue;
+    color: #ffff;
+    margin: 0;
     height: 60px;
     display: flex;
     align-items: center;
@@ -28,16 +34,19 @@
 }
 
 #profil_name{
+    position: absolute;
+    top: 8px;
+    left: 65px;
     margin: 0;
-    color: #f7fcff;
+    color: white;
 }
 
 .barre {
     border-radius: 2px;
-    background-color: #f7fcff;
+    background-color:  white;
     margin: 5px auto;
     height: 5px;
-    width: 100%;
+
 }
 #menu {
     position: absolute;

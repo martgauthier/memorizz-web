@@ -7,6 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class AjoutImage implements OnInit {
-    constructor() {}
+
+    imageSrc: any;
+
+    constructor() {
+        this.imageSrc = 'assets/chargez-votre-image.png';
+    }
     ngOnInit(): void {}
+
+    readURL(event: any): void {
+        if(event.target != null){
+            if (event.target.files && event.target.files[0]) {
+                const file = event.target.files[0];
+        
+                const reader = new FileReader();
+                reader.onload = e => this.imageSrc = reader.result;
+        
+                reader.readAsDataURL(file);
+
+                const myPreview = document.getElementById("preview");
+                myPreview?.classList.add("loaded");
+            }
+        }
+    }    
 } 
