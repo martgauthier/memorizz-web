@@ -8,7 +8,6 @@ import { UserService } from 'src/services/user/user.service';
   styleUrl: './pageNav.component.scss'
 })
 export class PageNavComponent {
-
     public choosedUser : number;
 
     constructor(private router: Router, private userService : UserService){

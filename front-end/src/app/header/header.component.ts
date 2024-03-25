@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Identification } from 'src/models/user.model';
 import {UserService} from "../../services/user/user.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent {
       prenom: "Prenomsoignante"
     };
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, public router: Router) {
         this.userService.identification$.subscribe((identification) => {
           this.user=identification;
         });
