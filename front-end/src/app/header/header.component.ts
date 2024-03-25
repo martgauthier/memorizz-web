@@ -1,5 +1,5 @@
 import { Component, Output } from '@angular/core';
-import { JACQUELINE } from 'src/mocks/user.mock';
+import { JACQUELINE_IDENTIFICATION } from 'src/mocks/user.mock';
 import { Identification } from 'src/models/user.model';
 
 @Component({
@@ -14,7 +14,7 @@ export class HeaderComponent {
     user : Identification ;
 
     constructor() {
-        this.user = JACQUELINE
+        this.user = JACQUELINE_IDENTIFICATION
     }
 
 }
