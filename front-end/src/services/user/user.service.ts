@@ -31,13 +31,6 @@ export class UserService {
    */
   public availableCards$: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
-  constructor() {
-    this.setFullDataForUser(1);//debug that changes data
-    setTimeout(() => {
-      this.setFullDataForUser(2);//debug that changes data
-    }, 5000);
-  }
-
   setFullDataForUser(id: number) {
     if(id===1) {//jacqueline
       this.setIdentification(JACQUELINE_IDENTIFICATION);
