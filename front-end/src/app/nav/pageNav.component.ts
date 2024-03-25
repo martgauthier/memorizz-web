@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/services/user/user.service';
 
@@ -7,24 +7,21 @@ import { UserService } from 'src/services/user/user.service';
   templateUrl: './pageNav.component.html',
   styleUrl: './pageNav.component.scss'
 })
-export class PageNavComponent implements OnInit {
+export class PageNavComponent {
 
-    choosedUser : number;
-
-    ngOnInit(): void {
-        }
-
+    public choosedUser : number;
 
     constructor(private router: Router, private userService : UserService){
         this.choosedUser= 0;
+        userService.identification$.subscribe((identification) => {
+          this.choosedUser=identification.id;
+        });
     }
 
     callService(str : string){
         let id = parseInt(str);
-        if(id != 0) {
-            this.choosedUser = id;
-            this.userService.setFullDataForUser(id);
-        }
+        this.choosedUser = id;
+        this.userService.setFullDataForUser(id);
     }
 
     goTo(str : string){
