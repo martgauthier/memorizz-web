@@ -45,20 +45,24 @@
   height: 40px;
 }
 
-
-$wave-animation-duration: 0.3s;
 #titre-site {
-  font-family: 'Poppins', sans-serif;
+  margin: 0;
   width: 100%;
   text-align: center;
+}
+
+$wave-animation-duration: 0.3s;
+#titre-site>span {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
   color: white;
-  margin: 0;
   transition: filter $wave-animation-duration;
 
   &:hover {
     cursor: pointer;
-    filter: drop-shadow(0 0 2px white);
+    filter: drop-shadow(0 0 3px white);
   }
+
   span {
     display: inline-block;
   }
@@ -68,7 +72,7 @@ $wave-animation-duration: 0.3s;
 
   @for $i from 1 to 9 {
     span:nth-of-type(#{$i}) {
-      animation-delay: #{(($i)-1)/10}s;
+      animation-delay: calc((($i) - 1) / 10)+s;
     }
   }
 }
