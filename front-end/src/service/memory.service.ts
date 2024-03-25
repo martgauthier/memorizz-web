@@ -8,8 +8,9 @@ import {BehaviorSubject} from "rxjs";
 })
 
 export class MemoryService {
+  private gameWin : boolean = false;
   private memorycards : MemoryCard[] = MEMORYCARD_LIST;
-
+  public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
   public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(MEMORYCARD_LIST);
   public selectedcards : MemoryCard[] = [];
   constructor(){
@@ -83,6 +84,9 @@ export class MemoryService {
         return false;
       }
     }
+    this.gameWin==(true);
+    this.win$.next(true);
+    console.log('winnnnnn!!!');
     return true;
   }
 

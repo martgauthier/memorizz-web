@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import {MemorycardComponent} from "./memory/memorycard/memorycard.component";
 import {MemoryComponent} from "./memory/memory/memory.component";
 import {MemorytemplateComponent} from "./memory/memorytemplate.component";
+import {MemorywinComponent} from "./memory/memorywin/memorywin.component";
 @NgModule({
   declarations: [
     AppComponent,
     MemoryComponent,
     MemorycardComponent,
-    MemorytemplateComponent
+    MemorytemplateComponent,
+    MemorywinComponent
   ],
   imports: [
     BrowserModule,
