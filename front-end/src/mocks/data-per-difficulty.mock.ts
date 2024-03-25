@@ -260,7 +260,7 @@ const JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK: FullDataForSingleStat = {
 
 const JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK: FullDataForSingleStat = {
   "statType": "errorPercentageOnWholeGame",
-  "statTitle": "JACQUELINE Pourcentage d'erreurs sur toute la partie",
+  "statTitle": "JEANMICHEL Pourcentage d'erreurs sur toute la partie",
   "statDescription": "Pourcentage d'erreurs. Comptabilise toutes les erreurs sur la partie.",
   "duration": 1,
   "lastTimeDate": "23 avril",
@@ -303,7 +303,7 @@ const JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK: FullDataForSingleStat = {
 
 const JEANMICHEL_MEAN_GAME_DURATION_MOCK: FullDataForSingleStat = {
   "statType": "meanGameDuration",
-  "statTitle": "JACQUELINE Durée moyenne d'une partie",
+  "statTitle": "JEANMICHEL Durée moyenne d'une partie",
   "statDescription": "Durée moyenne d'une partie, en minutes.",
   "duration": 1,
   "lastTimeDate": "23 avril",
