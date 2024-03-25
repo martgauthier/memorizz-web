@@ -9,7 +9,7 @@ export class ConfigService {
     public position_cachees : boolean = true;
     public type_img : boolean = true;
     private niveau : string = "moyen";
-    onstructor() {}
+    constructor() {}
 
     public setNbCard(value : number){
         if(value >= 3 && value <= 8){
