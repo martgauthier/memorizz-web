@@ -10,14 +10,6 @@
   position: relative;
 }
 
-#titre-site{
-  font-family: 'Poppins', sans-serif;
-  width: 100%;
-  text-align: center;
-  color: white;
-  margin: 0;
-}
-
 #top{
   height: 60px;
   display: flex;
@@ -51,4 +43,44 @@
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
+}
+
+
+$wave-animation-duration: 0.3s;
+#titre-site {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  text-align: center;
+  color: white;
+  margin: 0;
+  transition: filter $wave-animation-duration;
+
+  &:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 2px white);
+  }
+  span {
+    display: inline-block;
+  }
+  &:hover span {
+    animation: wave-text $wave-animation-duration ease-in-out forwards;
+  }
+
+  @for $i from 1 to 9 {
+    span:nth-of-type(#{$i}) {
+      animation-delay: #{(($i)-1)/10}s;
+    }
+  }
+}
+
+@keyframes wave-text {
+  0% {
+    transform: translateY(0em);
+  }
+  60% {
+    transform: translateY(-0.6em);
+  }
+  100% {
+    transform: translateY(0em);
+  }
 }
