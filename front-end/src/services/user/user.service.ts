@@ -6,7 +6,11 @@ import {
   JACQUELINE_PRESET_DICT, JEANMICHEL_AVAILABLE_CARDS,
   JEANMICHEL_IDENTIFICATION, JEANMICHEL_PRESET_DICT
 } from "../../mocks/user.mock";
+import { Injectable } from "@angular/core";
 
+@Injectable({
+  providedIn: "root"
+})
 export class UserService {
   /**
    * Observable that contains data about identification, mostly used in HeaderComponent

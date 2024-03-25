@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Niveau } from 'src/models/niveau.models';
-
+//import { Injectable } from '@angular/core';
+//import { Niveau } from 'src/models/niveau.models';
+/*
 @Injectable({
   providedIn: 'root'
 })
@@ -105,4 +105,4 @@ export class ConfigService {
             }
         }
     }
-}
+}*/

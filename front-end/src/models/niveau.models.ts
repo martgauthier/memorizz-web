@@ -1,4 +1,4 @@
-import { ConfigService } from "src/services/config-service.service";
+/*import { ConfigService } from "src/services/config-service.service";
 
 export class Niveau{
     constructor(niveau : string, public configService : ConfigService){
@@ -21,4 +21,4 @@ export class Niveau{
                 break;
         }
     }
-}
+}*/

@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigService } from 'src/services/config-service.service';
+//import { ConfigService } from 'src/services/config-service.service';
 import { NbCard } from './nbCard/nbCard.component';
-import { Niveau } from 'src/models/niveau.models';
+/*import { Niveau } from 'src/models/niveau.models';*/
+import { UserService } from 'src/services/user/user.service';
+import { PresetDict, createEmptyPresetDict } from 'src/models/user.model';
+import { GestionFront } from './gestion-front';
 
 @Component({
     selector: 'app-template',
@@ -9,12 +12,19 @@ import { Niveau } from 'src/models/niveau.models';
     styleUrls: ['./template.component.scss']
 })
 
-export class Template implements OnInit {
+export class Template extends GestionFront  implements OnInit {
     public beginning : boolean = true;
-    constructor(public configService : ConfigService){}
+    public presets : PresetDict = createEmptyPresetDict();
+    constructor(public userService : UserService){
+      super();
+      userService.setFullDataForUser(2);
+      userService.presetDict$.subscribe((data) => {
+        this.presets = data;
+      })
+    }
     ngOnInit(): void {}
     public onclick_jouer(){
-
+      //JOUER
     }
     public onclick_difficulties(id : string){
       if(this.beginning){
@@ -26,7 +36,28 @@ export class Template implements OnInit {
         document.querySelector("#jouer div h3")!.classList.add("cocher");
         document.querySelector("#jouer div h3")!.classList.remove("pas_cocher");
       }
-      new Niveau(id,this.configService);
-      this.configService.setFrontDifficulties(id);
+      //new Niveau(id,this.configService);
+      //this.configService.setFrontDifficulties(id);
+      super.changementFrontDifficultyGauche(id);
+      this.affichageDroite(id);
+    }
+    public affichageDroite(niveau : string){
+      switch (niveau) {
+        case 'facile':
+          super.setNbCard(this.presets.simple.pairsNumber);
+          super.setPosition(this.presets.simple.cardsAreVisible);
+          super.setType(this.presets.simple.cardsAreBothImage);
+          break;
+        case 'moyen':
+          super.setNbCard(this.presets.medium.pairsNumber);
+          super.setPosition(this.presets.medium.cardsAreVisible);
+          super.setType(this.presets.medium.cardsAreBothImage);
+          break;
+        case 'difficile':
+          super.setNbCard(this.presets.hard.pairsNumber);
+          super.setPosition(this.presets.hard.cardsAreVisible);
+          super.setType(this.presets.hard.cardsAreBothImage);
+          break;
       }
+    }
 } 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from 'src/services/config-service.service';
+//import { ConfigService } from 'src/services/config-service.service';
+import { GestionFront } from '../gestion-front';
 
 @Component({
     selector: 'app-typeCard',
@@ -7,12 +8,12 @@ import { ConfigService } from 'src/services/config-service.service';
     styleUrls: ['./type.component.scss']
 })
 
-export class Type implements OnInit {
-    constructor(public configService : ConfigService){}
+export class Type extends GestionFront implements OnInit {
+    //constructor(public configService : ConfigService){}
     ngOnInit(): void {
         this.onclick(true);
     }
     public onclick(img : boolean){
-        this.configService.setType(img);
+        super.setType(img);
     }
 }

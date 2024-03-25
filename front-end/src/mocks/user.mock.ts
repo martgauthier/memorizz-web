@@ -56,7 +56,7 @@ export const JEANMICHEL_PRESET_DICT: PresetDict = {
   hard: {
     cardsAreBothImage: false,
     cardsAreVisible: false,
-    pairsNumber: 9
+    pairsNumber: 8
   }
 }
 
