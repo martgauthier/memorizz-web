@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from "@angular/core";
-import {MemoryCard} from "../../models/memorycard.model";
-import {MemoryService} from "../../service/memory.service";
+import {MemoryCard} from "../../../models/memorycard.model";
+import {MemoryService} from "../../../service/memory.service";
 
 @Component({
   selector : 'app-memory',
