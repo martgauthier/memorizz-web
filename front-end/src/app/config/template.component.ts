@@ -5,6 +5,7 @@ import { NbCard } from './nbCard/nbCard.component';
 import { UserService } from 'src/services/user/user.service';
 import { PresetDict, createEmptyPresetDict } from 'src/models/user.model';
 import { GestionFront } from './gestion-front';
+import { Bouton } from '../bouton.component';
 
 @Component({
     selector: 'app-template',
@@ -60,4 +61,28 @@ export class Template extends GestionFront  implements OnInit {
           break;
       }
     }
+  public onclick_enregistrement(){
+    let currentPresetDict: PresetDict = this.presets;
+    if((document.querySelector("#facile div h3") as HTMLElement).classList.contains("cocher")){
+      currentPresetDict.simple.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
+      currentPresetDict.simple.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
+      currentPresetDict.simple.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+    }
+    else if((document.querySelector("#moyen div h3") as HTMLElement).classList.contains("cocher")){
+      currentPresetDict.medium.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
+      currentPresetDict.medium.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
+      currentPresetDict.medium.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+    }
+    else if((document.querySelector("#difficile div h3") as HTMLElement).classList.contains("cocher")){
+      currentPresetDict.hard.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
+      currentPresetDict.hard.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
+      currentPresetDict.hard.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+    }
+    
+    
+    this.userService.setPresetDict(currentPresetDict);
+  }
+  public onclick_defaut(){
+
+  }
 } 

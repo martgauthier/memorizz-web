@@ -1,4 +1,4 @@
-import {Card, createEmptyPresetDict, Identification, PresetDict} from "../../models/user.model";
+import {Card, createEmptyPresetDict, Identification, Preset, PresetDict} from "../../models/user.model";
 import {BehaviorSubject} from "rxjs";
 import {
   JACQUELINE_AVAILABLE_CARDS,
@@ -53,6 +53,10 @@ export class UserService {
 
   setPresetDict(presetDict: PresetDict) {
     this.presetDict$.next(presetDict);
+  }
+
+  changeFacilePresetDic(presetFacile : Preset){
+    
   }
 
   setAvailableCards(cards: Card[]) {

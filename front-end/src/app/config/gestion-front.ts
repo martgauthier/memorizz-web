@@ -48,20 +48,20 @@ export class GestionFront{
           }
         }
       }
-    public setPosition(cachees : boolean){
-      if(cachees){
-          //Cachées
-          document.querySelector("#cachees")!.classList.remove("pas_cocher");
-          document.querySelector("#cachees")!.classList.add("cocher");
-          document.querySelector("#visibles")!.classList.add("pas_cocher");
-          document.querySelector("#visibles")!.classList.remove("cocher");
+    public setPosition(visibles : boolean){
+      if(visibles){
+        //Visibles
+        document.querySelector("#visibles")!.classList.remove("pas_cocher");
+        document.querySelector("#visibles")!.classList.add("cocher");
+        document.querySelector("#cachees")!.classList.add("pas_cocher");
+        document.querySelector("#cachees")!.classList.remove("cocher");
       }
       else{
-          //Visibles
-          document.querySelector("#visibles")!.classList.remove("pas_cocher");
-          document.querySelector("#visibles")!.classList.add("cocher");
-          document.querySelector("#cachees")!.classList.add("pas_cocher");
-          document.querySelector("#cachees")!.classList.remove("cocher");
+        //Cachées
+        document.querySelector("#cachees")!.classList.remove("pas_cocher");
+        document.querySelector("#cachees")!.classList.add("cocher");
+        document.querySelector("#visibles")!.classList.add("pas_cocher");
+        document.querySelector("#visibles")!.classList.remove("cocher");
       }
   }
   public setType(img : boolean){
