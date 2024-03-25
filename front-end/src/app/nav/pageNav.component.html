@@ -1,0 +1,15 @@
+<div id = "pageNavMain">
+    <div id = "userSelector">
+        <label for="user-select">Choisissez un profil:</label>
+
+        <select name="user" id="user-select">
+        <option value="">--Choose an User--</option>
+        <option value="1">Jaqueline STADCAT</option>
+        <option value="2">Jean-Michel STADECISSE</option>
+        </select>
+    </div>
+    <div id="boutonsNav">
+        <app-bouton [text]="'Jouer'" (click)="goTo('play')"></app-bouton>
+        <app-bouton [text]="'Stats'" (click)="goTo('stats')"></app-bouton>
+    </div>
+</div>

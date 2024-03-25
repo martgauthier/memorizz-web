@@ -20,6 +20,8 @@ import {
 import {
   SingledataForSingledifficultyComponent
 } from "./statistiques/singledata-for-singledifficulty/singledata-for-singledifficulty.component";
+import { PageNavComponent } from './nav/pageNav.component';
+
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {
     BigSinglestatComponent,
     HelpIconComponent,
     MonitoringCallToActionComponent,
-    SingledataForSingledifficultyComponent
+    SingledataForSingledifficultyComponent,
+    PageNavComponent
   ],
 
   imports: [
