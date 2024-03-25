@@ -9,13 +9,38 @@ export class ConfigService {
     public position_cachees : boolean = true;
     public type_img : boolean = true;
     private niveau : string = "moyen";
-    onstructor() {}
+    constructor() {}
 
     public setNbCard(value : number){
-        this.nbCard = value;
-        (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
-        if(value <= 4 && this.niveau != "facile"){
-            new Niveau("facile",this);
+        if(value >= 3 && value <= 8){
+            this.nbCard = value;
+            (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
+            if(value == 3){
+                document.querySelector(".input-number-decrement")!.classList.remove("clickable");
+                document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
+            }
+            else{
+                document.querySelector(".input-number-decrement")!.classList.remove("not_clickable");
+                document.querySelector(".input-number-decrement")!.classList.add("clickable");
+            }
+            if(value == 8){
+                document.querySelector(".input-number-increment")!.classList.remove("clickable");
+                document.querySelector(".input-number-increment")!.classList.add("not_clickable");
+            }
+            else{
+                document.querySelector(".input-number-increment")!.classList.remove("not_clickable");
+                document.querySelector(".input-number-increment")!.classList.add("clickable");
+            } 
+            
+            if(value <= 4 && this.niveau != "facile"){
+                this.setFrontDifficulties("facile");
+            }
+            if(value >= 5 && value <= 6 && this.niveau != "moyen"){
+                this.setFrontDifficulties("moyen");
+            }
+            if(value >= 7 && this.niveau != "difficile"){
+                this.setFrontDifficulties("difficile");
+            }
         }
     }
     public setPosition(cachees : boolean){
@@ -62,5 +87,22 @@ export class ConfigService {
     }
     public setNiveau(niveau : string){
         this.niveau = niveau;
+    }
+    public setFrontDifficulties(id : string){
+        this.niveau = id;
+        let difficulties: string[] = ['facile', 'moyen', 'difficile'];
+        let difficulty : string;
+        for(difficulty in difficulties){
+          if(difficulties[difficulty] == id ){
+            (document.querySelector("#"+id+" div") as HTMLDivElement)!.style.backgroundColor = "#01274a" ;
+            document.querySelector("#"+id+">div>h3")!.classList.add("cocher");
+            document.querySelector("#"+id+">div>h3")!.classList.remove("pas_cocher");
+          }
+          else{
+            (document.querySelector("#"+difficulties[difficulty]+" div") as HTMLDivElement)!.style.backgroundColor = "#209188";
+            document.querySelector("#"+difficulties[difficulty]+">div>h3")!.classList.add("pas_cocher");
+            document.querySelector("#"+difficulties[difficulty]+">div>h3")!.classList.remove("cocher");
+            }
+        }
     }
 }
