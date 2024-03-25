@@ -4,9 +4,10 @@
   right: 0;
   margin: 10px;
   font-size: 31px !important;
+  transition: filter 0.2s;
 }
 
 .help-icon:hover {
-  cursor: pointer;
-  box-shadow: 0 0 10px white;
+  cursor: help;
+  filter: drop-shadow(0 0 1px white);
 }

@@ -7,6 +7,8 @@
     background-color: $dark-blue;
     position: absolute;
     align-items: center;
+    padding: 15px 0;
+    position: relative;
 }
 
 #titre-site{
@@ -19,7 +21,16 @@
 
 #top{
     background-color: $dark-blue;
+    color: #ffff;
+    margin: 0;
     height: 60px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+}
+
+#logo{
+    height: 40px;
 }
 
 #profil_name{
@@ -29,22 +40,22 @@
     margin: 0;
     color: white;
 }
-#logo{
-    position: absolute;
-    top: 10px;
-    height: 40px;
-}
+
 .barre {
     border-radius: 2px;
     background-color:  white;
+    margin: 5px auto;
+    height: 5px;
+
 }
 #menu {
     position: absolute;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     right: 15px;
-    grid-template-rows: 5px 5px 5px;
-    top: 12px;
-    gap: 9px;
+    top: 50%;
+    justify-content: space-around;
+    transform: translateY(-50%);
     width: 40px;
     height: 40px;
 }
