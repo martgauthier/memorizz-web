@@ -5,6 +5,7 @@ import {
 } from "../../../models/stats-data.model";
 import {StatistiquesService} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
+import {HelpIconComponent} from "../help-icon/help-icon.component";
 
 @Component({
   selector: 'app-big-singlestat',
@@ -12,7 +13,7 @@ import {BehaviorSubject} from "rxjs";
   styleUrls: ['./big-singlestat.component.scss']
 })
 export class BigSinglestatComponent implements OnInit {
-  @Input() public statType: "errorsPerGame" | "timeToDiscoverFullPair" = "errorsPerGame";
+  @Input({required: true}) public statType: "errorsPerGame" | "timeToDiscoverFullPair" = "errorsPerGame";
   /**
    * represents full data to be shown in this whole component.
    * it is potentially undefined, because it needs to wait for "OnChanges" component state to be defined
@@ -40,5 +41,6 @@ export class BigSinglestatComponent implements OnInit {
     }
   }
 
+  protected readonly HelpIconComponent = HelpIconComponent;
   protected readonly createDefaultDataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat;
 }

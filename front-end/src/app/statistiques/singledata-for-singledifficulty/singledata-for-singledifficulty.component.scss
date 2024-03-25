@@ -9,6 +9,7 @@
   display: block;
   background-color: $dark-orange;
   margin: 10px auto;
+  transition: box-shadow 0.3s;
 }
 
 .on-month-text {
@@ -33,14 +34,26 @@
 :host.simple-mode {
   background-color: $green-simple;
   box-shadow: 0 0 8px $green-simple;
+
+  &:hover {
+    box-shadow: 0 0 5px $green-simple-hover;
+  }
 }
 
 :host.medium-mode {
   background-color: $orange-medium;
   box-shadow: 0 0 8px $orange-medium;
+
+  &:hover {
+    box-shadow: 0 0 5px $orange-medium-hover;
+  }
 }
 
 :host.hard-mode {
   background-color: $red-hard;
   box-shadow: 0 0 8px $red-hard;
+
+  &:hover {
+    box-shadow: 0 0 5px $red-hard-hover;
+  }
 }

@@ -7,7 +7,11 @@ export interface FullDataForSingleStat {
    */
   statType: string,
   /**
-   * String that effectively describe stat in french language
+   * String that effectively resumes stat in french language
+   */
+  statTitle: string,
+  /**
+   * String that gives full details about this stat, in french language
    */
   statDescription: string,
   /**
