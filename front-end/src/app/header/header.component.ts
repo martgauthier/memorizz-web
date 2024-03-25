@@ -1,6 +1,6 @@
 import { Component, Output } from '@angular/core';
-import { JACQUELINE } from 'src/mocks/user.mock';
-import { User } from 'src/models/user.model';
+import { JACQUELINE_IDENTIFICATION } from 'src/mocks/user.mock';
+import { Identification } from 'src/models/user.model';
 
 @Component({
     selector: 'app-header',
@@ -11,10 +11,10 @@ import { User } from 'src/models/user.model';
 export class HeaderComponent {
 
     @Output()
-    user : User ;
+    user : Identification ;
 
     constructor() {
-        this.user = JACQUELINE
+        this.user = JACQUELINE_IDENTIFICATION
     }
 
 }
