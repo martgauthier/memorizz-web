@@ -24,6 +24,7 @@ import { PageNavComponent } from './nav/pageNav.component';
 import { CardsOrGameSelectorComponent } from './statistiques/cards-or-game-selector/cards-or-game-selector/cards-or-game-selector.component';
 import { CardsDataContainerComponent } from './statistiques/cards-data-container/cards-data-container/cards-data-container.component';
 import { GamesDataContainerComponent } from './statistiques/games-data-container/games-data-container/games-data-container.component';
+import { CardsSelectorComponent } from './statistiques/cards-selector/cards-selector/cards-selector.component';
 
 
 
@@ -46,7 +47,8 @@ import { GamesDataContainerComponent } from './statistiques/games-data-container
     PageNavComponent,
     CardsOrGameSelectorComponent,
     CardsDataContainerComponent,
-    GamesDataContainerComponent
+    GamesDataContainerComponent,
+    CardsSelectorComponent
   ],
 
   imports: [
