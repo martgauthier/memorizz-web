@@ -6,7 +6,7 @@ import {
   JACQUELINE_PRESET_DICT, JEANMICHEL_AVAILABLE_CARDS,
   JEANMICHEL_IDENTIFICATION, JEANMICHEL_PRESET_DICT
 } from "../../mocks/user.mock";
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: "root"

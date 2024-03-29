@@ -20,6 +20,11 @@ import {
 import {
   SingledataForSingledifficultyComponent
 } from "./statistiques/singledata-for-singledifficulty/singledata-for-singledifficulty.component";
+import { PageNavComponent } from './nav/pageNav.component';
+import { CardsOrGameSelectorComponent } from './statistiques/cards-or-game-selector/cards-or-game-selector/cards-or-game-selector.component';
+import { CardsDataContainerComponent } from './statistiques/cards-data-container/cards-data-container/cards-data-container.component';
+import { GamesDataContainerComponent } from './statistiques/games-data-container/games-data-container/games-data-container.component';
+
 
 
 @NgModule({
@@ -37,7 +42,11 @@ import {
     BigSinglestatComponent,
     HelpIconComponent,
     MonitoringCallToActionComponent,
-    SingledataForSingledifficultyComponent
+    SingledataForSingledifficultyComponent,
+    PageNavComponent,
+    CardsOrGameSelectorComponent,
+    CardsDataContainerComponent,
+    GamesDataContainerComponent
   ],
 
   imports: [
