@@ -25,21 +25,23 @@ $slightly-different-turquoise: #02736a;// to make elements in this color distinc
 hr {
   height: 1px;
   margin: 10px auto;
+  border-color: transparent;
 }
 
 .cards-ul {
   margin: 10px auto;
   width: 100%;
+  background-color: $dark-blue;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: white;
   list-style-type: none;
   padding: 0;
 }
 
 ul:focus {
   overflow-y: auto;
+  outline: none;
   height: 300px !important;/* "!important" as it must override the DOM style, on hover */
 }
 
@@ -49,6 +51,7 @@ ul:focus {
 
 li {
   margin: 0;
+  background-color: white;
   line-height: 1.2em;
   color: black;
   overflow: visible;
@@ -60,6 +63,18 @@ li {
 li>span {
   display: inline-block;
   width: 70%;
+  margin-left: 0;
+  transition: margin-left 0.1s ease-in-out;
+}
+
+li:hover:not(.is-selected)>span {
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.is-selected {
+  font-style: italic;
+  font-weight: bold;
 }
 
 li:hover {
