@@ -1,12 +1,12 @@
 @import "../../../styles/variables";
 
 $hover-animation-duration: 0.7s;
-$hover-animation-color: $light-blue;
+$hover-animation-color: $light-turquoise;
 $hover-animation-min-shadow-size: 15px;
 $hover-animation-max-shadow-size: 25px;
 
 :host {
-  background-color: $light-blue;
+  background-color: $light-turquoise;
   overflow: auto;
   text-align: center;
   position: relative;

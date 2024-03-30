@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {FullDataForSingleStat} from "../../models/stats-data.model";
 import {
+  CARTES_JACQUELINE, CARTES_JEANMICHEL,
   JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
   JACQUELINE_ERRORS_PER_GAME_MOCK, JACQUELINE_MEAN_GAME_DURATION_MOCK,
   JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK, JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
@@ -24,6 +25,8 @@ export class StatistiquesService {
     "meanGameDuration$": new BehaviorSubject<FullDataForSingleStat>(JACQUELINE_MEAN_GAME_DURATION_MOCK)
   };
 
+  public availableCards$: BehaviorSubject<string[]>=new BehaviorSubject<string[]>(CARTES_JACQUELINE);
+
   constructor(private userService: UserService) {
     this.userService.identification$.subscribe((identification) => {
       if(identification.id===1) {//jacqueline
@@ -31,16 +34,29 @@ export class StatistiquesService {
         this.data["timeToDiscoverFullPair$"].next(JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK);
         this.data["errorPercentageOnWholeGame$"].next(JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK);
         this.data["meanGameDuration$"].next(JACQUELINE_MEAN_GAME_DURATION_MOCK);
+        this.availableCards$.next(CARTES_JACQUELINE);
       }
       else if(identification.id===2) {//jean michel
         this.data["errorsPerGame$"].next(JEANMICHEL_ERRORS_PER_GAME_MOCK);
         this.data["timeToDiscoverFullPair$"].next(JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK);
         this.data["errorPercentageOnWholeGame$"].next(JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK);
         this.data["meanGameDuration$"].next(JEANMICHEL_MEAN_GAME_DURATION_MOCK);
+        this.availableCards$.next(CARTES_JEANMICHEL);
       }
       else {
         console.log("invalid id");
       }
     });
+  }
+
+  updateSelectedCard(index: number) {
+    let card: string=(index===-1) ? "'en moyenne'" : this.availableCards$.getValue()[index];
+    for(let observableKey in this.data) {
+      let currentDataForCategory: FullDataForSingleStat = this.data[observableKey].getValue();
+      console.log(currentDataForCategory.difficulty.overall)
+      currentDataForCategory.difficulty.overall.nowValue+=8;
+      currentDataForCategory.difficulty.overall.lastTimeValue+=3;//gruge pour ne pas avoir à refaire des mocks, ca change juste les valeurs
+      this.data[observableKey].next(currentDataForCategory);
+    }
   }
 }
