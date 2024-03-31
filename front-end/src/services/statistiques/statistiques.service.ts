@@ -53,11 +53,27 @@ export class StatistiquesService {
     let card: string=(index===-1) ? "'en moyenne'" : this.availableCards$.getValue()[index];
     for(let observableKey in this.data) {
       let currentDataForCategory: FullDataForSingleStat = this.data[observableKey].getValue();
-      console.log(currentDataForCategory.difficulty.overall)
-      currentDataForCategory.difficulty.overall.nowValue+=8;
-      currentDataForCategory.difficulty.overall.lastTimeValue+=3;//gruge pour ne pas avoir à refaire des mocks, ca change juste les valeurs
       this.data[observableKey].next(currentDataForCategory);
     }
+  }
+
+  getDateString(date?: Date) {
+    const months = [
+      "janvier", "février", "mars", "avril", "mai", "juin",
+      "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+    ];
+
+    const currentDate = date ?? new Date();
+    const dayOfMonth = currentDate.getDate();
+    const monthIndex = currentDate.getMonth();
+    return dayOfMonth + " " + months[monthIndex];
+  }
+
+  getLastTimeDateString() {
+    let currentDate=new Date();
+    currentDate.setDate(currentDate.getDate()-1);
+    currentDate.setMonth(currentDate.getMonth()-1);//make it "last month date" TODO: change according to selected time range
+    return this.getDateString(currentDate);
   }
 }
 
@@ -69,8 +85,8 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
   },
   "timeToDiscoverFullPair": {
     statPercentageSuffix: "de durée",
-    statLongSuffix: "mn pour trouver la paire",
-    statShortSuffix: "mn"
+    statLongSuffix: "minutes pour trouver la paire",
+    statShortSuffix: "minutes"
   },
   "errorPercentageOnWholeGame": {
     statPercentageSuffix: "d'erreurs",
@@ -79,7 +95,26 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
   },
   "meanGameDuration": {
     statPercentageSuffix: "de durée",
-    statLongSuffix: "mn pour finir",
-    statShortSuffix: "mn"
+    statLongSuffix: "minutes pour finir",
+    statShortSuffix: "minutes"
+  }
+}
+
+export const STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE: {[statType: string]: {statTitle: string, statDescription: string}} = {
+  "errorsPerGame": {
+    statTitle: "Nombre d'erreurs après découverte des deux cartes de la paire",
+    statDescription: "Compte le nombre d'erreurs pour retrouver la paire. Le compteur est à 0, jusqu'au moment où la première carte est retournée. Ensuite, chaque erreur incrémente le compteur. Le compteur n'est plus incrémenté lorsque les deux cartes sont retournées.",
+  },
+  "timeToDiscoverFullPair": {
+    statTitle: "Temps pour trouver la bonne paire après découverte de la première carte",
+    statDescription: "Temps mis pour retrouver toute la paire, chronométré à partir du moment où au moins une carte de la paire est retournée. Le compteur s'arrête lorsque les deux cartes de la paire sont trouvées consécutivement.",
+  },
+  "errorPercentageOnWholeGame": {
+    statTitle: "Pourcentage d'erreurs sur toute la partie",
+    statDescription: "Pourcentage d'erreurs. Comptabilise toutes les erreurs sur la partie.",
+  },
+  "meanGameDuration": {
+    statTitle: "Durée moyenne d'une partie",
+    statDescription: "Durée moyenne d'une partie, en minutes.",
   }
 }

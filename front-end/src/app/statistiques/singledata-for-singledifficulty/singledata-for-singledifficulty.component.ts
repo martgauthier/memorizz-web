@@ -3,7 +3,7 @@ import {
   createDefaultDataPerDifficultyForSingleStat,
   DataPerDifficultyForSingleStat
 } from "../../../models/stats-data.model";
-import {SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
+import {StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 
 @Component({
   selector: 'app-singledata-for-singledifficulty',
@@ -16,11 +16,19 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   @Input({required: true}) statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
   @Input({required: true}) duration?: number = 0;
 
+  public nowDate: string="";
+  public lastTimeDate: string="";
+
   public statLongSuffix: string="";
   public statShortSuffix: string="";
   public statPercentageSuffix: string="";
 
   difficultyDescriptor: string = "simple";//arbitrary default value
+
+  constructor(private statsService: StatistiquesService) {
+    this.nowDate=statsService.getDateString();
+    this.lastTimeDate=statsService.getLastTimeDateString();
+  }
 
   ngOnInit() {
     switch (this.difficulty) {
@@ -43,7 +51,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
       return "...";
     }
     else {
-      let percentage=100*(this.statData.nowValue-this.statData.lastTimeValue)/this.statData.nowValue;
+      let percentage=100*(this.statData.nowValue-this.statData.lastTimeValue)/this.statData.lastTimeValue;
       return (percentage<0 ? "" : "+") + Math.round(percentage).toString();
     }
   }

@@ -1,11 +1,15 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {
+  AllDifficultiesData,
   createDefaultDataPerDifficultyForSingleStat,
   FullDataForSingleStat
 } from "../../../models/stats-data.model";
-import {StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
+import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
+import {
+  SingledataForSingledifficultyComponent
+} from "../singledata-for-singledifficulty/singledata-for-singledifficulty.component";
 
 @Component({
   selector: 'app-big-singlestat',
@@ -33,16 +37,25 @@ export class BigSinglestatComponent implements OnInit {
     this.statPercentageSuffix = SUFFIXES_PER_STAT_TYPE[this.statData!.statType].statPercentageSuffix;
   }
 
-  getEvolutionPercentageString(): string {
-    if(this.statData==null) {
-      return "...";
+  getOverallPercentage() {
+    let nowValuesSum=0;
+    let lastTimeValuesSum=0;
+    let totalGamesNumber=0;
+    for (let difficultyKey in this.statData?.difficulty) {
+      let dataForThisDifficulty=this.statData.difficulty[difficultyKey as keyof AllDifficultiesData]
+
+      nowValuesSum+=dataForThisDifficulty.nowValue * dataForThisDifficulty.gamesQuantity;
+      lastTimeValuesSum+=dataForThisDifficulty.lastTimeValue * dataForThisDifficulty.gamesQuantity;//moyenne pondérée
+      totalGamesNumber+=dataForThisDifficulty.gamesQuantity;
     }
-    else {
-      let percentage=100*(this.statData.difficulty.overall.nowValue-this.statData.difficulty.overall.lastTimeValue)/this.statData.difficulty.overall.nowValue;
-      return (percentage<0 ? "-" : "+") + Math.round(percentage).toString();
-    }
+    let meanNowValues=nowValuesSum/totalGamesNumber;
+    let meanLastTimeValues=lastTimeValuesSum/totalGamesNumber;
+
+
+    return Math.round((100*(meanNowValues - meanLastTimeValues)/meanLastTimeValues)).toFixed(1);
   }
 
   protected readonly HelpIconComponent = HelpIconComponent;
   protected readonly createDefaultDataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat;
+  protected readonly STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE;
 }
