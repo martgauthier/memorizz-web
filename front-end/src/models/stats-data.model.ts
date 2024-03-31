@@ -2,31 +2,19 @@
  * Représente les données pour un type de statistiques, sur une période donnée, pour toutes les difficultés (+ "en moyenne")
  */
 export interface FullDataForSingleStat {
-  /**
-   * Defines the stat type (example: "Error numbers during a game")
-   */
-  statType: string,
-  /**
-   * String that effectively resumes stat in french language
-   */
-  statTitle: string,
-  /**
-   * String that gives full details about this stat, in french language
-   */
-  statDescription: string,
+  statType: "errorsPerGame" | "timeToDiscoverFullPair" | "errorPercentageOnWholeGame" | "meanGameDuration",
   /**
    * Duration between the two mesures {@link DataPerDifficultyForSingleStat.lastTimeValue} and {@link DataPerDifficultyForSingleStat.nowValue}
    * (1 month, 2 months, 3 months, 6 months, 8 months, 12 months)
    */
   duration: number,
-  lastTimeDate: string,
-  nowDate: string,
-  difficulty: {
-    simple: DataPerDifficultyForSingleStat,
-    medium: DataPerDifficultyForSingleStat,
-    hard: DataPerDifficultyForSingleStat,
-    overall: DataPerDifficultyForSingleStat
-  }
+  difficulty: AllDifficultiesData
+}
+
+export interface AllDifficultiesData {
+  simple: DataPerDifficultyForSingleStat,
+  medium: DataPerDifficultyForSingleStat,
+  hard: DataPerDifficultyForSingleStat
 }
 
 /**
@@ -35,10 +23,10 @@ export interface FullDataForSingleStat {
 export interface DataPerDifficultyForSingleStat {
   lastTimeValue: number,
   nowValue: number,
-  dates: {
-    lastTimeDate: string,
-    nowDate: string
-  }
+  /**
+   * Indique le nombre de parties jouées avec ce mode de difficulté, sur l'écart de temps sélectionné
+   */
+  gamesQuantity: number
 }
 
 /**
@@ -46,11 +34,8 @@ export interface DataPerDifficultyForSingleStat {
  */
 export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficultyForSingleStat {
   return {
-    dates: {
-      lastTimeDate: "",
-      nowDate: ""
-    },
     lastTimeValue: 0,
-    nowValue: 0
+    nowValue: 0,
+    gamesQuantity: 0
   }
 }

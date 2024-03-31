@@ -4,7 +4,7 @@
   <span class="on-month-text">Sur {{duration}} mois</span>
 </span>
 <span class="singledata-desc">
-  {{statData.dates.lastTimeDate}}: {{statData.lastTimeValue}} {{statLongSuffix}}
+  {{lastTimeDate}}: {{statData.lastTimeValue.toFixed(1)}} {{statLongSuffix}}
   <br />
-  {{statData.dates.nowDate}}: {{statData.nowValue}} {{statShortSuffix}}
+  {{nowDate}}: {{statData.nowValue.toFixed(1)}} {{statShortSuffix}}
 </span>
