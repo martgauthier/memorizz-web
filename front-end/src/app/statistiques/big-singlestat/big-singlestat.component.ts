@@ -3,7 +3,7 @@ import {
   createDefaultDataPerDifficultyForSingleStat,
   FullDataForSingleStat
 } from "../../../models/stats-data.model";
-import {StatistiquesService} from "../../../services/statistiques/statistiques.service";
+import {StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
 
@@ -20,15 +20,17 @@ export class BigSinglestatComponent implements OnInit {
    */
   public statData?: FullDataForSingleStat;
 
+  public statPercentageSuffix: string="";
+
   constructor(private statsService: StatistiquesService) {}
 
   ngOnInit() {
     let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType + "$"];
 
-
     dataToSubscribeTo.subscribe((data) => {
       this.statData = data;
     });
+    this.statPercentageSuffix = SUFFIXES_PER_STAT_TYPE[this.statData!.statType].statPercentageSuffix;
   }
 
   getEvolutionPercentageString(): string {
