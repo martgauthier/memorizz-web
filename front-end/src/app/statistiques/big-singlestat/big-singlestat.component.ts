@@ -31,13 +31,13 @@ export class BigSinglestatComponent implements OnInit {
     });
   }
 
-  getEvolutionPercentage(): string {
+  getEvolutionPercentageString(): string {
     if(this.statData==null) {
       return "...";
     }
     else {
       let percentage=100*(this.statData.difficulty.overall.nowValue-this.statData.difficulty.overall.lastTimeValue)/this.statData.difficulty.overall.nowValue;
-      return Math.round(percentage).toString();
+      return (percentage<0 ? "-" : "+") + Math.round(percentage).toString();
     }
   }
 
