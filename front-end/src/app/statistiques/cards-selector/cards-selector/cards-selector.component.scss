@@ -95,6 +95,10 @@ li:hover {
   transition: opacity 0.2s ease, right 0.1s ease, height 0.1s ease 0.1s;
 }
 
+.cards-ul-container:hover .menu-button:not(.is-focused) {
+  height: 25px;
+}
+
 .barre {
   border-radius: 2px;
   background-color: $slightly-different-turquoise;
