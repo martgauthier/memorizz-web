@@ -1,10 +1,10 @@
 <span class="singledata-title">
-  Mode {{difficultyDescriptor}}: {{getEvolutionPercentage()}}% d'erreurs
+  Mode {{difficultyDescriptor}}: {{getEvolutionPercentage()}}% {{statPercentageSuffix}}
   <br />
   <span class="on-month-text">Sur {{duration}} mois</span>
 </span>
 <span class="singledata-desc">
-  {{statData.dates.lastTimeDate}}: {{statData.lastTimeValue}} erreurs avant de trouver la paire
+  {{statData.dates.lastTimeDate}}: {{statData.lastTimeValue}} {{statLongSuffix}}
   <br />
-  {{statData.dates.nowDate}}: {{statData.nowValue}} erreurs
+  {{statData.dates.nowDate}}: {{statData.nowValue}} {{statShortSuffix}}
 </span>

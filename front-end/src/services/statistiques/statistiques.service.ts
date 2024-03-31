@@ -60,3 +60,26 @@ export class StatistiquesService {
     }
   }
 }
+
+export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, statShortSuffix: string, statPercentageSuffix: string}} = {
+  "errorsPerGame": {
+    statPercentageSuffix: "d'erreurs",
+    statLongSuffix: "erreurs avant de trouver la paire",
+    statShortSuffix: "erreurs"
+  },
+  "timeToDiscoverFullPair": {
+    statPercentageSuffix: "de durée",
+    statLongSuffix: "mn pour trouver la paire",
+    statShortSuffix: "mn"
+  },
+  "errorPercentageOnWholeGame": {
+    statPercentageSuffix: "d'erreurs",
+    statLongSuffix: "erreurs sur toute la partie",
+    statShortSuffix: "erreurs"
+  },
+  "meanGameDuration": {
+    statPercentageSuffix: "de durée",
+    statLongSuffix: "mn pour finir",
+    statShortSuffix: "mn"
+  }
+}

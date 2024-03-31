@@ -3,6 +3,7 @@ import {
   createDefaultDataPerDifficultyForSingleStat,
   DataPerDifficultyForSingleStat
 } from "../../../models/stats-data.model";
+import {SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 
 @Component({
   selector: 'app-singledata-for-singledifficulty',
@@ -11,8 +12,13 @@ import {
 })
 export class SingledataForSingledifficultyComponent implements OnInit {
   @Input({required: true}) difficulty: "simple" | "medium" | "hard" = "simple";//arbitrary default value
+  @Input({required: true}) statType?: string="";
   @Input({required: true}) statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
   @Input({required: true}) duration?: number = 0;
+
+  public statLongSuffix: string="";
+  public statShortSuffix: string="";
+  public statPercentageSuffix: string="";
 
   difficultyDescriptor: string = "simple";//arbitrary default value
 
@@ -28,6 +34,8 @@ export class SingledataForSingledifficultyComponent implements OnInit {
         this.difficultyDescriptor="difficile";
         break;
     }
+
+    ({statLongSuffix: this.statLongSuffix, statShortSuffix: this.statShortSuffix, statPercentageSuffix: this.statPercentageSuffix} = SUFFIXES_PER_STAT_TYPE[this.statType!]);
   }
 
   getEvolutionPercentage(): string {

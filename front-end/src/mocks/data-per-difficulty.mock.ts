@@ -1,7 +1,7 @@
 import {FullDataForSingleStat} from "../models/stats-data.model";
 
 const JACQUELINE_ERRORS_PER_GAME_MOCK: FullDataForSingleStat = {
-  "statType": "errorPerGame",
+  "statType": "errorsPerGame",
   "statTitle": "JACQUELINE Nombre d'erreurs après découverte des deux cartes de la paire",
   "statDescription": "Compte le nombre d'erreurs pour retrouver la paire. Le compteur est à 0, jusqu'au moment où la première carte est retournée. Ensuite, chaque erreur incrémente le compteur. Le compteur n'est plus incrémenté lorsque les deux cartes sont retournées.",
   "duration": 1,
@@ -173,7 +173,7 @@ const JACQUELINE_MEAN_GAME_DURATION_MOCK: FullDataForSingleStat = {
 };
 
 const JEANMICHEL_ERRORS_PER_GAME_MOCK: FullDataForSingleStat = {
-  "statType": "errorPerGame",
+  "statType": "errorsPerGame",
   "statTitle": "JEANMICHEL Nombre d'erreurs après découverte des deux cartes de la paire",
   "statDescription": "Compte le nombre d'erreurs pour retrouver la paire. Le compteur est à 0, jusqu'au moment où la première carte est retournée. Ensuite, chaque erreur incrémente le compteur. Le compteur n'est plus incrémenté lorsque les deux cartes sont retournées.",
   "duration": 1,
