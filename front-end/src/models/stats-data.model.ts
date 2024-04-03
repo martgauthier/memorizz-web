@@ -39,3 +39,12 @@ export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficulty
     gamesQuantity: 0
   }
 }
+
+/**
+ * Interface qui stocke une sélection de statistique particulière (utile pour savoir quelle statistique afficher dans la courbe)
+ */
+export interface SelectedStat {
+  userId: number,
+  cardId: number,
+  statType: string
+}

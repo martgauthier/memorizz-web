@@ -53,6 +53,10 @@ export class BigSinglestatComponent implements OnInit {
     return (overallPercentage<0 ? "" : "+") + overallPercentage.toFixed(1);
   }
 
+  onMonitoringClick() {
+    this.statsService.setSelectedStat(this.statType);
+  }
+
   protected readonly HelpIconComponent = HelpIconComponent;
   protected readonly createDefaultDataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat;
   protected readonly STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE;

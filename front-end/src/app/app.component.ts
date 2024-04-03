@@ -8,8 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public title: string = 'Hello world!';
   public showSuccess = false;
-  
-  constructor() {}
 
   showHideSuccess() {
     this.showSuccess = !this.showSuccess;
