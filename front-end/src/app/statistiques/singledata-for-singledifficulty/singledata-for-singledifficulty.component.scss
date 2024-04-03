@@ -29,6 +29,7 @@
   text-align: center;
   display: block;
   font-size: 14px;
+  margin: 10px auto;
 }
 
 :host.simple-mode {
@@ -62,7 +63,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 15px;
+  margin: 10px;
   font-style: italic;
   opacity: 0.7;
   font-size: 0.8em;
