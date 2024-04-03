@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {StatistiquesService} from "../../../../services/statistiques/statistiques.service";
+import {Card} from "../../../../models/user.model";
 
 @Component({
   selector: 'app-cards-selector',
@@ -14,7 +15,7 @@ export class CardsSelectorComponent implements AfterViewInit {
   public cardSelectedIndex: number = 0;//"en moyenne" card selected
   public scrollTopValue: number=0;
 
-  public availableCards: string[]=[];
+  public availableCards: Card[]=[];
 
   constructor(private el: ElementRef, private statsService: StatistiquesService) {
     statsService.availableCards$.subscribe((availableCards) => {
@@ -48,7 +49,7 @@ export class CardsSelectorComponent implements AfterViewInit {
   }
 
   setCardSelected(index: number) {
-    this.statsService.updateSelectedCard(index-1);
+    this.statsService.updateSelectedCard(index);
     let childNode=this.ul.nativeElement.childNodes[(index===0) ? 0 : index+1];
 
     this.ul.nativeElement.style.height=childNode.offsetHeight + "px";

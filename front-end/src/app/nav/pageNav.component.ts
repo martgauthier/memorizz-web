@@ -11,7 +11,7 @@ export class PageNavComponent {
     public choosedUser : number;
 
     constructor(private router: Router, private userService : UserService){
-        this.choosedUser= 0;
+        this.choosedUser= -1;
         userService.identification$.subscribe((identification) => {
           this.choosedUser=identification.id;
         });
@@ -24,7 +24,7 @@ export class PageNavComponent {
     }
 
     goTo(str : string){
-        if(this.choosedUser !=0){
+        if(this.choosedUser !=-1){
             this.router.navigate([str]);
         }
         else{
