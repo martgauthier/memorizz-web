@@ -7,9 +7,6 @@ import {
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
-import {
-  SingledataForSingledifficultyComponent
-} from "../singledata-for-singledifficulty/singledata-for-singledifficulty.component";
 
 @Component({
   selector: 'app-big-singlestat',
@@ -29,12 +26,12 @@ export class BigSinglestatComponent implements OnInit {
   constructor(private statsService: StatistiquesService) {}
 
   ngOnInit() {
-    let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType + "$"];
+    let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType];
 
     dataToSubscribeTo.subscribe((data) => {
       this.statData = data;
+      this.statPercentageSuffix = SUFFIXES_PER_STAT_TYPE[data.statType].statPercentageSuffix;
     });
-    this.statPercentageSuffix = SUFFIXES_PER_STAT_TYPE[this.statData!.statType].statPercentageSuffix;
   }
 
   getOverallPercentage() {

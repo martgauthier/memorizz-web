@@ -1,15 +1,10 @@
 import {Injectable} from "@angular/core";
 import {FullDataForSingleStat} from "../../models/stats-data.model";
-import {
-  CARTES_JACQUELINE, CARTES_JEANMICHEL,
-  JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
-  JACQUELINE_ERRORS_PER_GAME_MOCK, JACQUELINE_MEAN_GAME_DURATION_MOCK,
-  JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK, JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK,
-  JEANMICHEL_ERRORS_PER_GAME_MOCK, JEANMICHEL_MEAN_GAME_DURATION_MOCK,
-  JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK
-} from "../../mocks/data-per-difficulty.mock";
+import MOCKED_STAT_DATA from "../../mocks/generated-statistiques.mock";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
+import {AVAILABLE_CARDS} from "../../mocks/user.mock";
+import {Card} from "../../models/user.model";
 
 @Injectable({
   providedIn: "root"
@@ -19,29 +14,26 @@ export class StatistiquesService {
    * Keys are in string format, to make it easy for BigSingleStatComponent to choose programmatically which data to listen to
    */
   public data: {[statTitle: string]: BehaviorSubject<FullDataForSingleStat>}= {
-    "errorsPerGame$": new BehaviorSubject<FullDataForSingleStat>(JACQUELINE_ERRORS_PER_GAME_MOCK),
-    "timeToDiscoverFullPair$": new BehaviorSubject<FullDataForSingleStat>(JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK),
-    "errorPercentageOnWholeGame$": new BehaviorSubject<FullDataForSingleStat>(JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK),
-    "meanGameDuration$": new BehaviorSubject<FullDataForSingleStat>(JACQUELINE_MEAN_GAME_DURATION_MOCK)
+    "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]),
+    "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]),
+    "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]),
+    "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"])
   };
 
-  public availableCards$: BehaviorSubject<string[]>=new BehaviorSubject<string[]>(CARTES_JACQUELINE);
+  private identificationId: number=0;//jacqueline par défaut
+
+  public availableCards$: BehaviorSubject<Card[]>=new BehaviorSubject<Card[]>(AVAILABLE_CARDS[0]);
 
   constructor(private userService: UserService) {
     this.userService.identification$.subscribe((identification) => {
-      if(identification.id===1) {//jacqueline
-        this.data["errorsPerGame$"].next(JACQUELINE_ERRORS_PER_GAME_MOCK);
-        this.data["timeToDiscoverFullPair$"].next(JACQUELINE_TIME_TO_DISCOVER_FULL_PAIR_MOCK);
-        this.data["errorPercentageOnWholeGame$"].next(JACQUELINE_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK);
-        this.data["meanGameDuration$"].next(JACQUELINE_MEAN_GAME_DURATION_MOCK);
-        this.availableCards$.next(CARTES_JACQUELINE);
-      }
-      else if(identification.id===2) {//jean michel
-        this.data["errorsPerGame$"].next(JEANMICHEL_ERRORS_PER_GAME_MOCK);
-        this.data["timeToDiscoverFullPair$"].next(JEANMICHEL_TIME_TO_DISCOVER_FULL_PAIR_MOCK);
-        this.data["errorPercentageOnWholeGame$"].next(JEANMICHEL_ERROR_PERCENTAGE_ON_WHOLE_GAME_MOCK);
-        this.data["meanGameDuration$"].next(JEANMICHEL_MEAN_GAME_DURATION_MOCK);
-        this.availableCards$.next(CARTES_JEANMICHEL);
+      if(identification.id>=0) {//jacqueline
+        this.identificationId=identification.id;
+        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"]);
+        console.log("Value of mock: ", MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"])
+        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"]);
+        this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"]);
+        this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"]);
+        this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
       }
       else {
         console.log("invalid id");
@@ -49,11 +41,10 @@ export class StatistiquesService {
     });
   }
 
-  updateSelectedCard(index: number) {
-    let card: string=(index===-1) ? "'en moyenne'" : this.availableCards$.getValue()[index];
+  updateSelectedCard(cardIndex: number) {
     for(let observableKey in this.data) {
-      let currentDataForCategory: FullDataForSingleStat = this.data[observableKey].getValue();
-      this.data[observableKey].next(currentDataForCategory);
+      let observable: BehaviorSubject<FullDataForSingleStat> = this.data[observableKey];
+      observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey]);
     }
   }
 
@@ -76,6 +67,8 @@ export class StatistiquesService {
     return this.getDateString(currentDate);
   }
 }
+
+
 
 export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, statShortSuffix: string, statPercentageSuffix: string}} = {
   "errorsPerGame": {
