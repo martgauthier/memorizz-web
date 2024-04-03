@@ -48,8 +48,9 @@ export class BigSinglestatComponent implements OnInit {
     let meanNowValues=nowValuesSum/totalGamesNumber;
     let meanLastTimeValues=lastTimeValuesSum/totalGamesNumber;
 
+    let overallPercentage = Math.round((100*(meanNowValues - meanLastTimeValues)/meanLastTimeValues));
 
-    return Math.round((100*(meanNowValues - meanLastTimeValues)/meanLastTimeValues)).toFixed(1);
+    return (overallPercentage<0 ? "" : "+") + overallPercentage.toFixed(1);
   }
 
   protected readonly HelpIconComponent = HelpIconComponent;
