@@ -45,9 +45,44 @@ export class CourbeComponent implements AfterViewInit {
     }
   ];
 
+  /**
+   * Sets configuration for the chart
+   */
   ngAfterViewInit() {
     Chart.defaults.borderColor="rgba(255, 255, 255, 0.2)";
     Chart.defaults.color="rgba(255,255,255,0.8)";
+
+    //https://stackoverflow.com/questions/34273254/styling-bars-and-lines-with-chart-js/54580284#54580284
+    let boxShadowPlugin = {//plugin qui ajoute du box-shadow
+      id: "boxShadowPlugin",
+      beforeDraw : function(chartInstance: any)
+      {
+
+        let _stroke = chartInstance.ctx.stroke;
+        chartInstance.ctx.stroke = function () {
+          chartInstance.ctx.save();
+          chartInstance.ctx.shadowColor = 'rgba(170,170,170,0.3)';
+          chartInstance.ctx.shadowBlur = 10;
+          chartInstance.ctx.shadowOffsetX = 0;
+          chartInstance.ctx.shadowOffsetY = 0;
+          _stroke.apply(this, arguments)
+          chartInstance.ctx.restore();
+        }
+
+        let _fill = chartInstance.ctx.fill;
+        chartInstance.ctx.fill = function () {
+
+          chartInstance.ctx.save();
+          chartInstance.ctx.shadowColor = 'rgba(0, 35, 89, 0.5)';
+          chartInstance.ctx.shadowBlur = 10;
+          chartInstance.ctx.shadowOffsetX = 0;
+          chartInstance.ctx.shadowOffsetY = 0;
+          _fill.apply(this, arguments)
+          chartInstance.ctx.restore();
+        }
+      }
+    };
+    Chart.register(boxShadowPlugin);
 
     // @ts-ignore
     this.chart!.chart.options = {
