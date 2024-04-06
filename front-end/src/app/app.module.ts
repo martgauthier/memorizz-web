@@ -7,17 +7,19 @@ import {MemorycardComponent} from "./memory/memorycard/memorycard.component";
 import {MemoryComponent} from "./memory/memory/memory.component";
 import {MemorytemplateComponent} from "./memory/memorytemplate.component";
 import {MemorywinComponent} from "./memory/memorywin/memorywin.component";
+import { NgParticlesModule } from "ng-particles";
 @NgModule({
   declarations: [
     AppComponent,
     MemoryComponent,
     MemorycardComponent,
     MemorytemplateComponent,
-    MemorywinComponent
+    MemorywinComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgParticlesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

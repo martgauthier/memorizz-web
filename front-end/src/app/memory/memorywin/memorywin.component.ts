@@ -5,6 +5,7 @@ import {MemoryCard} from "../../../models/memorycard.model";
 import {MemoryService} from "../../../service/memory.service";
 
 
+
 @Component({
   selector: 'app-memorywin',
   templateUrl: './memorywin.component.html',

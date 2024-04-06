@@ -11,10 +11,11 @@ export class MemoryService {
   private gameWin : boolean = false;
   private memorycards : MemoryCard[] = MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
+  public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
   public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(MEMORYCARD_LIST);
   public selectedcards : MemoryCard[] = [];
   constructor(){
-    this.shuffle();
+    //this.shuffle();
   }
 
   async memoryCardClicked(card: MemoryCard) {
@@ -91,7 +92,7 @@ export class MemoryService {
   }
 
   private celebrate() {
-    alert("YOU WON !!!");
+    //alert("YOU WON !!!");
   }
 
   public shuffle(): void {  // méthode refactor ok

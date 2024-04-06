@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {MemoryService} from "../../service/memory.service";
 
 @Component({
   selector : 'app-memorytemplate',
@@ -8,9 +9,19 @@ import {Component, OnInit} from "@angular/core";
 
 export class MemorytemplateComponent implements OnInit{
   ngOnInit(): void {
-  }
 
-  constructor() {
+    this.createTab();
+  }
+  public nbpaires: number | undefined;
+  constructor(public memoryService : MemoryService) {
+    this.memoryService.nbpaires$.subscribe((paires : number)=>{
+      this.nbpaires = paires;
+    })
+  }
+  public createTab() {
+      if(this.nbpaires==3){
+        
+      }
   }
 
 }
