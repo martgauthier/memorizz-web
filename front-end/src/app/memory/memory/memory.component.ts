@@ -10,6 +10,7 @@ import {MemoryService} from "../../../service/memory.service";
 
 export class MemoryComponent implements OnInit{
   public memoryCardList : MemoryCard[] = [];
+  public nbpaires : number =3;
   public memoryCardClicked(card : MemoryCard){
     console.log("the card "+card.cardId+"wants to be returned");
 
@@ -19,8 +20,13 @@ export class MemoryComponent implements OnInit{
   constructor(public memoryService : MemoryService){
     this.memoryService.memorycards$.subscribe((memoryCardList)=> {
       this.memoryCardList = memoryCardList;
+    })
+    this.memoryService.nbpaires$.subscribe((paires : number)=>{
+      this.nbpaires = paires;
     });
   }
   ngOnInit() {
+    console.log('paire : '+this.nbpaires);
   }
+
 }

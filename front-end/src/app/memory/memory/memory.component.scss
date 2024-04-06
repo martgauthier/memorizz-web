@@ -1,7 +1,5 @@
 .memory{
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(2, 1fr);
   width :80%;
   height: 80%;
   grid-column: 2;
@@ -9,6 +7,31 @@
   grid-gap : 10px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.troispaires {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.quatrepaires{
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.cinqpaires{
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.sixpaires{
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.septpaires{
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+.huitpaires{
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
 .matched{

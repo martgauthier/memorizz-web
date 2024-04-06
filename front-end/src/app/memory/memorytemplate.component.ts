@@ -9,19 +9,14 @@ import {MemoryService} from "../../service/memory.service";
 
 export class MemorytemplateComponent implements OnInit{
   ngOnInit(): void {
-
-    this.createTab();
+    //this.createGrid();
+    console.log('nb de paires : '+this.nbpaires);
   }
   public nbpaires: number | undefined;
   constructor(public memoryService : MemoryService) {
     this.memoryService.nbpaires$.subscribe((paires : number)=>{
       this.nbpaires = paires;
     })
-  }
-  public createTab() {
-      if(this.nbpaires==3){
-        
-      }
   }
 
 }
