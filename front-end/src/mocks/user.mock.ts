@@ -70,7 +70,7 @@ export const PRESET_DICTS: PresetDict[] = [
     hard: {
       cardsAreBothImage: false,
       cardsAreVisible: false,
-      pairsNumber: 9
+      pairsNumber: 8
     }
   }
 ]
