@@ -2,20 +2,57 @@ import {Injectable} from "@angular/core";
 import {MemoryCard} from "../models/memorycard.model";
 import {MEMORYCARD_LIST} from "../mocks/card-list.mocks";
 import {BehaviorSubject} from "rxjs";
+import {
+  USER_IDENTIFICATIONS,
+  AVAILABLE_CARDS,
+  PRESET_DICTS
+} from "../mocks/user.mock";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class MemoryService {
+
   private gameWin : boolean = false;
-  private memorycards : MemoryCard[] = MEMORYCARD_LIST;
+  private memorycards : MemoryCard[] = this.createMemoryCardList();     //MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
   public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
-  public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(MEMORYCARD_LIST);
+  public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(this.memorycards);
   public selectedcards : MemoryCard[] = [];
   constructor(){
     this.shuffle();
+  }
+
+  createMemoryCardList(): MemoryCard[] {
+
+    //TO DO: il faudrat :
+    // - regarder combien de cartes mettres dans la memory list en focntion des configs,
+    // - shuffle la liste AVAILABLE_CARDS
+    // - regarder le type de jeu ( pour savoir si les cartes seront image/image ou pas )
+    // -
+
+    let memorycardslist : MemoryCard[] = [];
+    let cards = AVAILABLE_CARDS[0];
+    for(let i=0; i<cards.length ; i++){
+      let memorycard1 :MemoryCard = {
+        src: cards[i].imgValue,
+        type: "image",
+        cardId: cards[i].id,
+        description : cards[i].textValue,
+        state: "default"
+      };
+      let memorycard2 :MemoryCard = {
+        src: cards[i].imgValue,
+        type: "image",
+        cardId: cards[i].id,
+        description : cards[i].textValue,
+        state: "default"
+      };
+      memorycardslist.push(memorycard1);
+      memorycardslist.push(memorycard2);
+    }
+    return memorycardslist;
   }
 
   async memoryCardClicked(card: MemoryCard) {
@@ -90,7 +127,7 @@ export class MemoryService {
   }
 
   private checkEndGame() : boolean { // méthode refactor ok
-    for(let card of MEMORYCARD_LIST){
+    for(let card of this.memorycards){
       if(card.state!='matched'){
         return false;
       }

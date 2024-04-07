@@ -25,6 +25,11 @@ export const AVAILABLE_CARDS: Card[][]=[
       textValue: "Rantanplan",
       imgValue: "assets/rantanplan.png",
       id: 2
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 3
     }],//jacqueline
   [{
     textValue: "Marine",
