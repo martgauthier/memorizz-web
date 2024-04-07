@@ -17,23 +17,23 @@ export const USER_IDENTIFICATIONS=[JACQUELINE_IDENTIFICATION, JEANMICHEL_IDENTIF
 export const AVAILABLE_CARDS: Card[][]=[
 
   [{
-    textValue: "premiere carte jacqueline",
-    imgValue: "srcPremiereImage",
+    textValue: "Ma maison",
+    imgValue: "assets/maison_jacqueline.png",
     id: 1
   },
     {
-      textValue: "deuxieme carte jacqueline",
-      imgValue: "srcDeuxiemeImage",
+      textValue: "Rantanplan",
+      imgValue: "assets/rantanplan.png",
       id: 2
     }],//jacqueline
   [{
-    textValue: "premiere carte jean michel",
-    imgValue: "src1JeanMichel",
+    textValue: "Marine",
+    imgValue: "assets/marine.png",
     id: 1
   },
     {
-      textValue: "deuxieme carte jean michel",
-      imgValue: "src2JeanMichel",
+      textValue: "Ma voiture",
+      imgValue: "assets/voitureJeanMich.png",
       id: 2
     }]//jean michel
 ]
