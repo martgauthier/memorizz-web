@@ -1,0 +1,70 @@
+@import "../../../styles/variables.scss";
+
+:host {
+  box-sizing: border-box;
+  width: 95%;
+  padding: 10px;
+  border-radius: 20px;
+  position: relative;
+  display: block;
+  background-color: $dark-orange;
+  margin: 10px auto;
+  transition: box-shadow 0.3s;
+}
+
+.on-month-text {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.singledata-title {
+  text-align: center;
+  display: block;
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.singledata-desc {
+  font-style: italic;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  margin: 10px auto;
+}
+
+:host.simple-mode {
+  background-color: $green-simple;
+  box-shadow: 0 0 8px $green-simple;
+
+  &:hover {
+    box-shadow: 0 0 5px $green-simple-hover;
+  }
+}
+
+:host.medium-mode {
+  background-color: $orange-medium;
+  box-shadow: 0 0 8px $orange-medium;
+
+  &:hover {
+    box-shadow: 0 0 5px $orange-medium-hover;
+  }
+}
+
+:host.hard-mode {
+  background-color: $red-hard;
+  box-shadow: 0 0 8px $red-hard;
+
+  &:hover {
+    box-shadow: 0 0 5px $red-hard-hover;
+  }
+}
+
+.games-quantity {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 0.8em;
+}

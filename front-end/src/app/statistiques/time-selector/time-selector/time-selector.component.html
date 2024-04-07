@@ -1,0 +1,8 @@
+<form>
+  <p>Sélectionnez l'écart de temps sur lequel calculer les statistiques :</p>
+  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="1" (change)="onRadioChange()">1 mois</label>
+  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="2" (change)="onRadioChange()">2 mois</label>
+  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="3" (change)="onRadioChange()">3 mois</label>
+  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="6" (change)="onRadioChange()">6 mois</label>
+  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="8" (change)="onRadioChange()">8 mois</label>
+</form>

@@ -1,0 +1,52 @@
+@import "../../../styles/variables";
+
+$hover-animation-duration: 0.7s;
+$hover-animation-color: $light-turquoise;
+$hover-animation-min-shadow-size: 15px;
+$hover-animation-max-shadow-size: 25px;
+
+:host {
+  background-color: $light-turquoise;
+  overflow: auto;
+  text-align: center;
+  position: relative;
+  display: block;
+  margin: auto;
+  box-shadow: 0 0 0 $hover-animation-color;
+  transition: box-shadow $hover-animation-duration;
+}
+
+
+.title {
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.mean-big-info {
+  font-weight: bold;
+  font-size: 50px;
+  margin: 10px auto;
+}
+
+.mean-descriptor {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+:host:hover {
+  animation: dropShadowPulse infinite alternate $hover-animation-duration;
+  animation-delay: $hover-animation-duration;
+  box-shadow: 0 0 $hover-animation-min-shadow-size $hover-animation-color;
+}
+
+@keyframes dropShadowPulse {
+  from {
+    box-shadow: 0 0 $hover-animation-min-shadow-size $hover-animation-color;
+  }
+  to {
+    box-shadow: 0 0 $hover-animation-max-shadow-size $hover-animation-color;
+  }
+}

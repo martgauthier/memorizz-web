@@ -1,0 +1,7 @@
+<ul>
+  <li [class.focused-li]="focusedLi===0" (click)="updateRoute('cardsStats', 0)">Stats par carte</li>
+  <li [class.focused-li]="focusedLi===1" (click)="updateRoute('gamesStats', 1)">Stats de parties</li>
+  <span class="focused-background" [style.left]="(focusedLi*50).toString()+'%'"></span>
+</ul>
+
+<app-time-selector></app-time-selector>

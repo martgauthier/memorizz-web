@@ -1,0 +1,13 @@
+.help-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  font-size: 31px !important;
+  transition: filter 0.2s;
+}
+
+.help-icon:hover {
+  cursor: help;
+  filter: drop-shadow(0 0 1px white);
+}

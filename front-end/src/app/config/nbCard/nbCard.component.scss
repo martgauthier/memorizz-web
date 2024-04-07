@@ -1,0 +1,65 @@
+@import "../../../styles/variables.scss";
+
+.input-number-group {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.input-number-group input[type=number]::-webkit-inner-spin-button,
+.input-number-group input[type=number]::-webkit-outer-spin-button {
+  //elenver les flèches
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
+.input-number-group .input-number {
+  width: 80px;
+  padding: 0 12px;
+  text-align: center;
+  background-color: $light-turquoise;
+  outline: none;
+}
+
+.input-number-group .input-number,
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  border: 1px solid rgb(255, 255, 255);
+  height: 45px;
+  user-select: none;
+  border-radius: 0;
+}
+
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  border-radius: 5px;
+  display: inline-block;
+  width: 40px;
+  background: $dark-blue;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.input-number-group .input-number-decrement {
+  margin-right: 0.3rem;
+}
+
+.input-number-group .input-number-increment {
+  margin-left: 0.3rem;
+}
+#titre{
+  width: 220px;
+}
+.clickable{
+  color: white;
+  cursor: pointer;
+}
+.not_clickable{
+  color: #ffffff4d;
+  cursor: no-drop;
+}

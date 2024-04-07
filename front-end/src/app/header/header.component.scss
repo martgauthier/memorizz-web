@@ -1,0 +1,91 @@
+@import "../../styles/variables.scss";
+
+#global-header{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: $dark-blue;
+  align-items: center;
+  padding: 15px 0;
+  position: relative;
+}
+
+#top{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+#logo{
+  height: 40px;
+}
+
+#profil_name{
+  margin: 0;
+  color: white;
+}
+
+.barre {
+  border-radius: 2px;
+  background-color: white;
+  margin: 5px auto;
+  height: 5px;
+  width: 100%;
+}
+
+#menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 15px;
+  top: 50%;
+  justify-content: space-around;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+}
+
+#titre-site {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+$wave-animation-duration: 0.3s;
+#titre-site>span {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: white;
+  transition: filter $wave-animation-duration;
+
+  &:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 3px white);
+  }
+
+  span {
+    display: inline-block;
+  }
+  &:hover span {
+    animation: wave-text $wave-animation-duration ease-in-out forwards;
+  }
+
+  @for $i from 1 to 9 {
+    span:nth-of-type(#{$i}) {
+      animation-delay: calc((($i) - 1) / 10)+s;
+    }
+  }
+}
+
+@keyframes wave-text {
+  0% {
+    transform: translateY(0em);
+  }
+  60% {
+    transform: translateY(-0.6em);
+  }
+  100% {
+    transform: translateY(0em);
+  }
+}

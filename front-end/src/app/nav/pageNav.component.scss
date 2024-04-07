@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+#pageNavMain{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#userSelector{
+    color : $dark-blue;
+    margin : 125px;
+}
+
+#boutonsNav{
+    display :flex;
+    flex-direction: row;
+}
+
+.buttonMargin{
+    margin-right: 50px;
+}

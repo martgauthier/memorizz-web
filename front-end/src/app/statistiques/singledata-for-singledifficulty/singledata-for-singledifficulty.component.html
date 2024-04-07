@@ -1,0 +1,11 @@
+<span class="singledata-title">
+  Mode {{difficultyDescriptor}}: {{getEvolutionPercentage()}}% {{statPercentageSuffix}}
+  <br />
+  <span class="on-month-text">Sur {{duration}} mois</span>
+</span>
+<span class="singledata-desc">
+  {{lastTimeDate}}: {{statData.lastTimeValue.toFixed(1)}} {{statLongSuffix}}
+  <br />
+  {{nowDate}}: {{statData.nowValue.toFixed(1)}} {{statShortSuffix}}
+</span>
+<span class="games-quantity">{{statData.gamesQuantity}} parties depuis {{duration}} mois</span>

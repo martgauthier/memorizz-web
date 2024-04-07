@@ -1,0 +1,5 @@
+<p class="title">{{STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[statType].statTitle}}</p>
+<canvas baseChart [labels]="['Mode simple', 'Mode moyen', 'Mode difficile']" [datasets]="plottedDatasets" [type]="'bar'"></canvas>
+<p class="mean-descriptor">En moyenne sur {{gamesQuantity}} parties jouées, sur {{duration}} mois</p>
+<app-help-icon (click)="HelpIconComponent.displayHelp(STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[statType].statDescription)"></app-help-icon>
+<app-monitoring-call-to-action (click)="onMonitoringClick()"></app-monitoring-call-to-action>
