@@ -1,0 +1,51 @@
+/*.memorycard {
+  color: white;
+  align-items: center;
+  display: flex;
+  width :80%;
+  height: 80%;
+  justify-content: center;
+  background-color: #01274a;
+  border-radius: 5%;
+  margin-top: 1rem;
+  box-shadow: none;
+  font-family : "Poppins", sans-serif;
+}
+
+.matched{
+  background-color: #1b4a46;
+  color : yellow;
+  animation: tilt-shaking 0.15s 1s;
+}
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+*/
+
+.memorycard-img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+
+}
+.front{
+  background-color: #209188;
+  display : flex;
+  justify-content: center;
+}
+
+
+.type-text{
+  font-family: 'Poppins', sans-serif;
+  font-size:200%;
+  color: white;
+}
+
+
+
+

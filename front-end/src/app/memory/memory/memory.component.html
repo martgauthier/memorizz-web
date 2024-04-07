@@ -1,0 +1,16 @@
+<div class="memory" [ngClass]="{'troispaires' :this.nbpaires==3,
+                                'quatrepaires' :this.nbpaires==4,
+                                'cinqpaires': this.nbpaires==5,
+                                'sixpaires': this.nbpaires==6,
+                                'septpaires': this.nbpaires==7,
+                                'huitpaires': this.nbpaires==8 }">
+
+  <div class="memorycarddiv" *ngFor="let card of memoryCardList" >
+    <app-memorycard class="memorycard notmatched" [memorycard]="card" id="{{ 'memorycard'+ card.cardId }}" (click)="memoryCardClicked(card)"
+    [ngClass]="{'matched': card.state=='matched',
+                'flipped': card.state=='flipped',
+                'falsely-matched': card.state=='falsely-matched',
+                'default':card.state=='default'}"
+    ></app-memorycard>
+  </div>
+</div>

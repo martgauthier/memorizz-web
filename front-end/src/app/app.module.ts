@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-
 import { Template } from './config/template.component';
 import { NbCard } from './config/nbCard/nbCard.component';
 import { Position } from './config/postion/position.component';
 import { Type } from './config/type/type.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MemorycardComponent} from "./memory/memorycard/memorycard.component";
+import {MemoryComponent} from "./memory/memory/memory.component";
+import {MemorytemplateComponent} from "./memory/memorytemplate.component";
+import {MemorywinComponent} from "./memory/memorywin/memorywin.component";
+import { NgParticlesModule } from "ng-particles";
 import { HeaderComponent } from './header/header.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
 import {Bouton} from "./bouton.component";
@@ -34,6 +37,7 @@ import {
 } from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,12 +61,17 @@ import {
     CardsSelectorComponent,
     CourbeComponent,
     TimeSelectorComponent,
-    BigPreferredDifficultyComponent
+    BigPreferredDifficultyComponent,
+    MemoryComponent,
+    MemorycardComponent,
+    MemorytemplateComponent,
+    MemorywinComponent,
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgParticlesModule,
     BaseChartDirective,
     FormsModule
   ],

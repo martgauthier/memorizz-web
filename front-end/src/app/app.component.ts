@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+
+import {Component, OnInit} from '@angular/core';
 import {Chart, Tooltip} from "chart.js";
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title: string = 'Hello world!';
   public showSuccess = false;
 
@@ -15,8 +17,6 @@ export class AppComponent {
   }
 
   constructor() {
-
-
     //https://stackoverflow.com/questions/34273254/styling-bars-and-lines-with-chart-js/54580284#54580284
     let boxShadowPlugin = {//plugin qui ajoute du box-shadow
       id: "boxShadowPlugin",
@@ -53,4 +53,8 @@ export class AppComponent {
     Chart.defaults.borderColor="rgba(255, 255, 255, 0.2)";
     Chart.defaults.font.family="Poppins";
   }
+
+  ngOnInit(): void {
+        throw new Error('Method not implemented.');
+    }
 }
