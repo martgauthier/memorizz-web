@@ -15,7 +15,7 @@ export class MemoryService {
   public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(MEMORYCARD_LIST);
   public selectedcards : MemoryCard[] = [];
   constructor(){
-    //this.shuffle();
+    this.shuffle();
   }
 
   async memoryCardClicked(card: MemoryCard) {
