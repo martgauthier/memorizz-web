@@ -13,7 +13,7 @@ for (let identification of USER_IDENTIFICATIONS) {
   MOCKED_STAT_DATA[identification.id]={};
   for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.id])]) {
     MOCKED_STAT_DATA[identification.id][card.id]={};
-    for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "errorPercentageOnWholeGame", "meanGameDuration"]) {
+    for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorPercentageOnWholeGame", "meanGameDuration"]) {
       MOCKED_STAT_DATA[identification.id][card.id][statType]={
         statType: statType,
         duration: 1,

@@ -16,6 +16,7 @@ export class StatistiquesService {
   public data: {[statTitle: string]: BehaviorSubject<FullDataForSingleStat>}= {
     "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]),
     "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]),
+    "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["preferredDifficultyMode"]),
     "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]),
     "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"])
   };
@@ -41,8 +42,8 @@ export class StatistiquesService {
       if(identification.id>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.id;
         this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"]);
-        console.log("Value of mock: ", MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"])
         this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"]);
+        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.id][0]["preferredDifficultyMode"]);
         this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"]);
         this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"]);
         this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
@@ -116,6 +117,11 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
     statLongSuffix: "minutes pour trouver la paire",
     statShortSuffix: "minutes"
   },
+  "preferredDifficultyMode": {
+    statPercentageSuffix: "",
+    statLongSuffix: "",
+    statShortSuffix: ""//arbitrary values as this is a different type of stat
+  },
   "errorPercentageOnWholeGame": {
     statPercentageSuffix: "d'erreurs",
     statLongSuffix: "erreurs sur toute la partie",
@@ -140,6 +146,10 @@ export const STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE: {[statType: string]: {sta
   "timeToDiscoverFullPair": {
     statTitle: "Temps pour trouver la bonne paire après découverte de la première carte",
     statDescription: "Temps mis pour retrouver toute la paire, chronométré à partir du moment où au moins une carte de la paire est retournée. Le compteur s'arrête lorsque les deux cartes de la paire sont trouvées consécutivement.",
+  },
+  "preferredDifficultyMode": {
+    statTitle: "Pourcentage de choix de chaque mode de difficulté",
+    statDescription: "Montre le pourcentage de choix de chaque mode de difficulté, sur l'ensemble des parties effectué dans l'intervalle de temps choisi"
   },
   "errorPercentageOnWholeGame": {
     statTitle: "Pourcentage d'erreurs sur toute la partie",

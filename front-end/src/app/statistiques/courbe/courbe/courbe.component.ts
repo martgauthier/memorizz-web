@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {BaseChartDirective} from "ng2-charts";
+import {ChartOptions} from "chart.js";
+
 import {
   STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE,
   StatistiquesService
 } from "../../../../services/statistiques/statistiques.service";
-import {Chart, Tooltip} from "chart.js";
 import {
   COURBE_DIFFICILE_MOCK,
   COURBE_EN_MOYENNE_MOCK,
@@ -17,7 +18,7 @@ import {
   templateUrl: './courbe.component.html',
   styleUrl: './courbe.component.scss'
 })
-export class CourbeComponent implements AfterViewInit {
+export class CourbeComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   public plottedDatasets= [
@@ -59,109 +60,62 @@ export class CourbeComponent implements AfterViewInit {
     else if(index===30) return this.statsService.getDateString();
     else return "";
   });
-
-  /**
-   * Sets configuration for the chart
-   */
-  ngAfterViewInit() {
-    Chart.defaults.borderColor="rgba(255, 255, 255, 0.2)";
-    Chart.defaults.color="rgba(255,255,255,0.8)";
-    Chart.defaults.font.family="Poppins";
-
-    //https://stackoverflow.com/questions/34273254/styling-bars-and-lines-with-chart-js/54580284#54580284
-    let boxShadowPlugin = {//plugin qui ajoute du box-shadow
-      id: "boxShadowPlugin",
-      beforeDraw : function(chartInstance: any)
-      {
-
-        let _stroke = chartInstance.ctx.stroke;
-        chartInstance.ctx.stroke = function () {
-          chartInstance.ctx.save();
-          chartInstance.ctx.shadowColor = 'rgba(170,170,170,0.3)';
-          chartInstance.ctx.shadowBlur = 10;
-          chartInstance.ctx.shadowOffsetX = 0;
-          chartInstance.ctx.shadowOffsetY = 0;
-          _stroke.apply(this, arguments)
-          chartInstance.ctx.restore();
-        }
-
-        let _fill = chartInstance.ctx.fill;
-        chartInstance.ctx.fill = function () {
-
-          chartInstance.ctx.save();
-          chartInstance.ctx.shadowColor = 'rgba(0, 35, 89, 0.5)';
-          chartInstance.ctx.shadowBlur = 10;
-          chartInstance.ctx.shadowOffsetX = 0;
-          chartInstance.ctx.shadowOffsetY = 0;
-          _fill.apply(this, arguments)
-          chartInstance.ctx.restore();
-        }
-      }
-    };
-    Chart.register(boxShadowPlugin);
-    Chart.register([Tooltip]);
-
-    // @ts-ignore
-    this.chart!.chart.options = {
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            font: {
-              size: 20
-            }
-          },
-        },
-        title: {
-          text: "Nombre d'erreurs après découverte des deux cartes de la paire",
+  public options: ChartOptions<'line'> = {
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
           font: {
-              size: 28,
-          },
-          color: "white",
-          padding: 30,
-          display: true
-        },
-        tooltip: {
-          enabled: true,
-          intersect: false,
-          mode: "nearest",
-          callbacks: {
-            label: (item: any) => {
-              return `${item.dataset.label}: ${item.formattedValue} erreurs sur les parties de ce jour`
-            }
-          }
-        }
-      },
-      scales: {
-        y: {
-          title: {
-            display: true,
-            text: ["Nombre d'erreurs avant", "de trouver la carte"],
-            font: {
-              size: 16
-            }
+            size: 20
           }
         },
-        x: {
-          title: {
-            display: true,
-            text: "Date",
-            font: {
-              size: 16
-            }
-          }
-        }
       },
-      datasets: {
-        line: {
-          pointRadius: 0
+      title: {
+        text: "Nombre d'erreurs après découverte des deux cartes de la paire",
+        font: {
+          size: 28,
+        },
+        color: "white",
+        padding: 30,
+        display: true
+      },
+      tooltip: {
+        enabled: true,
+        intersect: false,
+        mode: "nearest",
+        callbacks: {
+          label: (item: any) => {
+            return `${item.dataset.label}: ${item.formattedValue} erreurs sur les parties de ce jour`
+          }
         }
       }
-    };
-
-    console.log("updated chart")
-    this.chart!.update();
-  }
+    },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: ["Nombre d'erreurs avant", "de trouver la carte"],
+          font: {
+            size: 16
+          }
+        }
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Date",
+          font: {
+            size: 16
+          }
+        }
+      }
+    },
+    datasets: {
+      line: {
+        pointRadius: 0
+      }
+    }
+  };
 
   constructor(private statsService: StatistiquesService, ref: ElementRef) {
     statsService.selectedStat$.subscribe((selectedStat) => {
@@ -172,7 +126,7 @@ export class CourbeComponent implements AfterViewInit {
       }
     });
 
-    statsService.duration$.subscribe((duration) => {
+    statsService.duration$.subscribe(() => {
       this.labels[0]=this.statsService.getLastTimeDateString();
       this.labels[30]=this.statsService.getDateString();
 
