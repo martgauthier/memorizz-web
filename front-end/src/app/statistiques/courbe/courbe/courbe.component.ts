@@ -4,7 +4,13 @@ import {
   STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE,
   StatistiquesService
 } from "../../../../services/statistiques/statistiques.service";
-import {Chart} from "chart.js";
+import {Chart, Tooltip} from "chart.js";
+import {
+  COURBE_DIFFICILE_MOCK,
+  COURBE_EN_MOYENNE_MOCK,
+  COURBE_MOYEN_MOCK,
+  COURBE_SIMPLE_MOCK
+} from "../../../../mocks/data-courbe.mock";
 
 @Component({
   selector: 'app-courbe',
@@ -17,33 +23,43 @@ export class CourbeComponent implements AfterViewInit {
   public plottedDatasets= [
     {
       label: 'Simple',
-      data: [1, null, 4, 4, 5.2],
       borderColor: 'rgb(50, 209, 25)',
       backgroundColor: 'rgb(50, 209, 25, 0.5)',
-      spanGaps: true
+      data: COURBE_SIMPLE_MOCK,
+      spanGaps: true,
+      hidden: true
     },
     {
       label: 'Moyen',
-      data: [5, 3, 4, 2, 1],
       borderColor: 'rgb(209, 209, 25)',
       backgroundColor: 'rgb(209, 209, 25, 0.5)',
-      spanGaps: true
+      data: COURBE_MOYEN_MOCK,
+      spanGaps: true,
+      hidden: true
     },
     {
       label: 'Difficile',
-      data: [2, 2, 4, 3, 5],
       borderColor: 'rgb(209, 25, 25)',
       backgroundColor: 'rgb(209, 25, 25, 0.5)',
-      spanGaps: true
+      data: COURBE_DIFFICILE_MOCK,
+      spanGaps: true,
+      hidden: true
     },
     {
       label: 'En moyenne',
-      data: [1, 5, 2, 3, 4],
-      borderColor: 'rgb(22, 100, 191)',
-      backgroundColor: 'rgb(2, 100, 191, 0.5)',
+      borderColor: 'rgb(32, 145, 136)',
+      backgroundColor: 'rgba(32, 145, 136, 0.5)',
+      data: COURBE_EN_MOYENNE_MOCK,
       spanGaps: true
     }
   ];
+
+  public labels: string[] = Array.from(new Array(31), (value: string, index: number): string => {
+    if(index===0) return "08 mars";
+    else if(index==15) return "28 mars";
+    else if(index===30) return "08 avril";
+    else return "";
+  });
 
   /**
    * Sets configuration for the chart
@@ -51,6 +67,7 @@ export class CourbeComponent implements AfterViewInit {
   ngAfterViewInit() {
     Chart.defaults.borderColor="rgba(255, 255, 255, 0.2)";
     Chart.defaults.color="rgba(255,255,255,0.8)";
+    Chart.defaults.font.family="Poppins";
 
     //https://stackoverflow.com/questions/34273254/styling-bars-and-lines-with-chart-js/54580284#54580284
     let boxShadowPlugin = {//plugin qui ajoute du box-shadow
@@ -83,6 +100,7 @@ export class CourbeComponent implements AfterViewInit {
       }
     };
     Chart.register(boxShadowPlugin);
+    Chart.register([Tooltip]);
 
     // @ts-ignore
     this.chart!.chart.options = {
@@ -91,9 +109,9 @@ export class CourbeComponent implements AfterViewInit {
           position: 'bottom',
           labels: {
             font: {
-              size: 20,
+              size: 20
             }
-          }
+          },
         },
         title: {
           text: "Nombre d'erreurs après découverte des deux cartes de la paire",
@@ -103,10 +121,46 @@ export class CourbeComponent implements AfterViewInit {
           color: "white",
           padding: 30,
           display: true
+        },
+        tooltip: {
+          enabled: true,
+          intersect: false,
+          mode: "nearest",
+          callbacks: {
+            label: (item: any) => {
+              return `${item.dataset.label}: ${item.formattedValue} erreurs sur les parties de ce jour`
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          title: {
+            display: true,
+            text: ["Nombre d'erreurs avant", "de trouver la carte"],
+            font: {
+              size: 16
+            }
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: "Date",
+            font: {
+              size: 16
+            }
+          }
+        }
+      },
+      datasets: {
+        line: {
+          pointRadius: 0
         }
       }
     };
 
+    console.log("updated chart")
     this.chart!.update();
   }
 
@@ -114,8 +168,8 @@ export class CourbeComponent implements AfterViewInit {
     statsService.selectedStat$.subscribe((selectedStat) => {
       if(this.chart !== undefined) {
         // @ts-ignore
-        this.chart!.chart.options.plugins.title.text=STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
-        this.chart!.update();
+        this.chart.chart.options.plugins.title.text=STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+        this.chart.update();
       }
     });
 
