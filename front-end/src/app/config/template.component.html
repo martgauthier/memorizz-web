@@ -15,11 +15,13 @@
         <app-nbcard></app-nbcard>
         <app-position></app-position>
         <app-typeCard></app-typeCard>
-        <div class="btn_bas">
-            <h6 class="btn_bas_txt white">Enregistrer les modifications</h6>
-        </div>
-        <div class="btn_bas">
-            <h6 class="btn_bas_txt white">Paramètres par défaut</h6>
+        <div id="btn_bas_grp">
+            <div class="btn_bas" (click)="onclick_defaut()">
+                <h6 class="btn_bas_txt white">Paramètres par défaut</h6>
+            </div>
+            <div class="btn_bas" (click)="onclick_enregistrement()">
+                <h6 class="btn_bas_txt white" id="modif_txt">Enregistrer les modifications</h6>
+            </div>
         </div>
     </div>
 </div>

@@ -20,12 +20,14 @@ body {
 }
 
 .cocher{
+  border-radius: 5px;
   font-size: xx-large;
   color: white;
   filter: none;
 }
 
 .pas_cocher{
+  border-radius: 5px;
   background-color: $light-turquoise;
   color: rgba(255, 255, 255, 0.827);
   font-size: 27px;

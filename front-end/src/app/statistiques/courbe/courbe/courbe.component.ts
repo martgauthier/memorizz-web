@@ -60,6 +60,7 @@ export class CourbeComponent {
     else if(index===30) return this.statsService.getDateString();
     else return "";
   });
+
   public options: ChartOptions<'line'> = {
     plugins: {
       legend: {
@@ -119,9 +120,8 @@ export class CourbeComponent {
 
   constructor(private statsService: StatistiquesService, ref: ElementRef) {
     statsService.selectedStat$.subscribe((selectedStat) => {
-      if(this.chart !== undefined) {
-        // @ts-ignore
-        this.chart.chart.options.plugins.title.text=STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+      if(this.chart?.chart?.options?.plugins?.title?.text) {//check that all values necessary are defined
+        this.chart.chart.options.plugins.title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
         this.chart.update();
       }
     });

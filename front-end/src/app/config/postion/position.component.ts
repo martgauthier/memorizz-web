@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from 'src/services/config-service.service';
+//import { ConfigService } from 'src/services/config-service.service';
+import { GestionFront } from '../gestion-front';
 
 @Component({
     selector: 'app-position',
@@ -7,12 +8,12 @@ import { ConfigService } from 'src/services/config-service.service';
     styleUrls: ['./position.component.scss']
 })
 
-export class Position implements OnInit {
-    constructor(public configService : ConfigService){}
+export class Position extends GestionFront implements OnInit {
+    //constructor(public configService : ConfigService){}
     ngOnInit(): void {
         this.onclick(true);
     }
     public onclick(etat : boolean){
-        this.configService.setPosition(etat);
+        super.setPosition(etat);
     }
 }
