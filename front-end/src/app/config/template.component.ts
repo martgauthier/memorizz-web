@@ -6,6 +6,7 @@ import { UserService } from 'src/services/user/user.service';
 import { PresetDict, createEmptyPresetDict } from 'src/models/user.model';
 import { GestionFront } from './gestion-front';
 import { Bouton } from '../bouton.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-template',
@@ -16,12 +17,19 @@ import { Bouton } from '../bouton.component';
 export class Template extends GestionFront  implements OnInit {
     public beginning : boolean = true;
     public presets : PresetDict = createEmptyPresetDict();
-    constructor(public userService : UserService){
+    public choosedUser : number = 0;
+    constructor(private router: Router, public userService : UserService){
       super();
-      userService.setFullDataForUser(2);
       userService.presetDict$.subscribe((data) => {
         this.presets = data;
-      })
+      });
+      userService.identification$.subscribe((identification) => {
+        this.choosedUser=identification.id;
+      });
+      if(this.choosedUser == 0){
+        this.router.navigate(['nav']);
+      }
+      userService.setFullDataForUser(this.choosedUser);
     }
     ngOnInit(): void {}
     public onclick_jouer(){
