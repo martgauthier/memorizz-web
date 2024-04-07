@@ -26,7 +26,7 @@ export class Template extends GestionFront  implements OnInit {
       userService.identification$.subscribe((identification) => {
         this.choosedUser=identification.id;
       });
-      if(this.choosedUser == 0){
+      if(this.choosedUser == -1){
         this.router.navigate(['nav']);
       }
       userService.setFullDataForUser(this.choosedUser);
@@ -74,19 +74,19 @@ export class Template extends GestionFront  implements OnInit {
     if((document.querySelector("#facile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.simple.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
       currentPresetDict.simple.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
-      currentPresetDict.simple.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+      currentPresetDict.simple.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");
     }
     else if((document.querySelector("#moyen div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.medium.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
       currentPresetDict.medium.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
-      currentPresetDict.medium.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+      currentPresetDict.medium.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");
     }
     else if((document.querySelector("#difficile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.hard.pairsNumber = parseInt((document.querySelector(".input-number") as HTMLInputElement).value);
       currentPresetDict.hard.cardsAreBothImage = (document.querySelector("#img") as HTMLHRElement).classList.contains("cocher");
-      currentPresetDict.hard.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");  
+      currentPresetDict.hard.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");
     }
-    
+
     this.userService.setPresetDict(currentPresetDict);
   }
   public onclick_defaut(){
@@ -94,7 +94,7 @@ export class Template extends GestionFront  implements OnInit {
     if((document.querySelector("#facile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.simple.pairsNumber = 4;
       currentPresetDict.simple.cardsAreBothImage = true;
-      currentPresetDict.simple.cardsAreVisible = true;  
+      currentPresetDict.simple.cardsAreVisible = true;
       super.setNbCard(4);
       super.setPosition(true);
       super.setType(true);
@@ -102,7 +102,7 @@ export class Template extends GestionFront  implements OnInit {
     else if((document.querySelector("#moyen div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.medium.pairsNumber = 6;
       currentPresetDict.medium.cardsAreBothImage = true;
-      currentPresetDict.medium.cardsAreVisible = false;  
+      currentPresetDict.medium.cardsAreVisible = false;
       super.setNbCard(6);
       super.setPosition(false);
       super.setType(true);
@@ -110,12 +110,12 @@ export class Template extends GestionFront  implements OnInit {
     else if((document.querySelector("#difficile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.hard.pairsNumber = 8;
       currentPresetDict.hard.cardsAreBothImage = false;
-      currentPresetDict.hard.cardsAreVisible = false;  
+      currentPresetDict.hard.cardsAreVisible = false;
       super.setNbCard(8);
       super.setPosition(false);
       super.setType(false);
     }
-    
+
     this.userService.setPresetDict(currentPresetDict);
   }
-} 
+}
