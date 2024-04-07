@@ -131,3 +131,12 @@ li:hover {
   display: inline-block;
   margin: 0 auto;
 }
+
+.descriptor {
+  position: absolute;
+  left: 200px;
+  top: 50%;
+  font-style: italic;
+  margin: 0;
+  transform: translateY(-50%);
+}
