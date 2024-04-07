@@ -23,6 +23,8 @@ export class BigSinglestatComponent implements OnInit {
 
   public statPercentageSuffix: string="";
 
+  public duration: number=1;
+
   constructor(private statsService: StatistiquesService) {}
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class BigSinglestatComponent implements OnInit {
       this.statData = data;
       this.statPercentageSuffix = SUFFIXES_PER_STAT_TYPE[data.statType].statPercentageSuffix;
     });
+
+    this.statsService.duration$.subscribe((duration) => {
+      this.duration=duration;
+    })
   }
 
   getOverallPercentage() {
