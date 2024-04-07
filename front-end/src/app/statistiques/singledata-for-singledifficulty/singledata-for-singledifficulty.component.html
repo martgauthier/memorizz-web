@@ -1,10 +1,11 @@
 <span class="singledata-title">
-  Mode {{difficultyDescriptor}}: +{{getEvolutionPercentage()}}% d'erreurs
+  Mode {{difficultyDescriptor}}: {{getEvolutionPercentage()}}% {{statPercentageSuffix}}
   <br />
   <span class="on-month-text">Sur {{duration}} mois</span>
 </span>
 <span class="singledata-desc">
-  {{statData.dates.lastTimeDate}}: {{statData.lastTimeValue}} erreurs avant de trouver la paire
+  {{lastTimeDate}}: {{statData.lastTimeValue.toFixed(1)}} {{statLongSuffix}}
   <br />
-  {{statData.dates.nowDate}}: {{statData.nowValue}} erreurs
+  {{nowDate}}: {{statData.nowValue.toFixed(1)}} {{statShortSuffix}}
 </span>
+<span class="games-quantity">{{statData.gamesQuantity}} parties depuis {{duration}} mois</span>

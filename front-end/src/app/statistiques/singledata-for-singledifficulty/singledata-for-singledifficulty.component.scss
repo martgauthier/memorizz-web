@@ -29,6 +29,7 @@
   text-align: center;
   display: block;
   font-size: 14px;
+  margin: 10px auto;
 }
 
 :host.simple-mode {
@@ -56,4 +57,14 @@
   &:hover {
     box-shadow: 0 0 5px $red-hard-hover;
   }
+}
+
+.games-quantity {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+  font-style: italic;
+  opacity: 0.7;
+  font-size: 0.8em;
 }

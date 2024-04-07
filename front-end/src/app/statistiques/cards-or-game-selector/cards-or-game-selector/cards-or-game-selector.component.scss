@@ -3,10 +3,8 @@
 :host {
   background-color: $dark-blue;
   display: block;
-  position: sticky;
-  top: -1px; /* a little transparent line appears if we don't put this, it is a bug */
-  padding: 20px 0;
-  z-index: 4000;
+  padding: 10px 0 40px 0;
+  position: relative;
 }
 
 hr {

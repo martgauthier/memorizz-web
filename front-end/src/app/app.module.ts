@@ -24,7 +24,14 @@ import { PageNavComponent } from './nav/pageNav.component';
 import { CardsOrGameSelectorComponent } from './statistiques/cards-or-game-selector/cards-or-game-selector/cards-or-game-selector.component';
 import { CardsDataContainerComponent } from './statistiques/cards-data-container/cards-data-container/cards-data-container.component';
 import { GamesDataContainerComponent } from './statistiques/games-data-container/games-data-container/games-data-container.component';
-
+import { CardsSelectorComponent } from './statistiques/cards-selector/cards-selector/cards-selector.component';
+import { CourbeComponent } from './statistiques/courbe/courbe/courbe.component';
+import {BaseChartDirective, provideCharts, withDefaultRegisterables} from "ng2-charts";
+import { TimeSelectorComponent } from './statistiques/time-selector/time-selector/time-selector.component';
+import {FormsModule} from "@angular/forms";
+import {
+  BigPreferredDifficultyComponent
+} from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
 
 
 @NgModule({
@@ -46,14 +53,20 @@ import { GamesDataContainerComponent } from './statistiques/games-data-container
     PageNavComponent,
     CardsOrGameSelectorComponent,
     CardsDataContainerComponent,
-    GamesDataContainerComponent
+    GamesDataContainerComponent,
+    CardsSelectorComponent,
+    CourbeComponent,
+    TimeSelectorComponent,
+    BigPreferredDifficultyComponent
   ],
 
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BaseChartDirective,
+    FormsModule
   ],
-  providers: [],
+  providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

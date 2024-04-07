@@ -1,10 +1,9 @@
 import {Card, createEmptyPresetDict, Identification, Preset, PresetDict} from "../../models/user.model";
 import {BehaviorSubject} from "rxjs";
 import {
-  JACQUELINE_AVAILABLE_CARDS,
-  JACQUELINE_IDENTIFICATION,
-  JACQUELINE_PRESET_DICT, JEANMICHEL_AVAILABLE_CARDS,
-  JEANMICHEL_IDENTIFICATION, JEANMICHEL_PRESET_DICT
+  USER_IDENTIFICATIONS,
+  AVAILABLE_CARDS,
+  PRESET_DICTS
 } from "../../mocks/user.mock";
 import {Injectable} from "@angular/core";
 
@@ -16,7 +15,7 @@ export class UserService {
    * Observable that contains data about identification, mostly used in HeaderComponent
    */
   public identification$: BehaviorSubject<Identification> = new BehaviorSubject({
-    id: 0,
+    id: -1,
     nom: "",
     prenom: ""
   });
@@ -32,19 +31,13 @@ export class UserService {
   public availableCards$: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
   setFullDataForUser(id: number) {
-    if(id===1) {//jacqueline
-      this.setIdentification(JACQUELINE_IDENTIFICATION);
-      this.setPresetDict(JACQUELINE_PRESET_DICT);
-      this.setAvailableCards(JACQUELINE_AVAILABLE_CARDS);
+    if(id<0) {
+      console.log("id incorrect");
+      return;
     }
-    else if(id===2) {//jean michel
-      this.setIdentification(JEANMICHEL_IDENTIFICATION);
-      this.setPresetDict(JEANMICHEL_PRESET_DICT);
-      this.setAvailableCards(JEANMICHEL_AVAILABLE_CARDS);
-    }
-    else {
-      console.log("Id incorrect !");
-    }
+    this.setIdentification(USER_IDENTIFICATIONS[id]);
+    this.setAvailableCards(AVAILABLE_CARDS[id]);
+    this.setPresetDict(PRESET_DICTS[id]);
   }
 
   setIdentification(identification: Identification) {
