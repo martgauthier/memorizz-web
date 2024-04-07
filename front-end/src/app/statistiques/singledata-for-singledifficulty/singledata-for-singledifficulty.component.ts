@@ -14,7 +14,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   @Input({required: true}) difficulty: "simple" | "medium" | "hard" = "simple";//arbitrary default value
   @Input({required: true}) statType?: string="";
   @Input({required: true}) statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
-  @Input({required: true}) duration?: number = 0;
+  public duration: number = 1;
 
   public nowDate: string="";
   public lastTimeDate: string="";
@@ -28,6 +28,11 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   constructor(private statsService: StatistiquesService) {
     this.nowDate=statsService.getDateString();
     this.lastTimeDate=statsService.getLastTimeDateString();
+    this.statsService.duration$.subscribe((duration) => {
+      this.duration=duration;
+      this.lastTimeDate=this.statsService.getLastTimeDateString();
+      this.nowDate=this.statsService.getDateString();
+    })
   }
 
   ngOnInit() {

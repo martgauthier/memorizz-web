@@ -34,6 +34,8 @@ export class StatistiquesService {
 
   private selectedCardIndex: number=0;
 
+  public duration$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
   constructor(private userService: UserService) {
     this.userService.identification$.subscribe((identification) => {
       if(identification.id>=0) {//l'id est bien un id utilisateur correct
@@ -79,7 +81,8 @@ export class StatistiquesService {
   getLastTimeDateString() {
     let currentDate=new Date();
     currentDate.setDate(currentDate.getDate()-1);
-    currentDate.setMonth(currentDate.getMonth()-1);//make it "last month date" TODO: change according to selected time range
+    currentDate.setMonth(currentDate.getMonth()-this.duration$.getValue());
+    //TODO: change data according to new time range
     return this.getDateString(currentDate);
   }
 
@@ -90,6 +93,10 @@ export class StatistiquesService {
       statType: statType
     });
     this.scrollToCourbeEvent.emit();
+  }
+
+  setDuration(duration: number) {
+    this.duration$.next(duration);
   }
 }
 

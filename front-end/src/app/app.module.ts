@@ -27,6 +27,8 @@ import { GamesDataContainerComponent } from './statistiques/games-data-container
 import { CardsSelectorComponent } from './statistiques/cards-selector/cards-selector/cards-selector.component';
 import { CourbeComponent } from './statistiques/courbe/courbe/courbe.component';
 import {BaseChartDirective, provideCharts, withDefaultRegisterables} from "ng2-charts";
+import { TimeSelectorComponent } from './statistiques/time-selector/time-selector/time-selector.component';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -51,13 +53,15 @@ import {BaseChartDirective, provideCharts, withDefaultRegisterables} from "ng2-c
     CardsDataContainerComponent,
     GamesDataContainerComponent,
     CardsSelectorComponent,
-    CourbeComponent
+    CourbeComponent,
+    TimeSelectorComponent
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BaseChartDirective
+    BaseChartDirective,
+    FormsModule
   ],
   providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]

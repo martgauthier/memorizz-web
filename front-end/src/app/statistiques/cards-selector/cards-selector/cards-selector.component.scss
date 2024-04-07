@@ -122,3 +122,12 @@ li:hover {
   object-fit: cover;
   object-position: center;/* pour dire de rogner l'image autour de son centre */
 }
+
+.mean {
+  text-align: center;
+}
+
+.mean>span {
+  display: inline-block;
+  margin: 0 auto;
+}

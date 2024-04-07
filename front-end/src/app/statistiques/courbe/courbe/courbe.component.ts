@@ -55,9 +55,8 @@ export class CourbeComponent implements AfterViewInit {
   ];
 
   public labels: string[] = Array.from(new Array(31), (value: string, index: number): string => {
-    if(index===0) return "08 mars";
-    else if(index==15) return "28 mars";
-    else if(index===30) return "08 avril";
+    if(index===0) return this.statsService.getLastTimeDateString();
+    else if(index===30) return this.statsService.getDateString();
     else return "";
   });
 
@@ -171,6 +170,13 @@ export class CourbeComponent implements AfterViewInit {
         this.chart.chart.options.plugins.title.text=STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
         this.chart.update();
       }
+    });
+
+    statsService.duration$.subscribe((duration) => {
+      this.labels[0]=this.statsService.getLastTimeDateString();
+      this.labels[30]=this.statsService.getDateString();
+
+      this.chart?.update();
     });
 
     statsService.scrollToCourbeEvent.subscribe(() => {
