@@ -2,7 +2,7 @@
  * Représente les données pour un type de statistiques, sur une période donnée, pour toutes les difficultés (+ "en moyenne")
  */
 export interface FullDataForSingleStat {
-  statType: "errorsPerGame" | "timeToDiscoverFullPair" | "errorPercentageOnWholeGame" | "meanGameDuration",
+  statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorPercentageOnWholeGame" | "meanGameDuration",
   /**
    * Duration between the two mesures {@link DataPerDifficultyForSingleStat.lastTimeValue} and {@link DataPerDifficultyForSingleStat.nowValue}
    * (1 month, 2 months, 3 months, 6 months, 8 months, 12 months)

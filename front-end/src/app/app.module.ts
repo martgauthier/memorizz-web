@@ -29,7 +29,9 @@ import { CourbeComponent } from './statistiques/courbe/courbe/courbe.component';
 import {BaseChartDirective, provideCharts, withDefaultRegisterables} from "ng2-charts";
 import { TimeSelectorComponent } from './statistiques/time-selector/time-selector/time-selector.component';
 import {FormsModule} from "@angular/forms";
-
+import {
+  BigPreferredDifficultyComponent
+} from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
 
 
 @NgModule({
@@ -54,7 +56,8 @@ import {FormsModule} from "@angular/forms";
     GamesDataContainerComponent,
     CardsSelectorComponent,
     CourbeComponent,
-    TimeSelectorComponent
+    TimeSelectorComponent,
+    BigPreferredDifficultyComponent
   ],
 
   imports: [
