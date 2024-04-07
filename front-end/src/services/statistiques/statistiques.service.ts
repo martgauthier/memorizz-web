@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {FullDataForSingleStat} from "../../models/stats-data.model";
+import {EventEmitter, Injectable} from "@angular/core";
+import {FullDataForSingleStat, SelectedStat} from "../../models/stats-data.model";
 import MOCKED_STAT_DATA from "../../mocks/generated-statistiques.mock";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
@@ -24,9 +24,19 @@ export class StatistiquesService {
 
   public availableCards$: BehaviorSubject<Card[]>=new BehaviorSubject<Card[]>(AVAILABLE_CARDS[0]);
 
+  public selectedStat$: BehaviorSubject<SelectedStat> = new BehaviorSubject({
+    userId: 0,
+    cardId: 0,
+    statType: "errorsPerGame"
+  });
+
+  public scrollToCourbeEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  private selectedCardIndex: number=0;
+
   constructor(private userService: UserService) {
     this.userService.identification$.subscribe((identification) => {
-      if(identification.id>=0) {//jacqueline
+      if(identification.id>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.id;
         this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"]);
         console.log("Value of mock: ", MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"])
@@ -34,6 +44,12 @@ export class StatistiquesService {
         this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"]);
         this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"]);
         this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
+
+        this.selectedStat$.next({
+          userId: identification.id,
+          cardId: 0,
+          statType: "errorsPerGame"
+        })
       }
       else {
         console.log("invalid id");
@@ -66,7 +82,19 @@ export class StatistiquesService {
     currentDate.setMonth(currentDate.getMonth()-1);//make it "last month date" TODO: change according to selected time range
     return this.getDateString(currentDate);
   }
+
+  setSelectedStat(statType: string) {
+    this.selectedStat$.next({
+      userId: this.identificationId,
+      cardId: this.selectedCardIndex,
+      statType: statType
+    });
+    this.scrollToCourbeEvent.emit();
+  }
 }
+
+
+
 
 
 
@@ -92,6 +120,10 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
     statShortSuffix: "minutes"
   }
 }
+
+
+
+
 
 export const STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE: {[statType: string]: {statTitle: string, statDescription: string}} = {
   "errorsPerGame": {

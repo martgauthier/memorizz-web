@@ -5,4 +5,4 @@
 <app-singledata-for-singledifficulty [difficulty]="'simple'" [statData]="(statData!=null) ? statData.difficulty.simple : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" [statType]="statData?.statType" class="simple-mode"></app-singledata-for-singledifficulty>
 <app-singledata-for-singledifficulty [difficulty]="'medium'" [statData]="(statData!=null) ? statData.difficulty.medium : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" [statType]="statData?.statType" class="medium-mode"></app-singledata-for-singledifficulty>
 <app-singledata-for-singledifficulty [difficulty]="'hard'" [statData]="(statData!=null) ? statData.difficulty.hard : createDefaultDataPerDifficultyForSingleStat()" [duration]="statData?.duration" [statType]="statData?.statType" class="hard-mode"></app-singledata-for-singledifficulty>
-<app-monitoring-call-to-action></app-monitoring-call-to-action>
+<app-monitoring-call-to-action (click)="onMonitoringClick()"></app-monitoring-call-to-action>
