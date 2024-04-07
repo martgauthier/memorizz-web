@@ -9,7 +9,6 @@
     </div>
     <img class='soundimg' src='../assets/sound.png' alt="sound" />
   </div>
-  <app-memorywin class="memorywin" ></app-memorywin>
-
+  <app-memorywin *ngIf="gameWon==true" class="memorywin"></app-memorywin>
 </div>
 

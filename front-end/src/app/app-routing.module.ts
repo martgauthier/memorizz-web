@@ -8,6 +8,7 @@ import {
   CardsDataContainerComponent
 } from "./statistiques/cards-data-container/cards-data-container/cards-data-container.component";
 import {GamesDataContainerComponent} from "./statistiques/games-data-container/games-data-container/games-data-container.component";
+import { MemorytemplateComponent } from './memory/memorytemplate.component';
 
 const routes: Routes = [
   {path : "play", component: Template},
@@ -23,6 +24,7 @@ const routes: Routes = [
     ]},
   {path : "nav", component : PageNavComponent},
   {path : "ajoutImage", component : AjoutImage},
+  {path : "memoryGame", component : MemorytemplateComponent},
   {path: '', redirectTo : '/nav', pathMatch : "full"}
 ];
 

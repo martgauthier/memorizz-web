@@ -43,6 +43,16 @@ export class MemoryService {
     }
   }
 
+  public freshGame():void{
+    this.gameWin=false;
+    this.win$.next(false);
+    this.selectedcards = [];
+    for(let card of this.memorycards){
+      card.state='default';
+    }
+    this.shuffle();
+  }
+
   private checkMatchy():boolean {
     if(this.selectedcards.length==2){
       if(this.selectedcards[0].src==this.selectedcards[1].src){

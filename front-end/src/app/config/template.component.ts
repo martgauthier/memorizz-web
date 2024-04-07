@@ -33,7 +33,7 @@ export class Template extends GestionFront  implements OnInit {
     }
     ngOnInit(): void {}
     public onclick_jouer(){
-      //JOUER
+      this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
       if(this.beginning){

@@ -9,14 +9,20 @@ import {MemoryService} from "../../service/memory.service";
 
 export class MemorytemplateComponent implements OnInit{
   ngOnInit(): void {
-    //this.createGrid();
+    this.memoryService.freshGame();
+    console.log('gamewon'+this.gameWon);
     console.log('nb de paires : '+this.nbpaires);
   }
+  public gameWon: boolean | undefined;
   public nbpaires: number | undefined;
   constructor(public memoryService : MemoryService) {
     this.memoryService.nbpaires$.subscribe((paires : number)=>{
       this.nbpaires = paires;
     })
+      this.memoryService.win$.subscribe((win : boolean)=>{
+        this.gameWon = win;
+      })
+    this.memoryService.freshGame();
   }
 
 }
