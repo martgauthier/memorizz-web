@@ -1,2 +1,2 @@
-<canvas baseChart [labels]="labels" [datasets]="plottedDatasets" [type]="'line'" [options]="options"></canvas>
+<highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="updateChart" [style]="'display: block; width: 70%; margin: auto;'"></highcharts-chart>
 <span class="click-on-labels-descriptor">Cliquez pour afficher/cacher une courbe désirée</span>
