@@ -40,6 +40,11 @@ export const AVAILABLE_CARDS: Card[][]=[
       textValue: "Ma voiture",
       imgValue: "assets/voitureJeanMich.png",
       id: 2
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 3
     }]//jean michel
 ]
 

@@ -7,6 +7,8 @@ import {
   AVAILABLE_CARDS,
   PRESET_DICTS
 } from "../mocks/user.mock";
+import { UserService } from "src/services/user/user.service";
+import { Identification } from "src/models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +17,35 @@ import {
 export class MemoryService {
 
   private gameWin : boolean = false;
-  private memorycards : MemoryCard[] = this.createMemoryCardList();     //MEMORYCARD_LIST;
+  private memorycards : MemoryCard[] = [];     //MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
   public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
   public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(this.memorycards);
   public selectedcards : MemoryCard[] = [];
-  constructor(){
+  public identification?: Identification;
+  constructor(public userService : UserService){
+    this.userService.identification$.subscribe( identification => {
+      this.identification = identification;
+      this.memorycards=this.createMemoryCardList();
+      this.memorycards$.next(this.memorycards);
+      this.nbpaires$.next(this.memorycards.length/2);
+    })
     this.shuffle();
   }
-
   createMemoryCardList(): MemoryCard[] {
 
     //TO DO: il faudrat :
     // - regarder combien de cartes mettres dans la memory list en focntion des configs,
     // - shuffle la liste AVAILABLE_CARDS
     // - regarder le type de jeu ( pour savoir si les cartes seront image/image ou pas )
-    // -
+    //
 
+    // @ts-ignore
+    let userid= this.identification.id;
+    console.log('id:'+userid);
     let memorycardslist : MemoryCard[] = [];
-    let cards = AVAILABLE_CARDS[0];
+
+    let cards = AVAILABLE_CARDS[userid];
     for(let i=0; i<cards.length ; i++){
       let memorycard1 :MemoryCard = {
         src: cards[i].imgValue,
