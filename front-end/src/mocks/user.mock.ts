@@ -45,6 +45,21 @@ export const AVAILABLE_CARDS: Card[][]=[
       textValue: "Arbre",
       imgValue: "assets/arbre.png",
       id: 3
+    },
+    {
+      textValue: "ma maison",
+      imgValue: "assets/maison.png",
+      id: 4
+    },
+    {
+      textValue: "george",
+      imgValue: "assets/george.png",
+      id: 5
+    },
+    {
+      textValue: "Mon chien, Rantanplan",
+      imgValue: "assets/rantanplan.png",
+      id: 6
     }]//jean michel
 ]
 

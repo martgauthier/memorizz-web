@@ -37,7 +37,7 @@ export class Template extends GestionFront  implements OnInit {
     }
     ngOnInit(): void {}
     public onclick_jouer(){
-      alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
+      //alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
       this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
