@@ -26,6 +26,8 @@ export class CourbeComponent {
     else return "";
   });
 
+  public updateChart: boolean=false;
+
   public chartOptions: Highcharts.Options = {
     xAxis: {
       categories: this.labels,
@@ -61,7 +63,10 @@ export class CourbeComponent {
       gridLineColor: "rgba(255,255,255,0.5)"
     },
     title: {
-      text: ""
+      text: "",
+      style: {
+        color: "white"
+      }
     },
     series: [{
       type: "line",
@@ -125,11 +130,15 @@ export class CourbeComponent {
   constructor(private statsService: StatistiquesService, ref: ElementRef) {
     statsService.selectedStat$.subscribe((selectedStat) => {
       (this.chartOptions.yAxis as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+      (this.chartOptions as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+      this.updateChart=true;
     });
 
     statsService.duration$.subscribe(() => {
       this.labels[0]=this.statsService.getLastTimeDateString();
       this.labels[30]=this.statsService.getDateString();
+
+      this.updateChart=true;
     });
 
     statsService.scrollToCourbeEvent.subscribe(() => {
