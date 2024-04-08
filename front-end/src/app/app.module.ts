@@ -35,6 +35,7 @@ import {FormsModule} from "@angular/forms";
 import {
   BigPreferredDifficultyComponent
 } from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
+import {HighchartsChartModule} from "highcharts-angular";
 
 
 
@@ -73,7 +74,8 @@ import {
     AppRoutingModule,
     NgParticlesModule,
     BaseChartDirective,
-    FormsModule
+    FormsModule,
+    HighchartsChartModule
   ],
   providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]

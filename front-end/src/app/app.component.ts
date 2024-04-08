@@ -2,7 +2,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Chart, Tooltip} from "chart.js";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
