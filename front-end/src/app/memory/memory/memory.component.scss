@@ -107,6 +107,10 @@
   background-color: #104508;
   animation: fadeOut 1.5s ease-out;
 }
+
+.visible{
+  background-color: #01274a;
+}
 @keyframes fadeOut {
   0% { opacity: 1; width: 90%; height: 90%;}
   100% { opacity: 0; width:0; height: 0;}
