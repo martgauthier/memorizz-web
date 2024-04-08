@@ -25,6 +25,10 @@ export interface Preset {
   cardsAreBothImage: boolean
 }
 
+export function createEmptyPresetStart() {
+  return {pairsNumber: 0, cardsAreVisible: false, cardsAreBothImage: false};
+}
+
 export function createEmptyPresetDict() {
   return {
     simple: {
