@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component} from "@angular/core";
 import {
   DataPerDifficultyForSingleStat,
   FullDataForSingleStat
@@ -6,7 +6,6 @@ import {
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
-import {ChartDataset} from "chart.js";
 import * as Highcharts from "highcharts";
 
 
@@ -21,11 +20,6 @@ export class BigPreferredDifficultyComponent {
   public duration: number=1;
   public gamesQuantity: number=0;
   public Highcharts: typeof Highcharts = Highcharts;
-
-  public plottedDatasets: ChartDataset<"bar">[] = [{
-    data: [15, 60, 25],
-    backgroundColor: ["#49960b", "#a6a612", "#b31414"]
-  }];
 
   public chartOptions: Highcharts.Options = {
     xAxis: {

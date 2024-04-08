@@ -29,7 +29,6 @@ import { CardsDataContainerComponent } from './statistiques/cards-data-container
 import { GamesDataContainerComponent } from './statistiques/games-data-container/games-data-container/games-data-container.component';
 import { CardsSelectorComponent } from './statistiques/cards-selector/cards-selector/cards-selector.component';
 import { CourbeComponent } from './statistiques/courbe/courbe/courbe.component';
-import {BaseChartDirective, provideCharts, withDefaultRegisterables} from "ng2-charts";
 import { TimeSelectorComponent } from './statistiques/time-selector/time-selector/time-selector.component';
 import {FormsModule} from "@angular/forms";
 import {
@@ -73,11 +72,10 @@ import {HighchartsChartModule} from "highcharts-angular";
     BrowserModule,
     AppRoutingModule,
     NgParticlesModule,
-    BaseChartDirective,
     FormsModule,
     HighchartsChartModule
   ],
-  providers: [provideCharts(withDefaultRegisterables())],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

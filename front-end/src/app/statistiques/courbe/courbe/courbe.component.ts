@@ -1,6 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {BaseChartDirective} from "ng2-charts";
-import {ChartOptions} from "chart.js";
+import {Component, ElementRef} from '@angular/core';
 
 import {
   STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE,
@@ -20,7 +18,6 @@ import * as Highcharts from "highcharts";
   styleUrl: './courbe.component.scss'
 })
 export class CourbeComponent {
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   public Highcharts: typeof Highcharts = Highcharts;
 
   public labels: string[] = Array.from(new Array(31), (value: string, index: number): string => {
@@ -133,8 +130,6 @@ export class CourbeComponent {
     statsService.duration$.subscribe(() => {
       this.labels[0]=this.statsService.getLastTimeDateString();
       this.labels[30]=this.statsService.getDateString();
-
-      this.chart?.update();
     });
 
     statsService.scrollToCourbeEvent.subscribe(() => {
