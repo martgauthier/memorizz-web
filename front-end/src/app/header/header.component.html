@@ -27,8 +27,10 @@
   <div id="zone-menu">
 
     <div id="menu-header">
-      <span>Marguerite Lesoignant</span>
+      <img src="assets/icon.png" alt="logo" id="logoMenu">
+      <span id="nomSoignant">Marguerite LESOIGNANT</span>
       <button>Déconnexion</button>
+      <span id="separator"></span>
       <div id="patient">
         <span>{{user.prenom}} {{user.nom}}</span> <span (click)="router.navigate(['/nav'])" id="changeButton"> - changer de profil</span>
       </div>
