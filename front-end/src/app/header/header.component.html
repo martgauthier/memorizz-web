@@ -15,9 +15,29 @@
         <span>z</span>
       </span>
     </h1>
-    <div id="menu">
+    <div id="menu" (click)="deployMenu()">
         <div class="barre"></div>
         <div class="barre"></div>
         <div class="barre"></div>
     </div>
 </header>
+
+<div id = "menu-container" class = "notDisplayed">
+  <div id="opacity" (click)="stopDisplay()"></div>
+  <div id="zone-menu">
+
+    <div id="menu-header">
+      <span>Marguerite Lesoignant</span>
+      <button>Déconnexion</button>
+      <div id="patient">
+        <span>{{user.prenom}} {{user.nom}}</span> <span (click)="router.navigate(['/nav'])" id="changeButton"> - changer de profil</span>
+      </div>
+    </div>
+
+    <div id="reste-menu">
+        <span (click)="router.navigate(['/play'])" class="texteSouligneParLeBas">JOUER</span>
+        <span (click)="router.navigate(['/ajoutImage'])" class="texteSouligneParLeBas">IMAGES</span>
+        <span (click)="router.navigate(['/stats'])" class="texteSouligneParLeBas">STATISTIQUES</span>
+    </div>
+  </div>
+</div>

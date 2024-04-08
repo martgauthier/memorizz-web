@@ -15,9 +15,36 @@ export class HeaderComponent {
       prenom: "Prenomsoignante"
     };
 
+    deployed : Boolean;
+
     constructor(private userService: UserService, public router: Router) {
         this.userService.identification$.subscribe((identification) => {
           this.user=identification;
         });
+        this.deployed = false;
+    }
+
+    public async deployMenu(){
+      document.getElementById("menu")?.classList.add("animate");
+      
+      
+      if(this.deployed){
+        document.getElementById("menu-container")?.classList.add("notDisplayed");
+        this.deployed = false;
+      }else{
+        document.getElementById("menu-container")?.classList.remove("notDisplayed");
+        this.deployed = true;
+      }
+      await this.delay(500);
+      document.getElementById("menu")?.classList.remove("animate");
+    }
+
+    public stopDisplay(){
+      document.getElementById("menu-container")?.classList.add("notDisplayed");
+      this.deployed = false;
+    }
+
+    public delay(ms: number) {
+      return new Promise( resolve => setTimeout(resolve, ms) );
     }
 }
