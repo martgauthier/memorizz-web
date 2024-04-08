@@ -69,6 +69,7 @@ export class BigPreferredDifficultyComponent {
         }],
     }],
     tooltip: {
+      animation: false,
       formatter: function(): string {
         return `Mode ${this.x}: ${this.y}% des parties`
       },
