@@ -77,7 +77,7 @@ export class MemoryService {
         card.state = 'flipped';
         this.selectedcards.push(card);
         if(this.checkMatchy()){
-          this.isMatchy();
+          await this.isMatchy();
           if(this.checkEndGame()){
             this.celebrate();
           }
@@ -112,12 +112,17 @@ export class MemoryService {
     return false;
   }
 
-  public isMatchy() : void{
+  public async isMatchy() : Promise<void>{
     let card1 : MemoryCard = this.selectedcards[0] ;
     let card2 : MemoryCard = this.selectedcards[1] ;
     card1.state = 'matched';
     card2.state = 'matched';
+    console.log('matchy');
     this.selectedcards = [];
+    await this.sleep(2000);
+    card1.state = 'disappear';
+    card2.state = 'disappear';
+    console.log('disapear');
   }
   async isNotMatchy():Promise<void>{
     await this.sleep(1000);
@@ -140,7 +145,8 @@ export class MemoryService {
 
   private checkEndGame() : boolean { // méthode refactor ok
     for(let card of this.memorycards){
-      if(card.state!='matched'){
+      if(card.state!='disappear'){
+        console.log('card not matchy :'+card.cardId);
         return false;
       }
     }

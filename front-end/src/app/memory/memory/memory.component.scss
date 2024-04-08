@@ -9,6 +9,12 @@
   margin-right: auto;
 }
 
+.memorycarddiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .troispaires {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -67,8 +73,8 @@
 }
 
 .memorycard {
-  align-items: center;
   display: flex;
+  align-items: center;
   width :80%;
   height: 80%;
   justify-content: center;
@@ -94,6 +100,16 @@
 
 .flipped{
   background-color: #209188;
+}
+
+.disappear{
+  opacity: 0;
+  background-color: #104508;
+  animation: fadeOut 1.5s ease-out;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; width: 90%; height: 90%;}
+  100% { opacity: 0; width:0; height: 0;}
 }
 
 
