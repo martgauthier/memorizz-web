@@ -37,7 +37,7 @@ export class Template extends GestionFront  implements OnInit {
     }
     ngOnInit(): void {}
     public onclick_jouer(){
-      alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
+      //alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
       this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
@@ -61,19 +61,19 @@ export class Template extends GestionFront  implements OnInit {
           super.setNbCard(this.presets.simple.pairsNumber);
           super.setPosition(this.presets.simple.cardsAreVisible);
           super.setType(this.presets.simple.cardsAreBothImage);
-          this.config = this.presets.simple;
+          this.userService.setConfig(this.presets.simple);
           break;
         case 'moyen':
           super.setNbCard(this.presets.medium.pairsNumber);
           super.setPosition(this.presets.medium.cardsAreVisible);
           super.setType(this.presets.medium.cardsAreBothImage);
-          this.config = this.presets.medium;
+          this.userService.setConfig(this.presets.medium);
           break;
         case 'difficile':
           super.setNbCard(this.presets.hard.pairsNumber);
           super.setPosition(this.presets.hard.cardsAreVisible);
           super.setType(this.presets.hard.cardsAreBothImage);
-          this.config = this.presets.hard;
+          this.userService.setConfig(this.presets.hard);
           break;
       }
     }

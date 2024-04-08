@@ -15,7 +15,6 @@ export class MemorycardComponent implements OnInit {
   constructor(){
 
   }
-
   ngOnInit(){
 
   }
