@@ -3,7 +3,8 @@
 .choix_type {
     display: grid;
     width: 330px;
-    margin-left: 18%;
+    margin-left: auto;
+    margin-right: auto;
     grid-template-columns: 1fr 1fr;
     height: 80px;
     gap: 8px;
