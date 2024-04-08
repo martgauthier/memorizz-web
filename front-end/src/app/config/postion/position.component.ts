@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { GestionFront } from '../gestion-front';
 import { Preset, createEmptyPresetStart } from 'src/models/user.model';
 import { UserService } from 'src/services/user/user.service';
-import { ThemeService } from 'ng2-charts';
 
 @Component({
     selector: 'app-position',
