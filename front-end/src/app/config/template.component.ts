@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbCard } from './nbCard/nbCard.component';
 /*import { Niveau } from 'src/models/niveau.models';*/
 import { UserService } from 'src/services/user/user.service';
-import { PresetDict, createEmptyPresetDict } from 'src/models/user.model';
+import { Preset, PresetDict, createEmptyPresetDict, createEmptyPresetStart } from 'src/models/user.model';
 import { GestionFront } from './gestion-front';
 import { Bouton } from '../bouton.component';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class Template extends GestionFront  implements OnInit {
     public beginning : boolean = true;
     public presets : PresetDict = createEmptyPresetDict();
+    public config : Preset = createEmptyPresetStart();
     public choosedUser : number = 0;
     constructor(private router: Router, public userService : UserService){
       super();
@@ -26,6 +27,9 @@ export class Template extends GestionFront  implements OnInit {
       userService.identification$.subscribe((identification) => {
         this.choosedUser=identification.id;
       });
+      userService.presetConfig$.subscribe((data) => {
+        this.config=data;
+      });
       if(this.choosedUser == -1){
         this.router.navigate(['nav']);
       }
@@ -33,6 +37,7 @@ export class Template extends GestionFront  implements OnInit {
     }
     ngOnInit(): void {}
     public onclick_jouer(){
+      alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
       this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
@@ -56,16 +61,19 @@ export class Template extends GestionFront  implements OnInit {
           super.setNbCard(this.presets.simple.pairsNumber);
           super.setPosition(this.presets.simple.cardsAreVisible);
           super.setType(this.presets.simple.cardsAreBothImage);
+          this.config = this.presets.simple;
           break;
         case 'moyen':
           super.setNbCard(this.presets.medium.pairsNumber);
           super.setPosition(this.presets.medium.cardsAreVisible);
           super.setType(this.presets.medium.cardsAreBothImage);
+          this.config = this.presets.medium;
           break;
         case 'difficile':
           super.setNbCard(this.presets.hard.pairsNumber);
           super.setPosition(this.presets.hard.cardsAreVisible);
           super.setType(this.presets.hard.cardsAreBothImage);
+          this.config = this.presets.hard;
           break;
       }
     }
@@ -98,6 +106,7 @@ export class Template extends GestionFront  implements OnInit {
       super.setNbCard(4);
       super.setPosition(true);
       super.setType(true);
+      this.config = this.presets.simple;
     }
     else if((document.querySelector("#moyen div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.medium.pairsNumber = 6;
@@ -106,6 +115,7 @@ export class Template extends GestionFront  implements OnInit {
       super.setNbCard(6);
       super.setPosition(false);
       super.setType(true);
+      this.config = this.presets.medium;
     }
     else if((document.querySelector("#difficile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.hard.pairsNumber = 8;
@@ -114,6 +124,7 @@ export class Template extends GestionFront  implements OnInit {
       super.setNbCard(8);
       super.setPosition(false);
       super.setType(false);
+      this.config = this.presets.hard;
     }
 
     this.userService.setPresetDict(currentPresetDict);

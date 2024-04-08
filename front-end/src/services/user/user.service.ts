@@ -1,4 +1,4 @@
-import {Card, createEmptyPresetDict, Identification, Preset, PresetDict} from "../../models/user.model";
+import {Card, createEmptyPresetDict, createEmptyPresetStart, Identification, Preset, PresetDict} from "../../models/user.model";
 import {BehaviorSubject} from "rxjs";
 import {
   USER_IDENTIFICATIONS,
@@ -26,6 +26,11 @@ export class UserService {
   public presetDict$: BehaviorSubject<PresetDict> = new BehaviorSubject<PresetDict>(createEmptyPresetDict());
 
   /**
+   * Observable that contains the current config
+   */
+  public presetConfig$: BehaviorSubject<Preset> = new BehaviorSubject<Preset>(createEmptyPresetStart());
+
+  /**
    * Observable that stores every card for profile
    */
   public availableCards$: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
@@ -48,8 +53,8 @@ export class UserService {
     this.presetDict$.next(presetDict);
   }
 
-  changeFacilePresetDic(presetFacile : Preset){
-    
+  setConfig(preset : Preset){
+    this.presetConfig$.next(preset);
   }
 
   setAvailableCards(cards: Card[]) {
