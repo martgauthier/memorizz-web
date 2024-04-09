@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+$slightly-different-turquoise: #022d29;
 
 #pageNavMain{
     display: grid;
@@ -24,7 +25,16 @@
 
 #boutonsNav{
     overflow: hidden;
+    
 }
+
+.nav_btn:hover{
+    filter: drop-shadow(2px 2px 6px $slightly-different-turquoise);
+}
+.nav_btn{
+    transition: filter 0.3s;
+}
+
 #txt_choix{
     margin-bottom: 20px;
     margin-top: -20px;

@@ -52,13 +52,19 @@ export class UserService {
     this.setAvailableCards(AVAILABLE_CARDS[id]);
     this.setPresetDict(PRESET_DICTS[id]);
   }
-
+  /**
+   * Initialise la liste de patient d'un soignant
+   * @param idSoignant : id du soignant connecté
+   */
   setProfilsList(idSoignant : number){
     if(idSoignant < 0) alert("id soignant pas bon");
     //changer avec du back :
-    this.setAvailableProfil(PROFILS_LIST[0]);
+    this.setAvailableProfil(PROFILS_LIST[idSoignant]);
   }
-
+  /**
+   * Change le patient séléctionné
+   * @param identification id d'un patient
+   */
   setIdentification(identification: Identification) {
     this.identification$.next(identification);
   }

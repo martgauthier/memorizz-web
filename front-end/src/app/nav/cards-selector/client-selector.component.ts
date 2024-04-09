@@ -25,7 +25,8 @@ export class ClientSelector implements AfterViewInit {
     userService.identification$.subscribe((identification) => {
       this.choosedUser=identification.id;
     });
-    userService.setProfilsList(1);//A changer
+    userService.setProfilsList(0);//A changer avec id soignant connecté
+    //(document.querySelector("#boutonsNav .niveau h3:hover") as HTMLHRElement).style.color = "white";
   }
 
   ngAfterViewInit() {
@@ -36,6 +37,7 @@ export class ClientSelector implements AfterViewInit {
     console.log("on click called index : "+index);
     if(this.cardSelectedIndex != index && index == 0){
       (document.querySelector("#pageNavMain") as HTMLDivElement).classList.remove("animation-slide");
+      (document.querySelector("#boutonsNav") as HTMLDivElement).style.padding = "0px";
     }
     this.cardSelectedIndex=index>=0?index : this.cardSelectedIndex;
     console.log("on click called index : "+this.cardSelectedIndex);
@@ -48,11 +50,20 @@ export class ClientSelector implements AfterViewInit {
     }
     else {
       this.isFocused=true;
-      this.ul.nativeElement.focus()
+      this.ul.nativeElement.focus();
     }
     if(this.cardSelectedIndex != 0){
       (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "14px";
       (document.querySelector("#pageNavMain") as HTMLDivElement).classList.add("animation-slide");
+      document.querySelector("#jouer_nav h3")!.classList.remove("pas_cocher");
+      document.querySelector("#jouer_nav h3")!.classList.add("cocher");
+      document.querySelector("#image_nav h3")!.classList.remove("pas_cocher");
+      document.querySelector("#image_nav h3")!.classList.add("cocher");
+      document.querySelector("#stats_nav h3")!.classList.remove("pas_cocher");
+      document.querySelector("#stats_nav h3")!.classList.add("cocher");
+      setTimeout(function(){
+        (document.querySelector("#boutonsNav") as HTMLDivElement).style.padding = "16px";
+    }, 1000);
     }
     else if(this.cardSelectedIndex == 0) {
       (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "0px";
@@ -70,6 +81,7 @@ export class ClientSelector implements AfterViewInit {
     let childNode=this.ul.nativeElement.childNodes[(index===0) ? 0 : index+1];
 
     this.ul.nativeElement.style.height=childNode.offsetHeight + "px";
+    this.ul.nativeElement.style.maxHeight ="273px";
     this.scrollTopValue = childNode.offsetTop;//index 0 is the first children of ul, but index 1 is the hr.
 
     this.cardSelectedIndex=index;

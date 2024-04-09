@@ -3,7 +3,6 @@ import {MemoryCard} from "../models/memorycard.model";
 import {MEMORYCARD_LIST} from "../mocks/card-list.mocks";
 import {BehaviorSubject} from "rxjs";
 import {
-  USER_IDENTIFICATIONS,
   AVAILABLE_CARDS,
   PRESET_DICTS
 } from "../mocks/user.mock";

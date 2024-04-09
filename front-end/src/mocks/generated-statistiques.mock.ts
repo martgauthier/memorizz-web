@@ -1,4 +1,4 @@
-import {AVAILABLE_CARDS, USER_IDENTIFICATIONS} from "./user.mock";
+import {AVAILABLE_CARDS, PROFILS_LIST} from "./user.mock";
 import {Card} from "../models/user.model";
 
 const MOCKED_STAT_DATA: any={};
@@ -9,7 +9,7 @@ const MEAN_CARD: Card = {
   id: 0
 }
 
-for (let identification of USER_IDENTIFICATIONS) {
+for (let identification of PROFILS_LIST[0]) {
   MOCKED_STAT_DATA[identification.id]={};
   for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.id])]) {
     MOCKED_STAT_DATA[identification.id][card.id]={};

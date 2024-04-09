@@ -46,7 +46,23 @@ export const AVAILABLE_CARDS: Card[][]=[
 ]
 
 export const PROFILS_LIST : Identification[][] = [
-  [JACQUELINE_IDENTIFICATION,JEANMICHEL_IDENTIFICATION]//Soignante 0 à ces deux profils
+  [JACQUELINE_IDENTIFICATION,JEANMICHEL_IDENTIFICATION,
+  ],//Soignante 0 à ces trois profils
+  [
+    JACQUELINE_IDENTIFICATION,JEANMICHEL_IDENTIFICATION,
+    {
+      nom: "RICHARD",
+      prenom: "Jules",
+      id: 0,
+      src: "/assets/icon.png"
+    },
+    {
+      nom: "JULES",
+      prenom: "Richard",
+      id: 1,
+      src: "/assets/icon.png"
+    }
+  ] //Soignant 1 à ces profils
 ]
 
 export const PRESET_DICTS: PresetDict[] = [
