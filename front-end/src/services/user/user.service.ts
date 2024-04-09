@@ -3,7 +3,8 @@ import {BehaviorSubject} from "rxjs";
 import {
   USER_IDENTIFICATIONS,
   AVAILABLE_CARDS,
-  PRESET_DICTS
+  PRESET_DICTS,
+  PROFILS_LIST
 } from "../../mocks/user.mock";
 import {Injectable} from "@angular/core";
 
@@ -17,7 +18,8 @@ export class UserService {
   public identification$: BehaviorSubject<Identification> = new BehaviorSubject({
     id: -1,
     nom: "",
-    prenom: ""
+    prenom: "",
+    src:""
   });
 
   /**
@@ -35,14 +37,26 @@ export class UserService {
    */
   public availableCards$: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>([]);
 
+  /**
+   * Observable that stores every profil
+   */
+  public availableProfil$: BehaviorSubject<Identification[]> = new BehaviorSubject<Identification[]>([]);
+
   setFullDataForUser(id: number) {
     if(id<0) {
+      this.setIdentification({prenom : "", nom : "" , id : -1 , src : "assets/icon.png"});
       console.log("id incorrect");
       return;
     }
     this.setIdentification(USER_IDENTIFICATIONS[id]);
     this.setAvailableCards(AVAILABLE_CARDS[id]);
     this.setPresetDict(PRESET_DICTS[id]);
+  }
+
+  setProfilsList(idSoignant : number){
+    if(idSoignant < 0) alert("id soignant pas bon");
+    //changer avec du back :
+    this.setAvailableProfil(PROFILS_LIST[0]);
   }
 
   setIdentification(identification: Identification) {
@@ -65,5 +79,15 @@ export class UserService {
     let availableCards: Card[] = this.availableCards$.getValue();
     availableCards.push(card);
     this.availableCards$.next(availableCards);
+  }
+
+  setAvailableProfil(profils: Identification[]) {
+    this.availableProfil$.next(profils);
+  }
+
+  addCardToAvailableProfil(profils: Identification) {
+    let availableProfil: Identification[] = this.availableProfil$.getValue();
+    availableProfil.push(profils);
+    this.availableProfil$.next(availableProfil);
   }
 }

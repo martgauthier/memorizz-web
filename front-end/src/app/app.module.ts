@@ -35,6 +35,7 @@ import {FormsModule} from "@angular/forms";
 import {
   BigPreferredDifficultyComponent
 } from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
+import { ClientSelector } from './nav/cards-selector/client-selector.component';
 
 
 
@@ -66,6 +67,7 @@ import {
     MemorycardComponent,
     MemorytemplateComponent,
     MemorywinComponent,
+    ClientSelector,
   ],
 
   imports: [

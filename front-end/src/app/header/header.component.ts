@@ -12,7 +12,8 @@ export class HeaderComponent {
     user: Identification = {
       id: 0,
       nom: "NOMSOIGNANTE",
-      prenom: "Prenomsoignante"
+      prenom: "Prenomsoignante",
+      src:"/assets/icon.png"
     };
 
     constructor(private userService: UserService, public router: Router) {

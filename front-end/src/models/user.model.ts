@@ -2,6 +2,7 @@ export interface Identification {
     nom : string;
     prenom : string;
     id : number;
+    src : string;
 }
 
 export interface PresetDict {

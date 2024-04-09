@@ -17,12 +17,6 @@ export class PageNavComponent {
         });
     }
 
-    callService(str : string){
-        let id = parseInt(str);
-        this.choosedUser = id;
-        this.userService.setFullDataForUser(id);
-    }
-
     goTo(str : string){
         if(this.choosedUser !=-1){
             this.router.navigate([str]);
