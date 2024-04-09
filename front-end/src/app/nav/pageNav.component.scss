@@ -8,6 +8,7 @@ $slightly-different-turquoise: #022d29;
     align-items: center;
     transition: grid-template-columns 1s;
     grid-template-columns: auto 0%;
+
 }
 
 .animation-slide{
@@ -17,6 +18,7 @@ $slightly-different-turquoise: #022d29;
 #userSelector{
     color : $dark-blue;
     margin : 125px;
+    display: grid;
 }
 
 .buttonMargin{
@@ -51,3 +53,6 @@ $slightly-different-turquoise: #022d29;
         grid-template-columns: auto 35%;
     }
 }
+
+
+

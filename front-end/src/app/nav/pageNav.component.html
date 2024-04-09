@@ -4,8 +4,10 @@
         <app-client-selector></app-client-selector>
     </div>
     <div id="boutonsNav">
-        <app-bouton id="jouer_nav" [text]="'Jouer'" (click)="goTo('play')" class = "buttonMargin nav_btn"></app-bouton>
-        <app-bouton id="image_nav" [text]="'Image'" (click)= "goTo('ajoutImage')" class = "buttonMargin nav_btn"></app-bouton>
-        <app-bouton id="stats_nav" [text]="'Stats'" (click)="goTo('stats/cardsStats')" class="nav_btn"></app-bouton>
+        <div style="padding: 16px;">
+            <app-bouton id="jouer_nav" [text]="'Jouer'" (click)="goTo('play')" class = "buttonMargin nav_btn"></app-bouton>
+            <app-bouton id="image_nav" [text]="'Image'" (click)= "goTo('ajoutImage')" class = "buttonMargin nav_btn"></app-bouton>
+            <app-bouton id="stats_nav" [text]="'Stats'" (click)="goTo('stats/cardsStats')" class="nav_btn"></app-bouton>
+        </div>
     </div>
 </div>
