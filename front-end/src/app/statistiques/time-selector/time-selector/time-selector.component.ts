@@ -17,7 +17,7 @@ export class TimeSelectorComponent {
     touchDrag: false,
     pullDrag: false,
     dots: true,
-    navSpeed: 600,
+    navSpeed: 300,
     center: true,
     loop: true,
     autoplay: false,
@@ -39,11 +39,8 @@ export class TimeSelectorComponent {
   }
 
   onCarouselChange(event: SlidesOutputData) {
-    let duration: number=1;
+    let duration: number=1//for case 0
     switch(event.startPosition!) {
-      case 0:
-        duration=1;
-        break;
       case 1:
         duration=2;
         break;
