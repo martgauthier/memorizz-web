@@ -1,6 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {BaseChartDirective} from "ng2-charts";
-import {ChartOptions} from "chart.js";
+import {Component, ElementRef} from '@angular/core';
 
 import {
   STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE,
@@ -12,6 +10,7 @@ import {
   COURBE_MOYEN_MOCK,
   COURBE_SIMPLE_MOCK
 } from "../../../../mocks/data-courbe.mock";
+import * as Highcharts from "highcharts";
 
 @Component({
   selector: 'app-courbe',
@@ -19,41 +18,7 @@ import {
   styleUrl: './courbe.component.scss'
 })
 export class CourbeComponent {
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  public plottedDatasets= [
-    {
-      label: 'Simple',
-      borderColor: 'rgb(50, 209, 25)',
-      backgroundColor: 'rgb(50, 209, 25, 0.5)',
-      data: COURBE_SIMPLE_MOCK,
-      spanGaps: true,
-      hidden: true
-    },
-    {
-      label: 'Moyen',
-      borderColor: 'rgb(209, 209, 25)',
-      backgroundColor: 'rgb(209, 209, 25, 0.5)',
-      data: COURBE_MOYEN_MOCK,
-      spanGaps: true,
-      hidden: true
-    },
-    {
-      label: 'Difficile',
-      borderColor: 'rgb(209, 25, 25)',
-      backgroundColor: 'rgb(209, 25, 25, 0.5)',
-      data: COURBE_DIFFICILE_MOCK,
-      spanGaps: true,
-      hidden: true
-    },
-    {
-      label: 'En moyenne',
-      borderColor: 'rgb(32, 145, 136)',
-      backgroundColor: 'rgba(32, 145, 136, 0.5)',
-      data: COURBE_EN_MOYENNE_MOCK,
-      spanGaps: true
-    }
-  ];
+  public Highcharts: typeof Highcharts = Highcharts;
 
   public labels: string[] = Array.from(new Array(31), (value: string, index: number): string => {
     if(index===0) return this.statsService.getLastTimeDateString();
@@ -61,76 +26,119 @@ export class CourbeComponent {
     else return "";
   });
 
-  public options: ChartOptions<'line'> = {
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: {
-          font: {
-            size: 20
-          }
-        },
+  public updateChart: boolean=false;
+
+  public chartOptions: Highcharts.Options = {
+    xAxis: {
+      categories: this.labels,
+      labels: {
+        style: {
+          color: "white",
+          fontSize: "16px"
+        }
+      },
+      gridLineWidth: 1,
+      gridLineColor: "rgba(255,255,255,0.1)"
+    },
+    legend: {
+      itemStyle: {
+        color: "white",
+        fontSize: "18px"
+      },
+      symbolRadius: 0,
+    },
+    yAxis: {
+      labels: {
+        style: {
+          color: "white"
+        }
       },
       title: {
-        text: "Nombre d'erreurs après découverte des deux cartes de la paire",
-        font: {
-          size: 28,
-        },
-        color: "white",
-        padding: 30,
-        display: true
-      },
-      tooltip: {
-        enabled: true,
-        intersect: false,
-        mode: "nearest",
-        callbacks: {
-          label: (item: any) => {
-            return `${item.dataset.label}: ${item.formattedValue} erreurs sur les parties de ce jour`
-          }
-        }
-      }
-    },
-    scales: {
-      y: {
-        title: {
-          display: true,
-          text: ["Nombre d'erreurs avant", "de trouver la carte"],
-          font: {
-            size: 16
-          }
+        text: "",
+        style: {
+          color: "white",
+          fontSize: "16px"
         }
       },
-      x: {
-        title: {
-          display: true,
-          text: "Date",
-          font: {
-            size: 16
-          }
-        }
+      gridLineColor: "rgba(255,255,255,0.5)"
+    },
+    title: {
+      text: "",
+      style: {
+        color: "white"
       }
     },
-    datasets: {
+    series: [{
+      type: "line",
+      name: "Simple",
+      data: COURBE_SIMPLE_MOCK,
+      color: "green",
+      visible: false
+    },
+      {
+        type: "line",
+        name: "Moyen",
+        data: COURBE_MOYEN_MOCK,
+        color: "yellow",
+        visible: false
+      },
+      {
+        type: "line",
+        name: "Difficile",
+        data: COURBE_DIFFICILE_MOCK,
+        color: "red",
+        visible: false
+      },{
+        type: "line",
+        name: "En moyenne",
+        data: COURBE_EN_MOYENNE_MOCK,
+      }],
+    tooltip: {
+      animation: false,
+      formatter: function(): string {
+        return `${this.series.name} : ${this.y?.toFixed(1)}% d'erreurs sur les parties de ce jour`
+      },
+      backgroundColor: "#01274a",
+      style: {
+        color: "white"
+      }
+    },
+    plotOptions: {
       line: {
-        pointRadius: 0
+        shadow: {
+          color: "rgba(255,255,255,0.5)",
+          width: 3,
+          offsetX: 0,
+          offsetY: 0
+        },
+        marker: {
+          enabled: false
+        },
+        legendSymbol: "rectangle"
+      }
+    },
+    chart: {
+      backgroundColor: "#01274a",
+      borderColor: "rgba(0,255,255,0.1)",
+      style: {
+        fontFamily: "Poppins",
+        textOutline: "transparent",
       }
     }
   };
 
   constructor(private statsService: StatistiquesService, ref: ElementRef) {
     statsService.selectedStat$.subscribe((selectedStat) => {
-      if(this.chart?.chart?.options?.plugins?.title?.text) {//check that all values necessary are defined
-        this.chart.chart.options.plugins.title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
-        this.chart.update();
-      }
+      (this.chartOptions.yAxis as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+      (this.chartOptions as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+      this.updateChart=true;
     });
 
     statsService.duration$.subscribe(() => {
       this.labels[0]=this.statsService.getLastTimeDateString();
       this.labels[30]=this.statsService.getDateString();
 
-      this.chart?.update();
+      this.updateChart=true;
     });
 
     statsService.scrollToCourbeEvent.subscribe(() => {

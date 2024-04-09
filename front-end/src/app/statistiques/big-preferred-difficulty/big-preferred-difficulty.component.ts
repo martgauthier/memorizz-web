@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {Component} from "@angular/core";
 import {
   DataPerDifficultyForSingleStat,
   FullDataForSingleStat
@@ -6,26 +6,93 @@ import {
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
-import {ChartDataset} from "chart.js";
-import {BaseChartDirective} from "ng2-charts";
+import * as Highcharts from "highcharts";
+
 
 @Component({
   selector: 'app-big-preferred-difficulty',
   templateUrl: './big-preferred-difficulty.component.html',
   styleUrls: ['./big-preferred-difficulty.component.scss']
 })
-export class BigPreferredDifficultyComponent implements AfterViewInit {
+export class BigPreferredDifficultyComponent {
   public statType: string = "preferredDifficultyMode";
   public statData?: FullDataForSingleStat;
   public duration: number=1;
   public gamesQuantity: number=0;
+  public Highcharts: typeof Highcharts = Highcharts;
 
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  public plottedDatasets: ChartDataset<"bar">[] = [{
-    data: [15, 60, 25],
-    backgroundColor: ["#49960b", "#a6a612", "#b31414"]
-  }];
+  public chartOptions: Highcharts.Options = {
+    xAxis: {
+      categories: ["Simple", "Moyen", "Difficile"],
+      labels: {
+        style: {
+          color: "white"
+        }
+      }
+    },
+    yAxis: {
+      labels: {
+        style: {
+          color: "white"
+        }
+      },
+      title: {
+        text: ""
+      },
+      gridLineColor: "rgba(255,255,255,0.5)"
+    },
+    title: {
+      text: "",
+    },
+    series: [{
+      showInLegend: false,
+      type: "column",
+      name: "Mode de difficulté",
+      data: [
+        {
+          y: 15,
+          color: "#49960b"
+        },
+        {
+          y: 60,
+          color: "#a6a612"
+        },
+        {
+          y: 25,
+          color: "#b31414"
+        }],
+    }],
+    tooltip: {
+      animation: false,
+      formatter: function(): string {
+        return `Mode ${this.x}: ${this.y}% des parties`
+      },
+      backgroundColor: "#01274a",
+      style: {
+        color: "white"
+      }
+    },
+    plotOptions: {
+      column: {
+        borderColor: "transparent",
+        shadow: {
+          color: "white",
+          opacity: 0.1,
+          width: 2,
+          offsetX: 0,
+          offsetY: 0
+        }
+      }
+    },
+    chart: {
+      backgroundColor: "#209188",
+      borderColor: "rgba(0,255,255,0.1)",
+      style: {
+        fontFamily: "Poppins",
+        textOutline: "transparent",
+      }
+    }
+  };
 
   constructor(private statsService: StatistiquesService) {
     let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType];
@@ -42,23 +109,6 @@ export class BigPreferredDifficultyComponent implements AfterViewInit {
       this.duration=duration;
     });
   }
-
-  ngAfterViewInit() {
-    // @ts-ignore
-    this.chart.chart.options.plugins.legend.display=false;
-    // @ts-ignore
-    this.chart.chart.options.plugins.tooltip = {
-      enabled: true,
-      intersect: false,
-      mode: "nearest",
-      callbacks: {
-        label: (item: any): string => `${item.formattedValue}% des parties jouées`
-      }
-    };
-
-    this.chart?.update();
-  }
-
 
   onMonitoringClick() {
     this.statsService.setSelectedStat(this.statType);

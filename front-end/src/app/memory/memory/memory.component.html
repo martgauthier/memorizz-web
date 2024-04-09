@@ -7,10 +7,12 @@
 
   <div class="memorycarddiv" *ngFor="let card of memoryCardList" >
     <app-memorycard class="memorycard notmatched" [memorycard]="card" id="{{ 'memorycard'+ card.cardId }}" (click)="memoryCardClicked(card)"
-    [ngClass]="{'matched': card.state=='matched',
-                'flipped': card.state=='flipped',
-                'falsely-matched': card.state=='falsely-matched',
-                'default':card.state=='default'}"
-    ></app-memorycard>
+      [ngClass]="{'matched': card.state=='matched',
+                  'flipped': card.state=='flipped',
+                  'falsely-matched': card.state=='falsely-matched',
+                  'default':card.state=='default',
+                  'disappear' : card.state=='disappear',
+                  'visible' : card.state=='visible'}" >
+    </app-memorycard>
   </div>
 </div>

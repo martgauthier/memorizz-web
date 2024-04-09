@@ -6,6 +6,8 @@ import {
   AVAILABLE_CARDS,
   PRESET_DICTS
 } from "../mocks/user.mock";
+import { UserService } from "src/services/user/user.service";
+import {Card, Identification, Preset } from "src/models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,39 +16,71 @@ import {
 export class MemoryService {
 
   private gameWin : boolean = false;
-  private memorycards : MemoryCard[] = this.createMemoryCardList();     //MEMORYCARD_LIST;
+  private memorycards : MemoryCard[] = [];     //MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
   public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
   public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(this.memorycards);
   public selectedcards : MemoryCard[] = [];
-  constructor(){
-    this.shuffle();
+  public identification?: Identification;
+  public config : Preset = {
+    pairsNumber: 0,
+    cardsAreVisible: false,
+    cardsAreBothImage: false
+  };
+  constructor(public userService : UserService){
+    this.userService.identification$.subscribe( identification => {
+      this.identification = identification;
+    });
+    this.userService.presetConfig$.subscribe((data) => {
+      this.config=data;
+      console.log(data);
+      this.memorycards=this.createMemoryCardList();
+      this.memorycards$.next(this.memorycards);
+      this.nbpaires$.next(data.pairsNumber);
+    });
+    this.shuffleMemoryCards();
   }
-
   createMemoryCardList(): MemoryCard[] {
 
     //TO DO: il faudrat :
     // - regarder combien de cartes mettres dans la memory list en focntion des configs,
-    // - shuffle la liste AVAILABLE_CARDS
+    // - shuffle la liste avant
     // - regarder le type de jeu ( pour savoir si les cartes seront image/image ou pas )
-    // -
-
+    // @ts-ignore
+    let userid= this.identification.id;
     let memorycardslist : MemoryCard[] = [];
-    let cards = AVAILABLE_CARDS[0];
+    let totalcards = AVAILABLE_CARDS[userid];
+    let cards : Card[] = [];
+
+    // on vérifie si le patient a assez d'images ajoutées
+
+    if(totalcards.length<this.config.pairsNumber){
+      alert('You dont have enough cards for this user');
+      return [];
+    }
+
+    //on mélange les images du patient
+    totalcards = this.shuffleTotalCards(totalcards);
+
+    //on choisit le bon nombre de cartes
+    for(let i=0; i<this.config.pairsNumber; i++){
+        cards.push(totalcards[i]);
+    }
+
     for(let i=0; i<cards.length ; i++){
       let memorycard1 :MemoryCard = {
         src: cards[i].imgValue,
         type: "image",
         cardId: cards[i].id,
         description : cards[i].textValue,
-        state: "default"
+        state: (this.config.cardsAreVisible)? 'visible' : "default"
       };
       let memorycard2 :MemoryCard = {
         src: cards[i].imgValue,
-        type: "image",
+        type: (this.config.cardsAreBothImage)? "image" : "text",
         cardId: cards[i].id,
         description : cards[i].textValue,
-        state: "default"
+        state: (this.config.cardsAreVisible)? 'visible' : "default"
       };
       memorycardslist.push(memorycard1);
       memorycardslist.push(memorycard2);
@@ -54,8 +88,9 @@ export class MemoryService {
     return memorycardslist;
   }
 
+
   async memoryCardClicked(card: MemoryCard) {
-    if(card.state=='default'){
+    if(card.state=='default' || (card.state=='visible' && this.config.cardsAreVisible)){
       if(this.selectedcards.length==0) {
         card.state = 'flipped';
         this.selectedcards.push(card);
@@ -64,7 +99,7 @@ export class MemoryService {
         card.state = 'flipped';
         this.selectedcards.push(card);
         if(this.checkMatchy()){
-          this.isMatchy();
+          await this.isMatchy();
           if(this.checkEndGame()){
             this.celebrate();
           }
@@ -84,27 +119,31 @@ export class MemoryService {
     this.win$.next(false);
     this.selectedcards = [];
     for(let card of this.memorycards){
-      card.state='default';
+      card.state=this.config.cardsAreVisible? 'visible' : 'default';
     }
-    this.shuffle();
+    this.shuffleMemoryCards();
   }
 
   private checkMatchy():boolean {
     if(this.selectedcards.length==2){
       if(this.selectedcards[0].src==this.selectedcards[1].src){
-        console.log("isMatchy !!");
        return true;
       }
     }
     return false;
   }
 
-  public isMatchy() : void{
+  public async isMatchy() : Promise<void>{
     let card1 : MemoryCard = this.selectedcards[0] ;
     let card2 : MemoryCard = this.selectedcards[1] ;
     card1.state = 'matched';
     card2.state = 'matched';
+    console.log('matchy');
     this.selectedcards = [];
+    await this.sleep(2000);
+    card1.state = 'disappear';
+    card2.state = 'disappear';
+    console.log('disapear');
   }
   async isNotMatchy():Promise<void>{
     await this.sleep(1000);
@@ -114,8 +153,8 @@ export class MemoryService {
       card1.state='falsely-matched';
       card2.state='falsely-matched';
       await this.sleep(3000);
-      card1.state = 'default';
-      card2.state = 'default';
+      card1.state =  (this.config.cardsAreVisible)? 'visible' : "default";
+      card2.state = this.config.cardsAreVisible? 'visible' : "default";
       this.selectedcards = [];
     }
   }
@@ -127,7 +166,8 @@ export class MemoryService {
 
   private checkEndGame() : boolean { // méthode refactor ok
     for(let card of this.memorycards){
-      if(card.state!='matched'){
+      if(card.state!='disappear'){
+        console.log('card not matchy :'+card.cardId);
         return false;
       }
     }
@@ -141,12 +181,21 @@ export class MemoryService {
     //alert("YOU WON !!!");
   }
 
-  public shuffle(): void {  // méthode refactor ok
+  public shuffleMemoryCards(): void {  // méthode refactor ok
     const shuffledArray =this.memorycards;
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
     this.memorycards = shuffledArray;
+  }
+
+  shuffleTotalCards(totalcards: Card[]) : Card[] {
+    const shuffledArray =totalcards;
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
   }
 }

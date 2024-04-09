@@ -13,7 +13,6 @@ export class CardsSelectorComponent implements AfterViewInit {
   @ViewChild('container') container!: ElementRef;
 
   public cardSelectedIndex: number = 0;//"en moyenne" card selected
-  public scrollTopValue: number=0;
 
   public availableCards: Card[]=[];
 
@@ -28,14 +27,12 @@ export class CardsSelectorComponent implements AfterViewInit {
   }
 
   onClick(index: number) {
-    console.log("on click called")
     this.cardSelectedIndex=index;
     if(this.isFocused) {
       document.body.focus();
       setTimeout(() => {
         this.ul.nativeElement.blur()
       }, 10);//bad practice, but did not found better to prevent click from re-focusing over blur
-      console.log(document.activeElement)
     }
     else {
       this.isFocused=true;
@@ -49,14 +46,14 @@ export class CardsSelectorComponent implements AfterViewInit {
   }
 
   setCardSelected(index: number) {
+    console.log("set element selected to " + index)
     this.statsService.updateSelectedCard(index);
     let childNode=this.ul.nativeElement.childNodes[(index===0) ? 0 : index+1];
 
     this.ul.nativeElement.style.height=childNode.offsetHeight + "px";
     this.el.nativeElement.style.height=this.ul.nativeElement.offsetHeight + 20 + "px";
 
-    this.scrollTopValue = childNode.offsetTop;//index 0 is the first children of ul, but index 1 is the hr.
-
+    this.ul.nativeElement.scrollTo(0, childNode.offsetTop);
     this.cardSelectedIndex=index;
   }
 }

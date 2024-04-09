@@ -1,15 +1,16 @@
-<p class="descriptor">Sélectionnez la carte dont les stats seront affichées :</p>
+<div style="position: relative; margin: 0; padding: 0;">
+  <p class="descriptor">Sélectionnez la carte dont les stats seront affichées :</p>
+  <div class="cards-ul-container" #container>
+    <ul [class.is-focused]="isFocused" #ul class="cards-ul" (click)="$event.preventDefault()" (mousedown)="$event.preventDefault()" tabindex="-1" (blur)="onBlur()">
+      <li [class.mean]="true" [class.is-selected]="cardSelectedIndex===0" (click)="onClick(0)"><span>En moyenne</span></li>
+      <hr />
+      <li *ngFor="let card of availableCards; index as i;" [class.is-selected]="cardSelectedIndex===i+1" (click)="onClick(i+1)"><img src="{{card.imgValue}}" class="cardImage"/><span>{{card.textValue}}</span></li>
+    </ul>
 
-<div class="cards-ul-container" #container>
-  <ul [class.is-focused]="isFocused" #ul class="cards-ul" [scrollTop]="scrollTopValue" (click)="$event.preventDefault()" (mousedown)="$event.preventDefault()" tabindex="-1" (blur)="onBlur()">
-    <li [class.mean]="true" [class.is-selected]="cardSelectedIndex===0" (click)="onClick(0)"><span>En moyenne</span></li>
-    <hr />
-    <li *ngFor="let card of availableCards; index as i;" [class.is-selected]="cardSelectedIndex===i+1" (click)="onClick(i+1)"><img src="{{card.imgValue}}" class="cardImage"/><span>{{card.textValue}}</span></li>
-  </ul>
-
-  <div [class.is-focused]="isFocused" [class.menu-button]="true">
-    <div class="barre"></div>
-    <div class="barre"></div>
-    <div class="barre"></div>
+    <div [class.is-focused]="isFocused" [class.menu-button]="true">
+      <div class="barre"></div>
+      <div class="barre"></div>
+      <div class="barre"></div>
+    </div>
   </div>
 </div>

@@ -19,6 +19,7 @@ export class MemoryComponent implements OnInit{
 
   constructor(public memoryService : MemoryService){
     this.memoryService.memorycards$.subscribe((memoryCardList)=> {
+      console.log(memoryCardList);
       this.memoryCardList = memoryCardList;
     })
     this.memoryService.nbpaires$.subscribe((paires : number)=>{
