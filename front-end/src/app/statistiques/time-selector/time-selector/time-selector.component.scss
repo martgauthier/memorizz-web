@@ -1,7 +1,111 @@
+@import "../../../../styles/variables";
+
 :host {
   position: absolute;
   right: 50px;
   top: 50%;
+  width: 30%;
   transform: translateY(-50%);
+  z-index: 50000;
   display: block;
+}
+
+p {
+  font-size: 17px;
+}
+
+.selected-time-range {
+  color: white;
+  background: $light-turquoise;
+  text-align: center;
+  display: block;
+  width: 60%;
+  padding: 10px;
+  font-size: 25px;
+  line-height: 1.2em;
+  margin: auto;
+}
+
+.arrow-character {
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  top: 50%;
+  position: absolute;
+  display: inline-block;
+  border-color: transparent;
+  border-left-color: white;
+  border-bottom-color: white;
+  border-style: solid;
+  border-width: 2px;
+  transform-origin: top;
+  transition: transform 0.1s;
+}
+
+.arrow:hover {
+  cursor: pointer;
+
+  animation: none;
+
+  & .left-arrow-character {
+    transform: rotate(45deg) translateY(-50%) scale(1.1);
+  }
+  & .right-arrow-character {
+    transform: rotate(-135deg) translateY(-50%) scale(1.1);
+  }
+}
+
+.carousel-container {
+  position: relative;
+}
+
+.left-arrow-character {
+  transform: rotate(45deg) translateY(-50%);
+}
+
+.right-arrow-character {
+  transform: rotate(-135deg) translateY(-50%);
+}
+
+.arrow {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  width: 20px;
+  height: calc(25px + 20px + 0.6em);
+  z-index: 50;//big value
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 0.6s;
+}
+
+.left-arrow {
+  left: 10%;
+  animation-name: leftArrowAnimation;
+}
+
+.right-arrow {
+  right: 10%;
+  animation-name: rightArrowAnimation;
+}
+
+@keyframes leftArrowAnimation {
+  from {
+    left: 10%;
+  }
+  to {
+    left: 11%;
+  }
+}
+
+@keyframes rightArrowAnimation {
+  from {
+    right: 10%;
+  }
+  to {
+    right: 11%;
+  }
 }

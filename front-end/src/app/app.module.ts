@@ -35,6 +35,8 @@ import {
   BigPreferredDifficultyComponent
 } from "./statistiques/big-preferred-difficulty/big-preferred-difficulty.component";
 import {HighchartsChartModule} from "highcharts-angular";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CarouselModule} from "ngx-owl-carousel-o";
 
 
 
@@ -65,7 +67,7 @@ import {HighchartsChartModule} from "highcharts-angular";
     MemoryComponent,
     MemorycardComponent,
     MemorytemplateComponent,
-    MemorywinComponent,
+    MemorywinComponent
   ],
 
   imports: [
@@ -73,7 +75,9 @@ import {HighchartsChartModule} from "highcharts-angular";
     AppRoutingModule,
     NgParticlesModule,
     FormsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    BrowserAnimationsModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
