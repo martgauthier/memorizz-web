@@ -5,6 +5,7 @@ import { every } from 'rxjs';
 import { GestionFront } from '../gestion-front';
 import { UserService } from 'src/services/user/user.service';
 import { Preset, createEmptyPresetStart } from 'src/models/user.model';
+import { SlidesOutputData } from 'ngx-owl-carousel-o';
 
 @Component({
     selector: 'app-nbcard',
@@ -27,6 +28,10 @@ export class NbCard extends GestionFront implements OnInit {
         switch (op) {
             case '+':
                 newValue = parseInt((document.querySelector(".input-number") as HTMLInputElement).value) - 1 +2; //jsp pk mais +1 ça fait 5+1=51
+                if(newValue > this.userService.availableCards$.value.length){
+                    newValue = this.userService.availableCards$.value.length;
+                    this.stopPlus();
+                }
                 super.setNbCard(newValue);
                 break;
             case '-':
@@ -38,9 +43,14 @@ export class NbCard extends GestionFront implements OnInit {
     }
     public changeInputNum(event : any){
         (document.querySelector(".input-number") as HTMLSpanElement).style.caretColor = "transparent";
+        console.log("nombre de carte : "+this.userService.availableCards$.value.length);
         if(event.target.value<3) {
             this.userService.setConfig({pairsNumber : 3  , cardsAreVisible : this.config.cardsAreVisible, cardsAreBothImage : this.config.cardsAreBothImage});
             super.setNbCard(3);
+        }
+        else if(event.target.value > this.userService.availableCards$.value.length){
+            this.userService.setConfig({pairsNumber : 8 , cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage});
+            super.setNbCard(this.userService.availableCards$.value.length);
         }
         else if(event.target.value>8) {
             this.userService.setConfig({pairsNumber : 8 , cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage});

@@ -33,7 +33,7 @@ export class Template extends GestionFront  implements OnInit {
       if(this.choosedUser == -1){
         this.router.navigate(['nav']);
       }
-      userService.setFullDataForUser(this.choosedUser);
+      //userService.setFullDataForUser(this.choosedUser);
     }
     ngOnInit(): void {}
     public onclick_jouer(){

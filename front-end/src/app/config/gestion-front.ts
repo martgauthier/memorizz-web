@@ -31,6 +31,14 @@ export class GestionFront{
             }
         }
     }
+    public stopMoins(){
+      document.querySelector(".input-number-decrement")!.classList.remove("clickable");
+      document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
+    }
+    public stopPlus(){
+      document.querySelector(".input-number-increment")!.classList.remove("clickable");
+      document.querySelector(".input-number-increment")!.classList.add("not_clickable");
+    }
     public changementFrontDifficultyGauche(id : string){
         //Affichage gauche
         let difficulties: string[] = ['facile', 'moyen', 'difficile'];
