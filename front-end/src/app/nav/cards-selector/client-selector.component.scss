@@ -1,0 +1,140 @@
+@import "../../../styles.scss";
+
+$slightly-different-turquoise: #02736a;// to make elements in this color distinct from $light-turquoise
+
+:host {
+  display: block;
+  margin: auto;
+  padding: 1px;//to make children margins expand blocks
+  z-index: 4000;
+  height: calc(44px + 1.2em + 20px);/* .cards-ul height + 2*10px margin */
+  width: 420px;
+}
+
+.cards-ul-container {
+  position: relative;
+  width: 100%;
+  margin: auto;
+  padding: 0;
+  box-shadow: 0 0 10px 1px transparent;
+  transition: box-shadow 0.2s;
+}
+
+hr {
+  height: 1px;
+  margin: 10px auto;
+  border-color: transparent;
+}
+
+.cards-ul {
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul:focus {
+  overflow-y: auto;
+  outline: none;
+  height: 300px !important;/* "!important" as it must override the DOM style, on hover */
+}
+
+.cards-ul-container:hover {
+  box-shadow: 0 0 10px 1px $slightly-different-turquoise;
+}
+
+li {
+  margin: 0;
+  background-color: white;
+  line-height: 1.2em;
+  color: black;
+  overflow: visible;
+  padding: 20px;
+  font-size: 1em;
+  border: 2px solid $slightly-different-turquoise;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+li>span {
+  display: inline-block;
+  width: 70%;
+  margin-left: 0;
+  transition: margin-left 0.1s ease-in-out;
+}
+
+li:hover:not(.is-selected)>span {
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.is-selected {
+  font-style: italic;
+  font-weight: bold;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+.menu-button {
+  position: absolute;
+  top: calc((44px + 1.2em) / 2);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+  right: 30px;
+  transition: opacity 0.2s ease, right 0.1s ease, height 0.1s ease 0.1s;
+  cursor: pointer;
+}
+
+.cards-ul-container:hover .menu-button:not(.is-focused) {
+  height: 25px;
+}
+
+.barre {
+  border-radius: 2px;
+  background-color: $slightly-different-turquoise;
+  height: 2px;
+  width: 100%;
+}
+
+.is-focused.menu-button {
+  opacity: 0;
+  right: 40px;
+  height: 0;
+}
+
+.cardImage{
+  margin-right: 25px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  object-position: center;/* pour dire de rogner l'image autour de son centre */
+}
+
+.mean {
+  text-align: center;
+}
+
+.mean>span {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.descriptor {
+  position: absolute;
+  left: 200px;
+  top: 50%;
+  font-style: italic;
+  margin: 0;
+  transform: translateY(-50%);
+}

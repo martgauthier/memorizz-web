@@ -1,0 +1,13 @@
+<div class="cards-ul-container" #container>
+  <ul [class.is-focused]="isFocused" #ul class="cards-ul" (click)="$event.preventDefault()" (mousedown)="$event.preventDefault()" tabindex="-1" (blur)="onBlur()">
+    <li [class.mean]="true" [class.is-selected]="cardSelectedIndex===0" (click)="onClick(0)"><span>--choisir un profil--</span></li>
+    <hr />
+    <li *ngFor="let card of clientList; index as i;" [class.is-selected]="cardSelectedIndex===i+1" (click)="onClick(i+1)"><img src="{{card.src}}" class="cardImage"/><span>{{card.nom}}{{card.prenom}}</span></li>
+  </ul>
+
+  <div [class.is-focused]="isFocused" [class.menu-button]="true" (click)="onClick(-1)">
+    <div class="barre"></div>
+    <div class="barre"></div>
+    <div class="barre"></div>
+  </div>
+</div>

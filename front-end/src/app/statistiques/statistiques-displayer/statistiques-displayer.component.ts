@@ -11,7 +11,8 @@ export class StatistiquesDisplayerComponent {
   public user: Identification = {
     id: 0,
     prenom: "",
-    nom: ""
+    nom: "",
+    src : ""
   };
 
   constructor(private userService: UserService) {
