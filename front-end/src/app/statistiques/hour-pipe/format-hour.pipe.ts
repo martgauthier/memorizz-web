@@ -11,6 +11,7 @@ export class FormatHourPipe implements PipeTransform {
 
     let decimalValue=value-Math.floor(value);
     let seconds=Math.round(60*decimalValue);
+    if(seconds===60) seconds--;
 
     return Math.floor(value) + " minutes " + seconds.toString().padStart(2, '0');
   }
