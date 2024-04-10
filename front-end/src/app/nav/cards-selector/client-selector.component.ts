@@ -33,14 +33,26 @@ export class ClientSelector implements AfterViewInit {
     });
     userService.setProfilsList();//A changer avec id soignant connecté
     //(document.querySelector("#boutonsNav .niveau h3:hover") as HTMLHRElement).style.color = "white";
+    setTimeout(() => {
+      if(this.userService.identification$.value.id != -1){
+        (document.querySelector("#pageNavMain") as HTMLDivElement).classList.add("animation-slide");
+        document.querySelector("#jouer_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#jouer_nav h3")!.classList.add("cocher");
+        document.querySelector("#image_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#image_nav h3")!.classList.add("cocher");
+        document.querySelector("#stats_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#stats_nav h3")!.classList.add("cocher");
+        (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "14px";
+      }
+    }, 10); //Je n'ai pas trouvé d'autre solution
   }
 
   ngAfterViewInit() {
-    if(this.userService.identification$.value.id != -1){
+    if(this.userService.identification$.value.id == -1){
+      this.setCardSelected(0);
+    }else{
       //rentre bien quand un user a été choisit
       this.setCardSelected(this.userService.identification$.value.id+1);
-    }else{
-      this.setCardSelected(0);
     }
   }
 
