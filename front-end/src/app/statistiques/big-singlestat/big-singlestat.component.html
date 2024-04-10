@@ -2,7 +2,7 @@
 <p class="mean-big-info">{{getOverallPercentage()}}% {{statPercentageSuffix}}</p>
 <p class="mean-descriptor">En moyenne sur {{duration | durationInMonthsOrYear}}</p>
 <app-help-icon (click)="HelpIconComponent.displayHelp(STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[statType].statDescription)"></app-help-icon>
-<app-singledata-for-singledifficulty [difficulty]="'simple'" [statData]="(statData!=null) ? statData.difficulty.simple : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="simple-mode"></app-singledata-for-singledifficulty>
-<app-singledata-for-singledifficulty [difficulty]="'medium'" [statData]="(statData!=null) ? statData.difficulty.medium : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="medium-mode"></app-singledata-for-singledifficulty>
-<app-singledata-for-singledifficulty [difficulty]="'hard'" [statData]="(statData!=null) ? statData.difficulty.hard : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="hard-mode"></app-singledata-for-singledifficulty>
+<app-singledata-for-singledifficulty [difficulty]="'simple'" [statData]="(statData!=null) ? statData.difficulty.simple : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="simple-mode" [shouldFormatHour]="shouldFormatHour"></app-singledata-for-singledifficulty>
+<app-singledata-for-singledifficulty [difficulty]="'medium'" [statData]="(statData!=null) ? statData.difficulty.medium : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="medium-mode" [shouldFormatHour]="shouldFormatHour"></app-singledata-for-singledifficulty>
+<app-singledata-for-singledifficulty [difficulty]="'hard'" [statData]="(statData!=null) ? statData.difficulty.hard : createDefaultDataPerDifficultyForSingleStat()" [statType]="statData?.statType" class="hard-mode" [shouldFormatHour]="shouldFormatHour"></app-singledata-for-singledifficulty>
 <app-monitoring-call-to-action (click)="onMonitoringClick()"></app-monitoring-call-to-action>

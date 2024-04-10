@@ -15,6 +15,8 @@ import {HelpIconComponent} from "../help-icon/help-icon.component";
 })
 export class BigSinglestatComponent implements OnInit {
   @Input({required: true}) public statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorPercentageOnWholeGame" | "meanGameDuration" = "errorsPerGame";
+  @Input({required: true}) public shouldFormatHour: boolean=false;
+
   /**
    * represents full data to be shown in this whole component.
    * it is potentially undefined, because it needs to wait for "OnChanges" component state to be defined

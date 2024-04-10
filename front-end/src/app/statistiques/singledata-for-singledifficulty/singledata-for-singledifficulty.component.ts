@@ -14,6 +14,8 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   @Input({required: true}) difficulty: "simple" | "medium" | "hard" = "simple";//arbitrary default value
   @Input({required: true}) statType?: string="";
   @Input({required: true}) statData: DataPerDifficultyForSingleStat = createDefaultDataPerDifficultyForSingleStat();
+  @Input({required: true}) shouldFormatHour: boolean=false;
+
   public duration: number = 1;
 
   public nowDate: string="";

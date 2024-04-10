@@ -25,8 +25,8 @@ for (let identification of PROFILS_LIST[0]) {
       };
       let difficultyObject: any=MOCKED_STAT_DATA[identification.id][card.id][statType].difficulty;
       for(let difficulty of ["simple", "medium", "hard"]) {
-        difficultyObject[difficulty].lastTimeValue=getRandomInt(8, 18);
-        difficultyObject[difficulty].nowValue=difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10);
+        difficultyObject[difficulty].lastTimeValue=getRandomFloat(8, 18);
+        difficultyObject[difficulty].nowValue=difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10) + getRandomFloat(-1, 1);
         switch(difficulty) {
           case "simple":
             difficultyObject[difficulty].gamesQuantity=4-2*identification.id;//these adds little differences between each person
@@ -48,4 +48,10 @@ function getRandomInt(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+//get random float in an interval
+function getRandomFloat(min: number, max: number): number {
+  return Math.random() * (max - min) + min;
 }
