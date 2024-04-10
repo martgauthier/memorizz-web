@@ -1,43 +1,65 @@
 export class GestionFront{
-    public setNbCard(value : number){
-        if(value >= 3 && value <= 8){
-            //this.nbCard = value;
-            (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
-            if(value == 3){
-                document.querySelector(".input-number-decrement")!.classList.remove("clickable");
-                document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
-            }
-            else{
-                document.querySelector(".input-number-decrement")!.classList.remove("not_clickable");
-                document.querySelector(".input-number-decrement")!.classList.add("clickable");
-            }
-            if(value == 8){
-                document.querySelector(".input-number-increment")!.classList.remove("clickable");
-                document.querySelector(".input-number-increment")!.classList.add("not_clickable");
-            }
-            else{
-                document.querySelector(".input-number-increment")!.classList.remove("not_clickable");
-                document.querySelector(".input-number-increment")!.classList.add("clickable");
-            } 
-            
-            if(value <= 4 ){
-                this.changementFrontDifficultyGauche("facile");
-            }
-            if(value >= 5 && value <= 6){
-                this.changementFrontDifficultyGauche("moyen");
-            }
-            if(value >= 7){
-                this.changementFrontDifficultyGauche("difficile");
-            }
-        }
+    public setNbCard(value : number, maxValue : number){
+      if(value >= maxValue){
+        (document.querySelector("#divPlus") as HTMLInputElement).classList.add("tooltip");
+        (document.querySelector("#tooltiptext") as HTMLInputElement).style.display = "block";
+        (document.querySelector(".input-number") as HTMLInputElement).value = maxValue +"";
+        document.querySelector(".input-number-increment")!.classList.remove("clickable");
+        document.querySelector(".input-number-increment")!.classList.add("not_clickable");
+      }else{
+        (document.querySelector("#divPlus") as HTMLInputElement).classList.remove("tooltip");
+        (document.querySelector("#tooltiptext") as HTMLInputElement).style.display = "none";
+      }
+      if(value >= 3 && value <= 8){
+      //this.nbCard = value;
+      (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
+      if(value == 3){
+        document.querySelector(".input-number-decrement")!.classList.remove("clickable");
+        document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
+      }
+      else{
+        document.querySelector(".input-number-decrement")!.classList.remove("not_clickable");
+        document.querySelector(".input-number-decrement")!.classList.add("clickable");
+      }
+      if(value == 8){
+        document.querySelector(".input-number-increment")!.classList.remove("clickable");
+        document.querySelector(".input-number-increment")!.classList.add("not_clickable");
+      }
+      else if(value != 8 && value < maxValue){
+        document.querySelector(".input-number-increment")!.classList.remove("not_clickable");
+        document.querySelector(".input-number-increment")!.classList.add("clickable");
+      } 
+      
+      if(value <= 4 ){
+        this.changementFrontDifficultyGauche("facile");
+      }
+      if(value >= 5 && value <= 6){
+        this.changementFrontDifficultyGauche("moyen");
+      }
+      if(value >= 7){
+        this.changementFrontDifficultyGauche("difficile");
+      }
+      }
     }
-    public stopMoins(){
-      document.querySelector(".input-number-decrement")!.classList.remove("clickable");
-      document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
-    }
-    public stopPlus(){
+    public stopPlusNbCartes(value : number){
+      (document.querySelector("#divPlus") as HTMLInputElement).classList.add("tooltip");
+      (document.querySelector("#tooltiptext") as HTMLInputElement).style.display = "block";
+      (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
       document.querySelector(".input-number-increment")!.classList.remove("clickable");
       document.querySelector(".input-number-increment")!.classList.add("not_clickable");
+      if(value > 3){
+        document.querySelector(".input-number-decrement")!.classList.remove("not_clickable");
+        document.querySelector(".input-number-decrement")!.classList.add("clickable");
+      }
+      if(value <= 4 ){
+        this.changementFrontDifficultyGauche("facile");
+      }
+      if(value >= 5 && value <= 6){
+          this.changementFrontDifficultyGauche("moyen");
+      }
+      if(value >= 7){
+          this.changementFrontDifficultyGauche("difficile");
+      }
     }
     public changementFrontDifficultyGauche(id : string){
         //Affichage gauche

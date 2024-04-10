@@ -63,3 +63,30 @@
   color: #ffffff4d;
   cursor: no-drop;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip #tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  margin-top: -28px;
+  margin-left: 34px;
+  font-size: 10px;
+}
+
+.tooltip:hover #tooltiptext {
+  visibility: visible;
+}
+
+#tooltiptext{
+  display: none;
+}

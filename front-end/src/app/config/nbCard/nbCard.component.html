@@ -1,10 +1,11 @@
 <h6 class="text-center" id="titre">Nombre de paires</h6>
 <div class="input-group input-number-group">
-    <div class="input-group-button">
+    <div class="input-group-button" >
         <span class="input-number-decrement clickable" (click)="changeInput('-')">-</span>
     </div>
     <input class="input-number" style="color: white; border-radius: 6px;" type="number" value="4" min="0" max="8" (change)="changeInputNum($event)" (click)="onclick()">
-    <div class="input-group-button">
+    <div class="input-group-button tooltip" id="divPlus">
+        <div id="tooltiptext">Nombre d'images insuffisant</div>
         <span class="input-number-increment clickable" (click)="changeInput('+')">+</span>
     </div>
 </div> 

@@ -28,15 +28,16 @@ export class NbCard extends GestionFront implements OnInit {
         switch (op) {
             case '+':
                 newValue = parseInt((document.querySelector(".input-number") as HTMLInputElement).value) - 1 +2; //jsp pk mais +1 ça fait 5+1=51
-                if(newValue > this.userService.availableCards$.value.length){
+                if(newValue >= this.userService.availableCards$.value.length){
                     newValue = this.userService.availableCards$.value.length;
-                    this.stopPlus();
+                    this.stopPlusNbCartes(newValue);
+                }else{
+                    super.setNbCard(newValue,this.userService.availableCards$.value.length);
                 }
-                super.setNbCard(newValue);
                 break;
             case '-':
                 newValue = parseInt((document.querySelector(".input-number") as HTMLInputElement).value)-1
-                super.setNbCard( newValue);
+                super.setNbCard( newValue,this.userService.availableCards$.value.length);
                 break;
         }
         this.userService.setConfig({pairsNumber : newValue, cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage });
@@ -46,19 +47,19 @@ export class NbCard extends GestionFront implements OnInit {
         console.log("nombre de carte : "+this.userService.availableCards$.value.length);
         if(event.target.value<3) {
             this.userService.setConfig({pairsNumber : 3  , cardsAreVisible : this.config.cardsAreVisible, cardsAreBothImage : this.config.cardsAreBothImage});
-            super.setNbCard(3);
+            super.setNbCard(3,this.userService.availableCards$.value.length);
         }
-        else if(event.target.value > this.userService.availableCards$.value.length){
+        else if(event.target.value >= this.userService.availableCards$.value.length){
             this.userService.setConfig({pairsNumber : 8 , cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage});
-            super.setNbCard(this.userService.availableCards$.value.length);
+            super.stopPlusNbCartes(this.userService.availableCards$.value.length);
         }
         else if(event.target.value>8) {
             this.userService.setConfig({pairsNumber : 8 , cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage});
-            super.setNbCard(8);
+            super.setNbCard(8,this.userService.availableCards$.value.length);
         }
         else {
             this.userService.setConfig({pairsNumber : event.target.value , cardsAreVisible : this.config.cardsAreVisible ,cardsAreBothImage : this.config.cardsAreBothImage});
-            super.setNbCard(event.target.value);
+            super.setNbCard(event.target.value,this.userService.availableCards$.value.length);
         }
     }
     public onclick(){

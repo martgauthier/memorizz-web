@@ -58,22 +58,30 @@ export class Template extends GestionFront  implements OnInit {
     public affichageDroite(niveau : string){
       switch (niveau) {
         case 'facile':
-          super.setNbCard(this.presets.simple.pairsNumber);
+          super.setNbCard(this.presets.simple.pairsNumber,this.userService.availableCards$.value.length);
           super.setPosition(this.presets.simple.cardsAreVisible);
           super.setType(this.presets.simple.cardsAreBothImage);
           this.userService.setConfig(this.presets.simple);
           break;
         case 'moyen':
-          super.setNbCard(this.presets.medium.pairsNumber);
-          super.setPosition(this.presets.medium.cardsAreVisible);
-          super.setType(this.presets.medium.cardsAreBothImage);
-          this.userService.setConfig(this.presets.medium);
+          if(this.presets.medium.pairsNumber > this.userService.availableCards$.value.length){
+            this.affichageDroite("facile");
+          }else{
+            super.setNbCard(this.presets.medium.pairsNumber,this.userService.availableCards$.value.length);
+            super.setPosition(this.presets.medium.cardsAreVisible);
+            super.setType(this.presets.medium.cardsAreBothImage);
+            this.userService.setConfig(this.presets.medium);
+          }
           break;
         case 'difficile':
-          super.setNbCard(this.presets.hard.pairsNumber);
-          super.setPosition(this.presets.hard.cardsAreVisible);
-          super.setType(this.presets.hard.cardsAreBothImage);
-          this.userService.setConfig(this.presets.hard);
+          if(this.presets.hard.pairsNumber > this.userService.availableCards$.value.length){
+            this.affichageDroite("moyen");
+          }else{
+            super.setNbCard(this.presets.hard.pairsNumber,this.userService.availableCards$.value.length);
+            super.setPosition(this.presets.hard.cardsAreVisible);
+            super.setType(this.presets.hard.cardsAreBothImage);
+            this.userService.setConfig(this.presets.hard);
+          }
           break;
       }
     }
@@ -103,7 +111,7 @@ export class Template extends GestionFront  implements OnInit {
       currentPresetDict.simple.pairsNumber = 4;
       currentPresetDict.simple.cardsAreBothImage = true;
       currentPresetDict.simple.cardsAreVisible = true;
-      super.setNbCard(4);
+      super.setNbCard(4,this.userService.availableCards$.value.length);
       super.setPosition(true);
       super.setType(true);
       this.config = this.presets.simple;
@@ -112,7 +120,7 @@ export class Template extends GestionFront  implements OnInit {
       currentPresetDict.medium.pairsNumber = 6;
       currentPresetDict.medium.cardsAreBothImage = true;
       currentPresetDict.medium.cardsAreVisible = false;
-      super.setNbCard(6);
+      super.setNbCard(6,this.userService.availableCards$.value.length);
       super.setPosition(false);
       super.setType(true);
       this.config = this.presets.medium;
@@ -121,7 +129,7 @@ export class Template extends GestionFront  implements OnInit {
       currentPresetDict.hard.pairsNumber = 8;
       currentPresetDict.hard.cardsAreBothImage = false;
       currentPresetDict.hard.cardsAreVisible = false;
-      super.setNbCard(8);
+      super.setNbCard(8,this.userService.availableCards$.value.length);
       super.setPosition(false);
       super.setType(false);
       this.config = this.presets.hard;
