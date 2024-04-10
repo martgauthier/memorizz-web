@@ -1,8 +1,8 @@
 import {Card, createEmptyPresetDict, createEmptyPresetStart, Identification, Preset, PresetDict} from "../../models/user.model";
 import {BehaviorSubject} from "rxjs";
 import {
-  USER_IDENTIFICATIONS,
   AVAILABLE_CARDS,
+  ID_SOIGNANT,
   PRESET_DICTS,
   PROFILS_LIST
 } from "../../mocks/user.mock";
@@ -42,13 +42,16 @@ export class UserService {
    */
   public availableProfil$: BehaviorSubject<Identification[]> = new BehaviorSubject<Identification[]>([]);
 
+  public idSoignant$:  BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   setFullDataForUser(id: number) {
     if(id<0) {
       this.setIdentification({prenom : "", nom : "" , id : -1 , src : "assets/icon.png"});
       console.log("id incorrect");
       return;
     }
-    this.setIdentification(USER_IDENTIFICATIONS[id]);
+    this.setIdSoignant();
+    this.setIdentification(PROFILS_LIST[ID_SOIGNANT][id]);
     this.setAvailableCards(AVAILABLE_CARDS[id]);
     this.setPresetDict(PRESET_DICTS[id]);
   }
@@ -56,10 +59,17 @@ export class UserService {
    * Initialise la liste de patient d'un soignant
    * @param idSoignant : id du soignant connecté
    */
-  setProfilsList(idSoignant : number){
-    if(idSoignant < 0) alert("id soignant pas bon");
+  setIdSoignant(){
+    this.idSoignant$.next(ID_SOIGNANT);
+  }
+  /**
+   * Initialise la liste de patient d'un soignant
+   * @param idSoignant : id du soignant connecté
+   */
+  setProfilsList(){
+    if(ID_SOIGNANT < 0) alert("id soignant pas bon");
     //changer avec du back :
-    this.setAvailableProfil(PROFILS_LIST[idSoignant]);
+    this.setAvailableProfil(PROFILS_LIST[ID_SOIGNANT]);
   }
   /**
    * Change le patient séléctionné

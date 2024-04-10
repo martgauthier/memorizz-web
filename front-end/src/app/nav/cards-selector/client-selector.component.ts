@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import { ID_SOIGNANT } from 'src/mocks/user.mock';
 import { Card, Identification } from 'src/models/user.model';
 import { UserService } from 'src/services/user/user.service';
 
@@ -16,6 +17,7 @@ export class ClientSelector implements AfterViewInit {
   public cardSelectedIndex: number = 0;//"en moyenne" card selected
   public scrollTopValue: number=0;
   public choosedUser : number;
+  public idSoignant : number;
 
   constructor(public userService : UserService) {
     userService.availableProfil$.subscribe((profils) => {
@@ -25,7 +27,11 @@ export class ClientSelector implements AfterViewInit {
     userService.identification$.subscribe((identification) => {
       this.choosedUser=identification.id;
     });
-    userService.setProfilsList(0);//A changer avec id soignant connecté
+    this.idSoignant = -1;
+    userService.idSoignant$.subscribe((id) => {
+      this.idSoignant=id;
+    });
+    userService.setProfilsList();//A changer avec id soignant connecté
     //(document.querySelector("#boutonsNav .niveau h3:hover") as HTMLHRElement).style.color = "white";
   }
 
