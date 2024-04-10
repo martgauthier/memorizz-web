@@ -36,7 +36,12 @@ export class ClientSelector implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.setCardSelected(0);
+    if(this.userService.identification$.value.id != -1){
+      //rentre bien quand un user a été choisit
+      this.setCardSelected(this.userService.identification$.value.id+1);
+    }else{
+      this.setCardSelected(0);
+    }
   }
 
   onClick(index: number) {
