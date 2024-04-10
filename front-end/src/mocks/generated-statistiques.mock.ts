@@ -27,7 +27,17 @@ for (let identification of PROFILS_LIST[0]) {
       for(let difficulty of ["simple", "medium", "hard"]) {
         difficultyObject[difficulty].lastTimeValue=getRandomInt(8, 18);
         difficultyObject[difficulty].nowValue=difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10);
-        difficultyObject[difficulty].gamesQuantity=getRandomInt(3, 10);
+        switch(difficulty) {
+          case "simple":
+            difficultyObject[difficulty].gamesQuantity=4-2*identification.id;//these adds little differences between each person
+            break;
+          case "medium":
+            difficultyObject[difficulty].gamesQuantity=6-3*identification.id;
+            break;
+          case "hard":
+            difficultyObject[difficulty].gamesQuantity=5+2*identification.id;
+            break;
+        }
       }
     }
   }
