@@ -65,7 +65,7 @@ li {
 
 li>span {
   display: inline-block;
-  width: 70%;
+  width: 60%;
   margin-left: 0;
   transition: margin-left 0.1s ease-in-out;
 }
@@ -86,7 +86,7 @@ li:hover {
 
 .menu-button {
   position: absolute;
-  top: calc((44px + 1.2em) / 2);
+  top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;

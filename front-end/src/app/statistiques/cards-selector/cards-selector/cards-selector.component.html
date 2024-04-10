@@ -1,5 +1,5 @@
 <div style="position: relative; margin: 0; padding: 0;">
-  <p class="descriptor">Sélectionnez la carte dont les stats seront affichées :</p>
+  <p class="descriptor" [style.opacity]="(isFocused) ? '0' : '1'">Sélectionnez la carte dont les stats seront affichées :</p>
   <div class="cards-ul-container" #container>
     <ul [class.is-focused]="isFocused" #ul class="cards-ul" (click)="$event.preventDefault()" (mousedown)="$event.preventDefault()" tabindex="-1" (blur)="onBlur()">
       <li [class.mean]="true" [class.is-selected]="cardSelectedIndex===0" (click)="onClick(0)"><span>En moyenne</span></li>
