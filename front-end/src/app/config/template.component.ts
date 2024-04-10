@@ -52,6 +52,10 @@ export class Template extends GestionFront  implements OnInit {
         document.querySelector("#jouer div h3")!.classList.add("jouer_txt");
         document.querySelector("#jouer div h3")!.classList.add("cocher");
         document.querySelector("#jouer div h3")!.classList.remove("pas_cocher");
+        setTimeout(()=> {
+          //Pour que la barre apparaisse pour l'animation
+          (document.querySelector("#ligne") as HTMLDivElement).style.width = "6px";
+        },1);
       }
       //new Niveau(id,this.configService);
       //this.configService.setFrontDifficulties(id);
