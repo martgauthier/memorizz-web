@@ -14,29 +14,34 @@ for (let identification of PROFILS_LIST[0]) {
   for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.id])]) {
     MOCKED_STAT_DATA[identification.id][card.id]={};
     for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorPercentageOnWholeGame", "meanGameDuration"]) {
-      MOCKED_STAT_DATA[identification.id][card.id][statType]={
-        statType: statType,
-        duration: 1,
-        difficulty: {
-          simple: {},
-          medium: {},
-          hard: {}
-        }
-      };
-      let difficultyObject: any=MOCKED_STAT_DATA[identification.id][card.id][statType].difficulty;
-      for(let difficulty of ["simple", "medium", "hard"]) {
-        difficultyObject[difficulty].lastTimeValue=getRandomFloat(8, 18);
-        difficultyObject[difficulty].nowValue=difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10) + getRandomFloat(-1, 1);
-        switch(difficulty) {
-          case "simple":
-            difficultyObject[difficulty].gamesQuantity=4-2*identification.id;//these adds little differences between each person
-            break;
-          case "medium":
-            difficultyObject[difficulty].gamesQuantity=6-3*identification.id;
-            break;
-          case "hard":
-            difficultyObject[difficulty].gamesQuantity=5+2*identification.id;
-            break;
+      MOCKED_STAT_DATA[identification.id][card.id][statType]={};
+      for (let duration of ["1", "2", "3", "6", "8", "12"]) {
+        MOCKED_STAT_DATA[identification.id][card.id][statType][duration] = {
+          statType: statType,
+          duration: duration,
+          difficulty: {
+            simple: {},
+            medium: {},
+            hard: {}
+          }
+        };
+        let difficultyObject: any = MOCKED_STAT_DATA[identification.id][card.id][statType][duration].difficulty;
+        for (let difficulty of ["simple", "medium", "hard"]) {
+          difficultyObject[difficulty].lastTimeValue = getRandomFloat(8, 18);
+          difficultyObject[difficulty].nowValue = difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10) + getRandomFloat(-1, 1);
+          switch (difficulty) {
+            case "simple":
+              difficultyObject[difficulty].gamesQuantity = 4 - 2 * identification.id;//these adds little differences between each person
+              break;
+            case "medium":
+              difficultyObject[difficulty].gamesQuantity = 6 - 3 * identification.id;
+              break;
+            case "hard":
+              difficultyObject[difficulty].gamesQuantity = 5 + 2 * identification.id;
+              break;
+          }
+
+          difficultyObject[difficulty].gamesQuantity*=parseInt(duration);
         }
       }
     }

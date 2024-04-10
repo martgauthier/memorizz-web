@@ -14,11 +14,11 @@ export class StatistiquesService {
    * Keys are in string format, to make it easy for BigSingleStatComponent to choose programmatically which data to listen to
    */
   public data: {[statTitle: string]: BehaviorSubject<FullDataForSingleStat>}= {
-    "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]),
-    "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]),
-    "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["preferredDifficultyMode"]),
-    "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]),
-    "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"])
+    "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]["1"]),
+    "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]["1"]),
+    "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["preferredDifficultyMode"]["1"]),
+    "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]["1"]),
+    "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"]["1"])
   };
 
   private identificationId: number=0;//jacqueline par défaut
@@ -41,11 +41,11 @@ export class StatistiquesService {
     this.userService.identification$.subscribe((identification) => {
       if(identification.id>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.id;
-        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"]);
-        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"]);
-        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.id][0]["preferredDifficultyMode"]);
-        this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"]);
-        this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"]);
+        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"][this.duration$.getValue().toString()]);
+        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"][this.duration$.getValue().toString()]);
+        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.id][0]["preferredDifficultyMode"][this.duration$.getValue().toString()]);
+        this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"][this.duration$.getValue().toString()]);
+        this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"][this.duration$.getValue().toString()]);
         this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
 
         this.selectedStat$.next({
@@ -63,7 +63,7 @@ export class StatistiquesService {
   updateSelectedCard(cardIndex: number) {
     for(let observableKey in this.data) {
       let observable: BehaviorSubject<FullDataForSingleStat> = this.data[observableKey];
-      observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey]);
+      observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey][this.duration$.getValue().toString()]);
     }
   }
 
@@ -83,7 +83,6 @@ export class StatistiquesService {
     let currentDate=new Date();
     currentDate.setDate(currentDate.getDate()-1);
     currentDate.setMonth(currentDate.getMonth()-this.duration$.getValue());
-    //TODO: change data according to new time range
     return this.getDateString(currentDate);
   }
 
@@ -98,6 +97,12 @@ export class StatistiquesService {
 
   setDuration(duration: number) {
     this.duration$.next(duration);
+
+    this.data["errorsPerGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorsPerGame"][duration.toString()]);
+    this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["timeToDiscoverFullPair"][duration.toString()]);
+    this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["preferredDifficultyMode"][duration.toString()]);
+    this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorPercentageOnWholeGame"][duration.toString()]);
+    this.data["meanGameDuration"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["meanGameDuration"][duration.toString()]);
   }
 }
 
