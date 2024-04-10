@@ -4,8 +4,8 @@
   <span class="on-month-text">Sur {{duration | durationInMonthsOrYear}}</span>
 </span>
 <span class="singledata-desc">
-  {{lastTimeDate}}: {{statData.lastTimeValue.toFixed(1)}} {{statLongSuffix}}
+  {{lastTimeDate}}: {{statData.lastTimeValue | formatHour:shouldFormatHour}} {{statLongSuffix}}
   <br />
-  {{nowDate}}: {{statData.nowValue.toFixed(1)}} {{statShortSuffix}}
+  {{nowDate}}: {{statData.nowValue | formatHour:shouldFormatHour}} {{statShortSuffix}}
 </span>
 <span class="games-quantity">{{statData.gamesQuantity}} parties depuis {{duration | durationInMonthsOrYear}}</span>

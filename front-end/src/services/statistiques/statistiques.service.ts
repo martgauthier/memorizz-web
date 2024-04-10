@@ -114,8 +114,8 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
   },
   "timeToDiscoverFullPair": {
     statPercentageSuffix: "de durée",
-    statLongSuffix: "minutes pour trouver la paire",
-    statShortSuffix: "minutes"
+    statLongSuffix: " pour trouver la paire",
+    statShortSuffix: ""//covered by the FormatHour pipe
   },
   "preferredDifficultyMode": {
     statPercentageSuffix: "",
@@ -129,8 +129,8 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
   },
   "meanGameDuration": {
     statPercentageSuffix: "de durée",
-    statLongSuffix: "minutes pour finir",
-    statShortSuffix: "minutes"
+    statLongSuffix: " pour finir",
+    statShortSuffix: ""//covered by the FormatHour pipe
   }
 }
 
