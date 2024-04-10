@@ -38,6 +38,7 @@ import {HighchartsChartModule} from "highcharts-angular";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import { ClientSelector } from './nav/cards-selector/client-selector.component';
+import {DurationPipe} from "./statistiques/duration-pipe/duration.pipe";
 
 
 
@@ -70,6 +71,7 @@ import { ClientSelector } from './nav/cards-selector/client-selector.component';
     MemorytemplateComponent,
     MemorywinComponent,
     ClientSelector,
+    DurationPipe
   ],
 
   imports: [

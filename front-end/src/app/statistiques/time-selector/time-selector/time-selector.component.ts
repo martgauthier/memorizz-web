@@ -50,6 +50,12 @@ export class TimeSelectorComponent {
       case 3:
         duration=6;
         break;
+      case 4:
+        duration=8;
+        break;
+      case 5:
+        duration=12;
+        break;
     }
     this.statsService.setDuration(duration);
   }
