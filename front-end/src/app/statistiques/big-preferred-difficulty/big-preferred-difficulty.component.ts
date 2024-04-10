@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {
-  DataPerDifficultyForSingleStat,
   FullDataForSingleStat
 } from "../../../models/stats-data.model";
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
@@ -20,6 +19,7 @@ export class BigPreferredDifficultyComponent {
   public duration: number=1;
   public gamesQuantity: number=0;
   public Highcharts: typeof Highcharts = Highcharts;
+  public updateChart: boolean=false;
 
   public chartOptions: Highcharts.Options = {
     xAxis: {
@@ -50,15 +50,15 @@ export class BigPreferredDifficultyComponent {
       name: "Mode de difficulté",
       data: [
         {
-          y: 15,
+          y: 0,
           color: "#49960b"
         },
         {
-          y: 60,
+          y: 0,
           color: "#a6a612"
         },
         {
-          y: 25,
+          y: 0,
           color: "#b31414"
         }],
     }],
@@ -100,9 +100,18 @@ export class BigPreferredDifficultyComponent {
     dataToSubscribeTo.subscribe((data) => {
       this.statData = data;
       this.gamesQuantity=0;
-      Object.values(data.difficulty).forEach((values: DataPerDifficultyForSingleStat) => {
-        this.gamesQuantity+=values.gamesQuantity;
-      });
+
+      let k: keyof typeof data.difficulty;
+      for(k in data.difficulty) {
+        this.gamesQuantity+=data.difficulty[k].gamesQuantity;
+      }
+
+      for(k in data.difficulty) {
+        let dataIndex=["simple", "medium", "hard"].indexOf(k);
+
+        // @ts-ignore
+        this.chartOptions.series![0].data[dataIndex].y=Math.round(data.difficulty[k].gamesQuantity*100/this.gamesQuantity);
+      }
     });
 
     this.statsService.duration$.subscribe((duration) => {
