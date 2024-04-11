@@ -1,5 +1,5 @@
 <div class="big-single-stats-list">
   <app-big-preferred-difficulty [style.width]="'30%'"></app-big-preferred-difficulty>
-  <app-big-singlestat [statType]="'errorPercentageOnWholeGame'" [style.width]="'30%'"></app-big-singlestat>
-  <app-big-singlestat [statType]="'meanGameDuration'" [style.width]="'30%'"></app-big-singlestat>
+  <app-big-singlestat [statType]="'errorPercentageOnWholeGame'" [style.width]="'30%'" [shouldFormatHour]="false"></app-big-singlestat>
+  <app-big-singlestat [statType]="'meanGameDuration'" [style.width]="'30%'" [shouldFormatHour]="true"></app-big-singlestat>
 </div>
