@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import { ID_SOIGNANT } from 'src/mocks/user.mock';
 import { Card, Identification } from 'src/models/user.model';
 import { UserService } from 'src/services/user/user.service';
 
@@ -16,6 +17,7 @@ export class ClientSelector implements AfterViewInit {
   public cardSelectedIndex: number = 0;//"en moyenne" card selected
   public scrollTopValue: number=0;
   public choosedUser : number;
+  public idSoignant : number;
 
   constructor(public userService : UserService) {
     userService.availableProfil$.subscribe((profils) => {
@@ -25,12 +27,33 @@ export class ClientSelector implements AfterViewInit {
     userService.identification$.subscribe((identification) => {
       this.choosedUser=identification.id;
     });
-    userService.setProfilsList(0);//A changer avec id soignant connecté
+    this.idSoignant = -1;
+    userService.idSoignant$.subscribe((id) => {
+      this.idSoignant=id;
+    });
+    userService.setProfilsList();//A changer avec id soignant connecté
     //(document.querySelector("#boutonsNav .niveau h3:hover") as HTMLHRElement).style.color = "white";
+    setTimeout(() => {
+      if(this.userService.identification$.value.id != -1){
+        (document.querySelector("#pageNavMain") as HTMLDivElement).classList.add("animation-slide");
+        document.querySelector("#jouer_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#jouer_nav h3")!.classList.add("cocher");
+        document.querySelector("#image_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#image_nav h3")!.classList.add("cocher");
+        document.querySelector("#stats_nav h3")!.classList.remove("pas_cocher");
+        document.querySelector("#stats_nav h3")!.classList.add("cocher");
+        (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "14px";
+      }
+    }, 10); //Je n'ai pas trouvé d'autre solution
   }
 
   ngAfterViewInit() {
-    this.setCardSelected(0);
+    if(this.userService.identification$.value.id == -1){
+      this.setCardSelected(0);
+    }else{
+      //rentre bien quand un user a été choisit
+      this.setCardSelected(this.userService.identification$.value.id+1);
+    }
   }
 
   onClick(index: number) {
@@ -81,5 +104,14 @@ export class ClientSelector implements AfterViewInit {
     //this.el.nativeElement.style.height=this.ul.nativeElement.offsetHeight + 20 + "px";
     this.ul.nativeElement.scrollTo(0, childNode.offsetTop);
     this.cardSelectedIndex=index;
+    if( this.userService.availableCards$.value.length < 3){
+      (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "block";
+      (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0.9)";
+      (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "no-drop";
+    }else{
+      (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "none";
+      (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0)";
+      (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "pointer";
+    }
   }
 }

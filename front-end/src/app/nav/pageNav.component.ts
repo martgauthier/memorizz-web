@@ -19,6 +19,7 @@ export class PageNavComponent {
 
     goTo(str : string){
         if(this.choosedUser !=-1){
+            if(str == "play" && this.userService.availableCards$.value.length < 3 ) return;
             this.router.navigate([str]);
         }
         else{
