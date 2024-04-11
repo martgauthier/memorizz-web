@@ -104,7 +104,7 @@ export class ClientSelector implements AfterViewInit {
     //this.el.nativeElement.style.height=this.ul.nativeElement.offsetHeight + 20 + "px";
     this.ul.nativeElement.scrollTo(0, childNode.offsetTop);
     this.cardSelectedIndex=index;
-    if(this.userService.availableCards$.value.length < 4){
+    if( this.userService.availableCards$.value.length < 3){
       (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "block";
       (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0.9)";
       (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "no-drop";
