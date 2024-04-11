@@ -5,8 +5,14 @@
         </div>
         <div class="choix_diff">
             <app-bouton id="facile" [text]="'facile'" (click)="onclick_difficulties('facile')"></app-bouton>
-            <app-bouton id="moyen" [text]="'moyen'" (click)="onclick_difficulties('moyen')"></app-bouton>
-            <app-bouton id="difficile" [text]="'difficile'" (click)="onclick_difficulties('difficile')"></app-bouton>
+            <div class="tooltip-diff" id="moyen-div">
+                <app-bouton id="moyen" [text]="'moyen'" (click)="onclick_difficulties('moyen')"></app-bouton>
+                <div id="tooltip-text-moyen">Nombre d'images insuffisant</div>
+            </div>
+            <div class="tooltip-diff" id="difficile-div">
+                <app-bouton id="difficile" [text]="'difficile'" (click)="onclick_difficulties('difficile')"></app-bouton>
+                <div id="tooltip-text-difficile">Nombre d'images insuffisant</div>
+            </div>
         </div>
             <app-bouton id="jouer" [text]="'JOUER'" (click)="onclick_jouer()" style="display: none;"></app-bouton>
     </div>
@@ -15,12 +21,14 @@
         <app-nbcard></app-nbcard>
         <app-position></app-position>
         <app-typeCard></app-typeCard>
-        <div id="btn_bas_grp">
-            <div class="btn_bas" (click)="onclick_defaut()">
-                <h6 class="btn_bas_txt white">Paramètres par défaut</h6>
-            </div>
-            <div class="btn_bas" (click)="onclick_enregistrement()">
-                <h6 class="btn_bas_txt white" id="modif_txt">Enregistrer les modifications</h6>
+        <div id="btns_config">
+            <div id="btn_bas_grp">
+                <div class="btn_bas" (click)="onclick_defaut()">
+                    <h6 class="btn_bas_txt white">Paramètres par défaut</h6>
+                </div>
+                <div class="btn_bas" (click)="onclick_enregistrement()">
+                    <h6 class="btn_bas_txt white" id="modif_txt">Enregistrer les modifications</h6>
+                </div>
             </div>
         </div>
     </div>

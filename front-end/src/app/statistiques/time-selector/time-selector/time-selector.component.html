@@ -1,8 +1,17 @@
-<form>
-  <p>Sélectionnez l'écart de temps sur lequel calculer les statistiques :</p>
-  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="1" (change)="onRadioChange()">1 mois</label>
-  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="2" (change)="onRadioChange()">2 mois</label>
-  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="3" (change)="onRadioChange()">3 mois</label>
-  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="6" (change)="onRadioChange()">6 mois</label>
-  <label><input [(ngModel)]="duration" type="radio" name="period" [value]="8" (change)="onRadioChange()">8 mois</label>
-</form>
+<p>Sélectionnez l'écart de temps sur lequel calculer les statistiques :</p>
+<div class="carousel-container">
+  <div class="left-arrow arrow" (click)="onArrowClicked('left')">
+    <span class="left-arrow-character arrow-character"></span>
+  </div>
+  <owl-carousel-o [options]="carouselOptions" #carousel (changed)="onCarouselChange($event)">
+    <ng-template carouselSlide><span class="selected-time-range">1 mois</span></ng-template>
+    <ng-template carouselSlide><span class="selected-time-range">2 mois</span></ng-template>
+    <ng-template carouselSlide><span class="selected-time-range">3 mois</span></ng-template>
+    <ng-template carouselSlide><span class="selected-time-range">6 mois</span></ng-template>
+    <ng-template carouselSlide><span class="selected-time-range">8 mois</span></ng-template>
+    <ng-template carouselSlide><span class="selected-time-range">1 an</span></ng-template>
+  </owl-carousel-o>
+  <div class="right-arrow arrow" (click)="onArrowClicked('right')">
+    <span class="right-arrow-character arrow-character"></span>
+  </div>
+</div>

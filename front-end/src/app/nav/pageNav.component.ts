@@ -17,14 +17,9 @@ export class PageNavComponent {
         });
     }
 
-    callService(str : string){
-        let id = parseInt(str);
-        this.choosedUser = id;
-        this.userService.setFullDataForUser(id);
-    }
-
     goTo(str : string){
         if(this.choosedUser !=-1){
+            if(str == "play" && this.userService.availableCards$.value.length < 3 ) return;
             this.router.navigate([str]);
         }
         else{

@@ -2,6 +2,7 @@ export interface Identification {
     nom : string;
     prenom : string;
     id : number;
+    src : string;
 }
 
 export interface PresetDict {
@@ -23,6 +24,10 @@ export interface Preset {
    * true if a pair is constituted of two images cards. if false, one card is the image, and the other is text
    */
   cardsAreBothImage: boolean
+}
+
+export function createEmptyPresetStart() {
+  return {pairsNumber: 0, cardsAreVisible: false, cardsAreBothImage: false};
 }
 
 export function createEmptyPresetDict() {

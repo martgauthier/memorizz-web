@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbCard } from './nbCard/nbCard.component';
 /*import { Niveau } from 'src/models/niveau.models';*/
 import { UserService } from 'src/services/user/user.service';
-import { PresetDict, createEmptyPresetDict } from 'src/models/user.model';
+import { Preset, PresetDict, createEmptyPresetDict, createEmptyPresetStart } from 'src/models/user.model';
 import { GestionFront } from './gestion-front';
 import { Bouton } from '../bouton.component';
 import { Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class Template extends GestionFront  implements OnInit {
     public beginning : boolean = true;
     public presets : PresetDict = createEmptyPresetDict();
+    public config : Preset = createEmptyPresetStart();
     public choosedUser : number = 0;
     constructor(private router: Router, public userService : UserService){
       super();
@@ -26,48 +27,73 @@ export class Template extends GestionFront  implements OnInit {
       userService.identification$.subscribe((identification) => {
         this.choosedUser=identification.id;
       });
+      userService.presetConfig$.subscribe((data) => {
+        this.config=data;
+      });
       if(this.choosedUser == -1){
         this.router.navigate(['nav']);
       }
-      userService.setFullDataForUser(this.choosedUser);
+      setTimeout(() => {
+        super.affichageNonDispo(this.userService.availableCards$.value.length);
+      }, 10);
+      //userService.setFullDataForUser(this.choosedUser);
     }
     ngOnInit(): void {}
     public onclick_jouer(){
+      //alert("Nombre de paires : "+this.config.pairsNumber+"\nCartes visibles ? "+this.config.cardsAreVisible+"\nCartes sont des images ? "+this.config.cardsAreBothImage);
       this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
       if(this.beginning){
         (document.querySelector(".template") as HTMLDivElement)!.style.animationPlayState = "running";
-        this.beginning = false;
+        //this.beginning = false;
         (document.querySelector("#jouer") as HTMLDivElement)!.style.display ="block";
         document.querySelector("#jouer div")!.classList.add("jouer");
         document.querySelector("#jouer div h3")!.classList.add("jouer_txt");
         document.querySelector("#jouer div h3")!.classList.add("cocher");
         document.querySelector("#jouer div h3")!.classList.remove("pas_cocher");
+        setTimeout(()=> {
+          //Pour que la barre apparaisse pour l'animation
+          (document.querySelector("#ligne") as HTMLDivElement).style.width = "6px";
+        },1);
       }
       //new Niveau(id,this.configService);
       //this.configService.setFrontDifficulties(id);
-      super.changementFrontDifficultyGauche(id);
       this.affichageDroite(id);
     }
     public affichageDroite(niveau : string){
       switch (niveau) {
         case 'facile':
-          super.setNbCard(this.presets.simple.pairsNumber);
+          super.setNbCard(this.presets.simple.pairsNumber,this.userService.availableCards$.value.length);
           super.setPosition(this.presets.simple.cardsAreVisible);
           super.setType(this.presets.simple.cardsAreBothImage);
+          this.userService.setConfig(this.presets.simple);
+          super.changementFrontDifficultyGauche(niveau);
           break;
         case 'moyen':
-          super.setNbCard(this.presets.medium.pairsNumber);
-          super.setPosition(this.presets.medium.cardsAreVisible);
-          super.setType(this.presets.medium.cardsAreBothImage);
+          if(this.userService.availableCards$.value.length >= 5){
+            super.setNbCard(this.presets.medium.pairsNumber,this.userService.availableCards$.value.length);
+            super.setPosition(this.presets.medium.cardsAreVisible);
+            super.setType(this.presets.medium.cardsAreBothImage);
+            this.userService.setConfig(this.presets.medium);
+            super.changementFrontDifficultyGauche(niveau);
+          }
           break;
         case 'difficile':
-          super.setNbCard(this.presets.hard.pairsNumber);
-          super.setPosition(this.presets.hard.cardsAreVisible);
-          super.setType(this.presets.hard.cardsAreBothImage);
+          if(this.userService.availableCards$.value.length >= 7){
+            super.setNbCard(this.presets.hard.pairsNumber,this.userService.availableCards$.value.length);
+            super.setPosition(this.presets.hard.cardsAreVisible);
+            super.setType(this.presets.hard.cardsAreBothImage);
+            this.userService.setConfig(this.presets.hard);
+            super.changementFrontDifficultyGauche(niveau);
+          }else if(this.beginning){
+            //C'est le début et on a pris une diff pas possible (pas assez de cartes)
+            if(this.userService.availableCards$.value.length>=5) this.affichageDroite("moyen");
+            else if(this.userService.availableCards$.value.length>=3) this.affichageDroite("facile");
+          }
           break;
       }
+      this.beginning = false;
     }
   public onclick_enregistrement(){
     let currentPresetDict: PresetDict = this.presets;
@@ -95,25 +121,28 @@ export class Template extends GestionFront  implements OnInit {
       currentPresetDict.simple.pairsNumber = 4;
       currentPresetDict.simple.cardsAreBothImage = true;
       currentPresetDict.simple.cardsAreVisible = true;
-      super.setNbCard(4);
+      super.setNbCard(4,this.userService.availableCards$.value.length);
       super.setPosition(true);
       super.setType(true);
+      this.config = this.presets.simple;
     }
     else if((document.querySelector("#moyen div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.medium.pairsNumber = 6;
       currentPresetDict.medium.cardsAreBothImage = true;
       currentPresetDict.medium.cardsAreVisible = false;
-      super.setNbCard(6);
+      super.setNbCard(6,this.userService.availableCards$.value.length);
       super.setPosition(false);
       super.setType(true);
+      this.config = this.presets.medium;
     }
     else if((document.querySelector("#difficile div h3") as HTMLElement).classList.contains("cocher")){
       currentPresetDict.hard.pairsNumber = 8;
       currentPresetDict.hard.cardsAreBothImage = false;
       currentPresetDict.hard.cardsAreVisible = false;
-      super.setNbCard(8);
+      super.setNbCard(8,this.userService.availableCards$.value.length);
       super.setPosition(false);
       super.setType(false);
+      this.config = this.presets.hard;
     }
 
     this.userService.setPresetDict(currentPresetDict);

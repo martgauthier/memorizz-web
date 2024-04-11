@@ -1,21 +1,19 @@
-@import "../../../../styles/variables";
+@import "../../../styles.scss";
 
 $slightly-different-turquoise: #02736a;// to make elements in this color distinct from $light-turquoise
 
 :host {
   display: block;
-  background-color: $dark-blue;
   margin: auto;
   padding: 1px;//to make children margins expand blocks
-  position: sticky;
   z-index: 4000;
-  top: -1px; /* a little transparent line appears if we don't put this, it is a bug */
   height: calc(44px + 1.2em + 20px);/* .cards-ul height + 2*10px margin */
+  width: 420px;
 }
 
 .cards-ul-container {
   position: relative;
-  width: 20%;
+  width: 100%;
   margin: auto;
   padding: 0;
   box-shadow: 0 0 10px 1px transparent;
@@ -29,9 +27,8 @@ hr {
 }
 
 .cards-ul {
-  margin: 10px auto;
+  margin: 0 auto;
   width: 100%;
-  background-color: $dark-blue;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -65,7 +62,7 @@ li {
 
 li>span {
   display: inline-block;
-  width: 60%;
+  width: 70%;
   margin-left: 0;
   transition: margin-left 0.1s ease-in-out;
 }
@@ -86,7 +83,7 @@ li:hover {
 
 .menu-button {
   position: absolute;
-  top: 50%;
+  top: calc((44px + 1.2em) / 2);
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -96,6 +93,7 @@ li:hover {
   opacity: 1;
   right: 30px;
   transition: opacity 0.2s ease, right 0.1s ease, height 0.1s ease 0.1s;
+  cursor: pointer;
 }
 
 .cards-ul-container:hover .menu-button:not(.is-focused) {

@@ -1,16 +1,16 @@
 <div id = "pageNavMain">
-    <div id = "userSelector">
-        <label for="user-select">Choisissez un profil:</label><br>
-
-        <select #userSelect id="user-select" name="user" (change)="callService(userSelect.value)">
-        <option [selected]="choosedUser===-1" value="-1" disabled>--Choose an User--</option>
-        <option [selected]="choosedUser===0" value="0">Jaqueline STADCAT</option>
-        <option [selected]="choosedUser===1" value="1">Jean-Michel STADECISSE</option>
-        </select>
+    <div>
+        <h2 id="txt_choix">Choisissez un profil</h2>
+        <app-client-selector></app-client-selector>
     </div>
     <div id="boutonsNav">
-        <app-bouton [text]="'Jouer'" (click)="goTo('play')" class = "buttonMargin"></app-bouton>
-        <app-bouton [text]="'Ajouter une Image'" (click)= "goTo('ajoutImage')" class = "buttonMargin"></app-bouton>
-        <app-bouton [text]="'Stats'" (click)="goTo('stats/cardsStats')"></app-bouton>
+        <div style="padding: 16px;">
+            <div class="tooltip" id="jouer_div">
+                <app-bouton id="jouer_nav" [text]="'Jouer'" (click)="goTo('play')" class = "buttonMargin nav_btn"></app-bouton>
+                <div id="tooltip-text">Nombre d'images insuffisant</div>
+            </div>
+            <app-bouton id="image_nav" [text]="'Images'" (click)= "goTo('ajoutImage')" class = "buttonMargin nav_btn"></app-bouton>
+            <app-bouton id="stats_nav" [text]="'Stats'" (click)="goTo('stats/cardsStats')" class="nav_btn"></app-bouton>
+        </div>
     </div>
 </div>
