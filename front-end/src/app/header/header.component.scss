@@ -120,7 +120,7 @@ $wave-animation-duration: 0.3s;
   right: 0;
   z-index: 60000;
 
-  transition: right 0.4s;
+  transition: right 0.75s;
 }
 
 #opacity{
@@ -132,7 +132,7 @@ $wave-animation-duration: 0.3s;
   z-index: 59000;
   left: -100%;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.75s;
 }
 
 .opacity-deployed {
