@@ -40,8 +40,11 @@ export class HeaderComponent {
       document.getElementById("menu")?.classList.remove("animate");
     }
 
-    public stopDisplay(){
+    public async stopDisplay(){
+      document.getElementById("menu")?.classList.add("animate");
       document.getElementById("menu-container")?.classList.add("notDisplayed");
+      await this.delay(500);
+      document.getElementById("menu")?.classList.remove("animate");
       this.deployed = false;
     }
 
