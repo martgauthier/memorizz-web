@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Identification } from 'src/models/user.model';
 import {UserService} from "../../services/user/user.service";
 import {Router} from "@angular/router";
+import {HeaderService} from "../../services/header/header.service";
 
 @Component({
     selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent {
 
     deployed : boolean;
 
-    constructor(private userService: UserService, public router: Router) {
+    constructor(private userService: UserService, public router: Router, private headerService: HeaderService) {
         this.userService.identification$.subscribe((identification) => {
           this.user=identification;
         });
@@ -31,9 +32,11 @@ export class HeaderComponent {
       if(this.deployed){
         document.getElementById("menu-container")?.classList.add("notDisplayed");
         this.deployed = false;
+        this.headerService.isOpened$.next(false);
       }else{
         document.getElementById("menu-container")?.classList.remove("notDisplayed");
         this.deployed = true;
+        this.headerService.isOpened$.next(true);
       }
       setTimeout(() => {
         document.getElementById("menu")?.classList.remove("animate");
@@ -46,6 +49,7 @@ export class HeaderComponent {
       setTimeout(() => {
         document.getElementById("menu")?.classList.remove("animate");
         this.deployed = false;
+        this.headerService.isOpened$.next(false);
       }, 500)
     }
 
