@@ -16,7 +16,7 @@ export class HeaderComponent {
       src:"/assets/icon.png"
     };
 
-    deployed : Boolean;
+    deployed : boolean;
 
     constructor(private userService: UserService, public router: Router) {
         this.userService.identification$.subscribe((identification) => {
@@ -25,10 +25,9 @@ export class HeaderComponent {
         this.deployed = false;
     }
 
-    public async deployMenu(){
+    public deployMenu(){
       document.getElementById("menu")?.classList.add("animate");
-      
-      
+
       if(this.deployed){
         document.getElementById("menu-container")?.classList.add("notDisplayed");
         this.deployed = false;
@@ -36,16 +35,18 @@ export class HeaderComponent {
         document.getElementById("menu-container")?.classList.remove("notDisplayed");
         this.deployed = true;
       }
-      await this.delay(500);
-      document.getElementById("menu")?.classList.remove("animate");
+      setTimeout(() => {
+        document.getElementById("menu")?.classList.remove("animate");
+      }, 500)
     }
 
     public async stopDisplay(){
       document.getElementById("menu")?.classList.add("animate");
       document.getElementById("menu-container")?.classList.add("notDisplayed");
-      await this.delay(500);
-      document.getElementById("menu")?.classList.remove("animate");
-      this.deployed = false;
+      setTimeout(() => {
+        document.getElementById("menu")?.classList.remove("animate");
+        this.deployed = false;
+      }, 500)
     }
 
     public delay(ms: number) {
