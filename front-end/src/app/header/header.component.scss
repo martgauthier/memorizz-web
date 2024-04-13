@@ -16,6 +16,7 @@
   height: 60px;
   display: flex;
   align-items: center;
+  position: absolute;
 }
 
 #logo{
@@ -42,7 +43,10 @@
   right: 15px;
   top: 50%;
   justify-content: space-around;
+  transform-origin: top;
   width: 40px;
+  transform: translateY(-50%);
+  position: absolute;
   height: 40px;
   transition : 0.5s;
   &:hover{
@@ -53,9 +57,9 @@
 
 @keyframes spin-menu {
     0%{
-      transform : rotate(0deg);
+      transform : rotate(0deg) translateY(-50%);
     }100%{
-      transform : rotate(360deg);
+      transform : rotate(360deg) translateY(-50%);
     }
 }
 
@@ -83,9 +87,6 @@ $wave-animation-duration: 0.3s;
 
   span {
     display: inline-block;
-  }
-  &:hover span {
-    animation: wave-text $wave-animation-duration ease-in-out forwards;
   }
 
   @for $i from 1 to 9 {
