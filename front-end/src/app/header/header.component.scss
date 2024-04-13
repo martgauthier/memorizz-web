@@ -88,7 +88,9 @@ $wave-animation-duration: 0.3s;
   span {
     display: inline-block;
   }
-
+  &:hover span {
+    animation: wave-text $wave-animation-duration ease-in-out forwards;
+  }
   @for $i from 1 to 9 {
     span:nth-of-type(#{$i}) {
       animation-delay: calc((($i) - 1) / 10)+s;
