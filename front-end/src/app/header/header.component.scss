@@ -8,6 +8,8 @@
   align-items: center;
   padding: 15px 0;
   position: relative;
+  z-index: 65000;
+  height : 7vh;
 }
 
 #top{
@@ -35,15 +37,31 @@
 }
 
 #menu {
-  position: absolute;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
   right: 15px;
   top: 50%;
   justify-content: space-around;
-  transform: translateY(-50%);
   width: 40px;
   height: 40px;
+  transition : 0.5s;
+  &:hover{
+    cursor: pointer;
+    filter: drop-shadow(0 0 3px white);
+  }
+}
+
+@keyframes spin-menu {
+    0%{
+      transform : rotate(0deg);
+    }100%{
+      transform : rotate(360deg);
+    }
+}
+
+.animate{
+  animation : spin-menu 0.5s ease-in forwards;
 }
 
 #titre-site {
@@ -88,4 +106,152 @@ $wave-animation-duration: 0.3s;
   100% {
     transform: translateY(0em);
   }
+}
+
+.notDisplayed{
+  right: -100% !important;
+}
+
+#menu-container{
+  display: flex;
+  flex-direction: row;
+  height : 100%;
+  position: absolute;
+  right: 0;
+  z-index: 60000;
+
+  transition: right 0.75s;
+}
+
+#opacity{
+  width: 100%;
+  height:100%;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  z-index: 59000;
+  left: -100%;
+  opacity: 0;
+  transition: opacity 0.75s;
+}
+
+.opacity-deployed {
+  left: 0 !important;
+  opacity: 0.5 !important;
+}
+
+#zone-menu{
+  z-index: 6;
+  width : 33vw;
+  height : 100%;
+
+}
+
+#menu-header{
+  background-color: $dark-blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition : 1s;
+  height : 40%;
+}
+
+#reste-menu{
+  background-color: white;
+  color : $dark-blue;
+  height : 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span{
+    font-size: 25px;
+    font-weight: bold;
+    width:fit-content;
+    margin-top: 40px;
+    transition : 0.3s;
+      &:hover{
+        cursor: pointer;
+        transition : 0.3s
+      }
+  }
+}
+
+#patient{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  span{
+    font-size: 20px;
+    width: fit-content;
+    text-align: center;
+  }
+}
+
+#changeButton{
+  font-size: 10px!important;
+
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.texteSouligneParLeBas {
+  color: black;
+  position: relative;
+}
+
+.texteSouligneParLeBas::after {
+  content: "";
+  position: absolute;
+  bottom: 0;//puts it under the texte
+
+  left: 50%;
+  transform: translateX(-50%);/*center the div horizontally */
+
+  width: 0;//va être transitionné lors du hover
+  background-color: black;
+  height: 2px;
+  transition: width 0.4s;
+}
+
+.texteSouligneParLeBas:hover::after {
+  width: 100%;
+}
+
+#nomSoignant{
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#separator{
+  margin-top: 20px;
+  margin-bottom: 5px;
+  width: 20vw;
+  height : 1px;
+  background-color: white;
+  border-radius: 1px;
+}
+
+#logoMenu{
+  height: 80px;
+}
+
+button{
+  padding : 10px 10px 10px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: $red-hard;
+  color: #fff;
+  font-size: 13px;
+  transition: 0.5s;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: $red-hard-hover;
+  filter: drop-shadow(0 0 5px $red-hard-hover);
+  color: $dark-blue;
+  transition: 0.5s;
 }
