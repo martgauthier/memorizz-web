@@ -1,7 +1,7 @@
 import {MemoryCard} from "../models/memorycard.model";
 
 //  Exemple de liste de cartes : 3 paires
-
+/*
 export const MEMORYCARD_LIST : MemoryCard[] = [
   {
     src : '../assets/maison.png',
