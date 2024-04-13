@@ -204,6 +204,7 @@ export class MemoryService {
            let cards : MemoryCard[] = this.searchMostFlippedPaire();
            if(this.checkIsPairKnown(cards)){
             await this.flipPair(cards);
+            this.nbTentatives = 0;
             }
          }
        }
