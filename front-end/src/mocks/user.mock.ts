@@ -15,7 +15,7 @@ const JEANMICHEL_IDENTIFICATION: Identification = {
   src: "/assets/icon.png"
 }
 
-export const ID_SOIGNANT = 1;
+export const ID_SOIGNANT = 0;
 //export const USER_IDENTIFICATIONS=[JACQUELINE_IDENTIFICATION, JEANMICHEL_IDENTIFICATION];
 export const AVAILABLE_CARDS: Card[][]=[
 
