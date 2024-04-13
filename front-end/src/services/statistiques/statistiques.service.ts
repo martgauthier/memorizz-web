@@ -1,10 +1,10 @@
 import {EventEmitter, Injectable} from "@angular/core";
 import {FullDataForSingleStat, SelectedStat} from "../../models/stats-data.model";
-import MOCKED_STAT_DATA from "../../mocks/generated-statistiques.mock";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
 import {AVAILABLE_CARDS} from "../../mocks/user.mock";
 import {Card} from "../../models/user.model";
+import {MOCKED_STAT_DATA, MOCKED_COURBE_DATA} from "../../mocks/generated-statistiques.mock";
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +20,12 @@ export class StatistiquesService {
     "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]["1"]),
     "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"]["1"])
   };
+
+  public courbeData$: BehaviorSubject<any> = new BehaviorSubject<any>({
+    simple: [],
+    medium: [],
+    hard: []
+  });
 
   private identificationId: number=0;//jacqueline par défaut
 
@@ -52,7 +58,9 @@ export class StatistiquesService {
           userId: identification.id,
           cardId: 0,
           statType: "errorsPerGame"
-        })
+        });
+
+        this.updateCourbeData();
       }
       else {
         console.log("invalid id");
@@ -65,6 +73,8 @@ export class StatistiquesService {
       let observable: BehaviorSubject<FullDataForSingleStat> = this.data[observableKey];
       observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey][this.duration$.getValue().toString()]);
     }
+
+
   }
 
   getDateString(date?: Date) {
@@ -92,6 +102,11 @@ export class StatistiquesService {
       cardId: this.selectedCardIndex,
       statType: statType
     });
+
+    this.updateCourbeData(statType);
+
+    console.log("new selected stat: ", statType)
+
     this.scrollToCourbeEvent.emit();
   }
 
@@ -103,6 +118,17 @@ export class StatistiquesService {
     this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["preferredDifficultyMode"][duration.toString()]);
     this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorPercentageOnWholeGame"][duration.toString()]);
     this.data["meanGameDuration"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["meanGameDuration"][duration.toString()]);
+
+
+    this.updateCourbeData(undefined, duration);
+  }
+
+  updateCourbeData(statType?: string, duration?: number): void {
+    this.courbeData$.next({
+      simple: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].simple],
+      medium: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].medium],
+      hard: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].hard]
+    });
   }
 }
 

@@ -4,12 +4,6 @@ import {
   STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE,
   StatistiquesService
 } from "../../../../services/statistiques/statistiques.service";
-import {
-  COURBE_DIFFICILE_MOCK,
-  COURBE_EN_MOYENNE_MOCK,
-  COURBE_MOYEN_MOCK,
-  COURBE_SIMPLE_MOCK
-} from "../../../../mocks/data-courbe.mock";
 import * as Highcharts from "highcharts";
 
 @Component({
@@ -20,17 +14,13 @@ import * as Highcharts from "highcharts";
 export class CourbeComponent {
   public Highcharts: typeof Highcharts = Highcharts;
 
-  public labels: string[] = Array.from(new Array(31), (value: string, index: number): string => {
-    if(index===0) return this.statsService.getLastTimeDateString();
-    else if(index===30) return this.statsService.getDateString();
-    else return "";
-  });
-
   public updateChart: boolean=false;
+
+  private duration: number=1;
 
   public chartOptions: Highcharts.Options = {
     xAxis: {
-      categories: this.labels,
+      categories: [],
       labels: {
         style: {
           color: "white",
@@ -71,27 +61,27 @@ export class CourbeComponent {
     series: [{
       type: "line",
       name: "Simple",
-      data: COURBE_SIMPLE_MOCK,
+      data: [],
       color: "green",
       visible: false
     },
       {
         type: "line",
         name: "Moyen",
-        data: COURBE_MOYEN_MOCK,
+        data: [],
         color: "yellow",
         visible: false
       },
       {
         type: "line",
         name: "Difficile",
-        data: COURBE_DIFFICILE_MOCK,
+        data: [],
         color: "red",
         visible: false
       },{
         type: "line",
         name: "En moyenne",
-        data: COURBE_EN_MOYENNE_MOCK,
+        data: [],
       }],
     tooltip: {
       animation: false,
@@ -127,22 +117,49 @@ export class CourbeComponent {
     }
   };
 
+  calculateMeanValues(): number[] {
+    // @ts-ignore
+    let meanValues: number[] = new Array(this.chartOptions.series[0].data.length);
+
+    for(let i=0; i < meanValues.length; i++) {
+      // @ts-ignore
+      meanValues[i]=(this.chartOptions.series[0].data[i] + this.chartOptions.series[1].data[i] + this.chartOptions.series[2].data[i])/3;
+      //PROBLEM: this doesn't ponderate with games number per difficulty. It is a simple mean
+    }
+
+    return meanValues;
+  }
+
   constructor(private statsService: StatistiquesService, ref: ElementRef) {
     statsService.selectedStat$.subscribe((selectedStat) => {
       (this.chartOptions.yAxis as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
       (this.chartOptions as any).title.text = STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE[selectedStat.statType].statTitle;
+    });
+
+    statsService.courbeData$.subscribe((courbeData) => {
+      let labels=new Array(courbeData.simple.length);
+      for(let i=0; i < labels.length; i++) {
+        if(i===0) labels[i]=statsService.getLastTimeDateString();
+        else if(i===labels.length - this.duration) labels[i]=statsService.getDateString();
+        else labels[i]="";
+      }
+
+      (this.chartOptions.xAxis as Highcharts.XAxisOptions).categories=labels;
+
+      (this.chartOptions.series![0] as any).data = courbeData.simple;
+      (this.chartOptions.series![1] as any).data = courbeData.medium;
+      (this.chartOptions.series![2] as any).data = courbeData.hard;
+      (this.chartOptions.series![3] as any).data = this.calculateMeanValues();
+
       this.updateChart=true;
     });
 
-    statsService.duration$.subscribe(() => {
-      this.labels[0]=this.statsService.getLastTimeDateString();
-      this.labels[30]=this.statsService.getDateString();
-
-      this.updateChart=true;
-    });
+    statsService.duration$.subscribe((duration) => {
+      this.duration=duration;
+    })
 
     statsService.scrollToCourbeEvent.subscribe(() => {
-      ref.nativeElement.scrollIntoView({behavior: "smooth"});
+      ref.nativeElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
     });
   }
 }
