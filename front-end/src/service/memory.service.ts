@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {MemoryCard} from "../models/memorycard.model";
-import {MEMORYCARD_LIST} from "../mocks/card-list.mocks";
+//import {MEMORYCARD_LIST} from "../mocks/card-list.mocks";
 import {BehaviorSubject} from "rxjs";
 import {
   AVAILABLE_CARDS,
@@ -27,6 +27,9 @@ export class MemoryService {
     cardsAreVisible: false,
     cardsAreBothImage: false
   };
+
+  private nbTentatives :number = 0;
+  private NB_TENTATIVES_MAX  = 4;
   constructor(public userService : UserService){
     this.userService.identification$.subscribe( identification => {
       this.identification = identification;
@@ -73,14 +76,20 @@ export class MemoryService {
         type: "image",
         cardId: cards[i].id,
         description : cards[i].textValue,
-        state: (this.config.cardsAreVisible)? 'visible' : "default"
+        state: (this.config.cardsAreVisible)? 'visible' : "default",
+        isKnown : false,
+        paireIsKnown : false,
+        nbOfFlipped : 0
       };
       let memorycard2 :MemoryCard = {
         src: cards[i].imgValue,
         type: (this.config.cardsAreBothImage)? "image" : "text",
         cardId: cards[i].id,
         description : cards[i].textValue,
-        state: (this.config.cardsAreVisible)? 'visible' : "default"
+        state: (this.config.cardsAreVisible)? 'visible' : "default",
+        isKnown : false,
+        paireIsKnown : false,
+        nbOfFlipped : 0
       };
       memorycardslist.push(memorycard1);
       memorycardslist.push(memorycard2);
@@ -93,10 +102,18 @@ export class MemoryService {
     if(card.state=='default' || (card.state=='visible' && this.config.cardsAreVisible)){
       if(this.selectedcards.length==0) {
         card.state = 'flipped';
+        card.nbOfFlipped++;
+        card.isKnown = true;
+        console.log(card.nbOfFlipped);
+
         this.selectedcards.push(card);
       }
       else if(this.selectedcards.length==1){
         card.state = 'flipped';
+        card.nbOfFlipped++;
+        console.log(card.nbOfFlipped);
+        card.isKnown = true;
+        //this.setIsPairKnown(card);
         this.selectedcards.push(card);
         if(this.checkMatchy()){
           await this.isMatchy();
@@ -107,11 +124,30 @@ export class MemoryService {
         else{
           await this.isNotMatchy();
         }
+        this.setIsPairKnown(this.selectedcards[0]);
+        this.setIsPairKnown(this.selectedcards[1]);
+        this.selectedcards = [];
       }
     }
     else{
       return;
     }
+  }
+  public setIsPairKnown(card : MemoryCard) {
+    for(let card2 of this.memorycards){
+      if(card2!=card && card2.src==card.src){
+        if(card2.isKnown && card.isKnown){
+          card2.paireIsKnown = true;
+          card.paireIsKnown = true;
+        }
+      }
+    }
+  }
+  public checkIsPairKnown(cards: MemoryCard[]) {
+    if(cards[0].isKnown && cards[1].isKnown && cards[0].paireIsKnown && cards[1].paireIsKnown){
+      return true;
+    }
+    return false;
   }
 
   public freshGame():void{
@@ -139,7 +175,7 @@ export class MemoryService {
     card1.state = 'matched';
     card2.state = 'matched';
     console.log('matchy');
-    this.selectedcards = [];
+
     await this.sleep(2000);
     card1.state = 'disappear';
     card2.state = 'disappear';
@@ -155,8 +191,52 @@ export class MemoryService {
       await this.sleep(3000);
       card1.state =  (this.config.cardsAreVisible)? 'visible' : "default";
       card2.state = this.config.cardsAreVisible? 'visible' : "default";
-      this.selectedcards = [];
+
+      this.checkClueNeeded(card1, card2);
     }
+
+  }
+
+  public async checkClueNeeded(card1 : MemoryCard, card2 : MemoryCard) {
+       if(card1.paireIsKnown || card2.paireIsKnown){
+         this.nbTentatives++;
+         if(this.nbTentatives>=this.NB_TENTATIVES_MAX){
+           let cards : MemoryCard[] = this.searchMostFlippedPaire();
+           if(this.checkIsPairKnown(cards)){
+            await this.flipPair(cards);
+            }
+         }
+       }
+    }
+
+  public searchMostFlippedPaire(): MemoryCard[] {
+      let cards : MemoryCard[] = [];
+      let max = 0;
+      for(let card1 of this.memorycards){
+        if(card1.state!= 'disappear'){
+          for(let card2 of this.memorycards){
+            if(card2!=card1 && card1.src == card2.src && (card1.nbOfFlipped)+(card2.nbOfFlipped)>max){
+              cards = [];
+              cards.push(card1);
+              cards.push(card2);
+              max = (card1.nbOfFlipped)+(card2.nbOfFlipped);
+            }
+          }
+        }
+      }
+      console.log(cards);
+      console.log(cards[0].nbOfFlipped +'+'+cards[1].nbOfFlipped );
+      return cards;
+    }
+
+  public async flipPair(cards : MemoryCard[]){
+    let card1 = cards[0];
+    let card2 = cards[1];
+    card1.state = 'flipped';
+    card2.state = 'flipped';
+    await this.sleep(3000);
+    card1.state = this.config.cardsAreVisible? 'visible' : "default";
+    card2.state = this.config.cardsAreVisible? 'visible' : "default";
   }
 
   public async sleep(ms:number) : Promise<void>{ // méthode refactor ok
