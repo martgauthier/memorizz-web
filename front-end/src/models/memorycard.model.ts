@@ -4,4 +4,7 @@ export interface MemoryCard{
   cardId : number;
   state : 'default' |'visible'| 'flipped' | 'matched' | 'falsely-matched' | 'disappear';
   description? : string;
+  isKnown : boolean;
+  paireIsKnown : boolean;
+  nbOfFlipped : number ;
 }
