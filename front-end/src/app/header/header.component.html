@@ -37,9 +37,9 @@
     </div>
 
     <div id="reste-menu">
-        <span (click)="router.navigate(['/play'])" class="texteSouligneParLeBas">JOUER</span>
-        <span (click)="router.navigate(['/ajoutImage'])" class="texteSouligneParLeBas">IMAGES</span>
-        <span (click)="router.navigate(['/stats'])" class="texteSouligneParLeBas">STATISTIQUES</span>
+        <span (click)="router.navigate(['/play']); stopDisplay()" class="texteSouligneParLeBas">JOUER</span>
+        <span (click)="router.navigate(['/ajoutImage']); stopDisplay()" class="texteSouligneParLeBas">IMAGES</span>
+        <span (click)="router.navigate(['/stats']); stopDisplay()" class="texteSouligneParLeBas">STATISTIQUES</span>
     </div>
   </div>
 </div>
