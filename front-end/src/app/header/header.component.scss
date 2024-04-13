@@ -167,13 +167,19 @@ $wave-animation-duration: 0.3s;
     font-size: 25px;
     font-weight: bold;
     width:fit-content;
+    color: gray;
+    cursor: not-allowed;
     margin-top: 40px;
     transition : 0.3s;
-      &:hover{
-        cursor: pointer;
-        transition : 0.3s
-      }
   }
+}
+
+#reste-menu.enabled span {
+  color: black;
+}
+
+#reste-menu.enabled span:hover {
+    cursor: pointer;
 }
 
 #patient{
@@ -201,7 +207,7 @@ $wave-animation-duration: 0.3s;
   position: relative;
 }
 
-.texteSouligneParLeBas::after {
+.enabled .texteSouligneParLeBas::after {
   content: "";
   position: absolute;
   bottom: 0;//puts it under the texte
@@ -215,7 +221,7 @@ $wave-animation-duration: 0.3s;
   transition: width 0.4s;
 }
 
-.texteSouligneParLeBas:hover::after {
+.enabled .texteSouligneParLeBas:hover::after {
   width: 100%;
 }
 

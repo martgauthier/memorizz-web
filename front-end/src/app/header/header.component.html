@@ -32,14 +32,16 @@
       <button>Déconnexion</button>
       <span id="separator"></span>
       <div id="patient">
-        <span>{{user.prenom}} {{user.nom}}</span> <span (click)="router.navigate(['/nav'])" id="changeButton"> - changer de profil</span>
+      <div *ngIf="this.user.id!==-1;then userPresent else userAbsent"></div>
+        <ng-template #userPresent><span>{{user.prenom}} {{user.nom}}</span> <span (click)="router.navigate(['/nav']); stopDisplay()" id="changeButton"> - changer de profil</span></ng-template>
+        <ng-template #userAbsent><span style="font-style: italic;">Pas d'utilisateur sélectionné</span> <span (click)="router.navigate(['/nav']); stopDisplay()" id="changeButton"> - choisir un profil</span></ng-template>
       </div>
     </div>
 
-    <div id="reste-menu">
-        <span (click)="router.navigate(['/play']); stopDisplay()" class="texteSouligneParLeBas">JOUER</span>
-        <span (click)="router.navigate(['/ajoutImage']); stopDisplay()" class="texteSouligneParLeBas">IMAGES</span>
-        <span (click)="router.navigate(['/stats']); stopDisplay()" class="texteSouligneParLeBas">STATISTIQUES</span>
+    <div id="reste-menu" [class.enabled]="this.user.id!==-1">
+        <span (click)="navigateAndStopDisplay('/play')" class="texteSouligneParLeBas">JOUER</span>
+        <span (click)="navigateAndStopDisplay('/ajoutImage')" class="texteSouligneParLeBas">IMAGES</span>
+        <span (click)="navigateAndStopDisplay('/stats')" class="texteSouligneParLeBas">STATISTIQUES</span>
     </div>
   </div>
 </div>

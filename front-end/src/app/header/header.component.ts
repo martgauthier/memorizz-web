@@ -53,7 +53,10 @@ export class HeaderComponent {
       }, 500)
     }
 
-    public delay(ms: number) {
-      return new Promise( resolve => setTimeout(resolve, ms) );
+    navigateAndStopDisplay(path: string) {
+      if(this.user.id!==-1) {
+        this.router.navigate([path]);
+        this.stopDisplay();
+      }
     }
 }
