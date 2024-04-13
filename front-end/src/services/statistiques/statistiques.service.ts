@@ -74,7 +74,14 @@ export class StatistiquesService {
       observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey][this.duration$.getValue().toString()]);
     }
 
+    let currentSelectedStat=this.selectedStat$.getValue();
+    currentSelectedStat.cardId=cardIndex;
 
+    this.selectedCardIndex=cardIndex;
+
+    this.selectedStat$.next(currentSelectedStat);
+
+    this.updateCourbeData();
   }
 
   getDateString(date?: Date) {
