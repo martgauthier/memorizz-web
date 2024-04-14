@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../services/user/user.service";
+import { Card, Identification } from 'src/models/user.model';
 
 @Component({
     selector: 'app-ajoutImage',
@@ -9,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 export class AjoutImage implements OnInit {
 
     imageSrc: any;
+    user: Identification = {
+        id: 0,
+        nom: "NOMSOIGNANTE",
+        prenom: "Prenomsoignante",
+        src:"/assets/icon.png"
+    };
 
-    constructor() {
+    public availableCards: Card[]=[];
+
+    constructor(private userService: UserService) {
         this.imageSrc = 'assets/chargez-votre-image.png';
+        this.userService.identification$.subscribe((identification) => {
+            this.user=identification;
+          });
+        this.userService.availableCards$.subscribe( (cards)=>{
+            this.availableCards = cards;
+        });
     }
     ngOnInit(): void {}
 
