@@ -33,4 +33,12 @@ export class MemorytemplateComponent implements OnInit{
     this.memoryService.setSound(checked);
     console.log("sound : "+checked);
   }
+
+  public checkMusic(){
+    const switchElement = document.getElementById('toggle2') as HTMLInputElement;
+    const checked = switchElement.checked;
+    console.log(`Switch is ${checked ? 'on' : 'off'}`);
+    this.memoryService.setMusic(checked);
+    console.log("sound : "+checked);
+  }
 }

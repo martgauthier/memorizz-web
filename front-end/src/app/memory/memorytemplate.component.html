@@ -1,15 +1,25 @@
 <div class="memorytemplate">
   <app-memory class="memory"></app-memory>
-  <div class="sound">
-    <div class="soundswitch">
-      <label class="switch">
-        <input type="checkbox" id="toggle" (click)="checkSound()">
-        <span class="slider round"></span>
-      </label>
+  <div class="switches">
+    <div class="sound">
+      <div class="soundswitch">
+        <label class="switch">
+          <input type="checkbox" id="toggle" (click)="checkSound()">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <img class='soundimg' src='../assets/speaking.png' alt="sound" />
     </div>
-    <img class='soundimg' src='../assets/sound.png' alt="sound" />
+    <div class="music">
+      <div class="musicswitch">
+        <label class="switch">
+          <input type="checkbox" id="toggle2" (click)="checkMusic()">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <img class='soundimg' src='../assets/music.png' alt="music" />
+    </div>
   </div>
-  <audio id="melodyPlayer" src="chemin/vers/le/fichier/audio.mp3"></audio>
   <app-memorywin *ngIf="gameWon==true" class="memorywin"></app-memorywin>
 </div>
 

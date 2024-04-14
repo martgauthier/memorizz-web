@@ -8,6 +8,7 @@ import {
 } from "../mocks/user.mock";
 import { UserService } from "src/services/user/user.service";
 import {Card, Identification, Preset } from "src/models/user.model";
+import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagnostics";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class MemoryService {
   private nbTentatives :number = 0;
   private NB_TENTATIVES_MAX  = 4;
   private soundOn : boolean ;
+  private musicOn : boolean ;
   constructor(public userService : UserService){
     this.userService.identification$.subscribe( identification => {
       this.identification = identification;
@@ -43,6 +45,7 @@ export class MemoryService {
       this.nbpaires$.next(data.pairsNumber);
     });
     this.soundOn = false;
+    this.musicOn = false;
     this.shuffleMemoryCards();
   }
   createMemoryCardList(): MemoryCard[] {
@@ -171,6 +174,7 @@ export class MemoryService {
     this.win$.next(false);
     this.selectedcards = [];
     this.soundOn = false;
+    this.musicOn = false;
     for(let card of this.memorycards){
       card.state=this.config.cardsAreVisible? 'visible' : 'default';
     }
@@ -192,10 +196,10 @@ export class MemoryService {
     card1.state = 'matched';
     card2.state = 'matched';
     console.log('matchy');
-    await this.sleep(500);
+    await this.sleep(1000);
     this.playMelody("/assets/audio/success.mp3");
 
-    await this.sleep(2000);
+    await this.sleep(3000);
     card1.state = 'disappear';
     card2.state = 'disappear';
     console.log('disapear');
@@ -277,9 +281,10 @@ export class MemoryService {
     return true;
   }
 
-  private celebrate() {
-    this.speak("Bravo! Vous avez retrouvé toutes les paires. Voulez-vous rejouer?");
+  async celebrate() {
     this.playMelody("/assets/audio/goodresult.mp3");
+    await this.sleep(2000);
+    this.speak("Bravo! Vous avez retrouvé toutes les paires. Voulez-vous rejouer?");
   }
 
   public shuffleMemoryCards(): void {  // méthode refactor ok
@@ -301,16 +306,17 @@ export class MemoryService {
   }
 
   public setSound(checked: boolean) {
-    this.soundOn = checked
+    this.soundOn = checked;
+  }
+  public setMusic(checked : boolean){
+    this.musicOn = checked;
   }
   public playMelody(src : string) {
-    /*
-    const audioPlayer = document.getElementById('melodyPlayer') as HTMLAudioElement;
-    (audioPlayer as any).play();
-     */
-    if (this.soundOn) {
+    if (this.musicOn) {
       let audio = new Audio(src);
       audio.play();
     }
   }
+
+
 }
