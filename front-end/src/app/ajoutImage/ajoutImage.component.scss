@@ -24,11 +24,11 @@
 }
 
 aside{
-  margin-top: 50%;
+  margin-top: 37%;
+  margin-left:10px;
   color: white;
   background-color: $dark-blue;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
   width: 100%;
   height: fit-content;
   grid-column: 1;
@@ -38,7 +38,7 @@ aside{
 
 #imageList{
   overflow-y:auto;
-  max-height:300px;
+  max-height:400px;
   overflow-x: hidden;
   border-top: 1px solid $dark-blue;
 }
@@ -154,6 +154,8 @@ aside{
   margin-right:25px;
   margin-bottom: 6px;
   margin-top: 6px;
+  margin-left:7px;
+  border-radius: 7px;
   object-fit: cover;
   display: block;
   object-position: center;/* pour dire de rogner l'image autour de son centre */
