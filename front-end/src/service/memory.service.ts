@@ -30,6 +30,7 @@ export class MemoryService {
 
   private nbTentatives :number = 0;
   private NB_TENTATIVES_MAX  = 4;
+  private soundOn : boolean ;
   constructor(public userService : UserService){
     this.userService.identification$.subscribe( identification => {
       this.identification = identification;
@@ -41,6 +42,7 @@ export class MemoryService {
       this.memorycards$.next(this.memorycards);
       this.nbpaires$.next(data.pairsNumber);
     });
+    this.soundOn = false;
     this.shuffleMemoryCards();
   }
   createMemoryCardList(): MemoryCard[] {
@@ -105,7 +107,7 @@ export class MemoryService {
         card.nbOfFlipped++;
         card.isKnown = true;
         console.log(card.nbOfFlipped);
-
+        this.speak(card.description);
         this.selectedcards.push(card);
       }
       else if(this.selectedcards.length==1){
@@ -113,7 +115,7 @@ export class MemoryService {
         card.nbOfFlipped++;
         console.log(card.nbOfFlipped);
         card.isKnown = true;
-        //this.setIsPairKnown(card);
+        this.speak(card.description);
         this.selectedcards.push(card);
         if(this.checkMatchy()){
           await this.isMatchy();
@@ -133,6 +135,20 @@ export class MemoryService {
       return;
     }
   }
+
+  public speak(text: string | undefined){
+    if(this.soundOn) {
+      if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = 'fr-FR'; // Définir la langue
+        window.speechSynthesis.speak(speech);
+      } else {
+        console.error("La synthèse vocale n'est pas prise en charge par votre navigateur.");
+      }
+    }
+
+  }
+
   public setIsPairKnown(card : MemoryCard) {
     for(let card2 of this.memorycards){
       if(card2!=card && card2.src==card.src){
@@ -154,6 +170,7 @@ export class MemoryService {
     this.gameWin=false;
     this.win$.next(false);
     this.selectedcards = [];
+    this.soundOn = false;
     for(let card of this.memorycards){
       card.state=this.config.cardsAreVisible? 'visible' : 'default';
     }
@@ -278,5 +295,9 @@ export class MemoryService {
       [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
     return shuffledArray;
+  }
+
+  public setSound(checked: boolean) {
+    this.soundOn = checked
   }
 }

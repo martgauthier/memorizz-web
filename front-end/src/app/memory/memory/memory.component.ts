@@ -13,7 +13,6 @@ export class MemoryComponent implements OnInit{
   public nbpaires : number =3;
   public memoryCardClicked(card : MemoryCard){
     console.log("the card "+card.cardId+"wants to be returned");
-
     this.memoryService.memoryCardClicked(card);
   }
 

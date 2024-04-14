@@ -25,4 +25,12 @@ export class MemorytemplateComponent implements OnInit{
     this.memoryService.freshGame();
   }
 
+
+  public checkSound() {
+    const switchElement = document.getElementById('toggle') as HTMLInputElement;
+    const checked = switchElement.checked;
+    console.log(`Switch is ${checked ? 'on' : 'off'}`);
+    this.memoryService.setSound(checked);
+    console.log("sound : "+checked);
+  }
 }
