@@ -10,7 +10,15 @@
   grid-template-rows: 1fr 8fr;
   grid-gap:20px;
 }
+.switches{
+  display : grid;
+  grid-template-rows: 60px 60px;
+  grid-column: 3;
+  grid-row: 2;
+  grid-row-gap : 5px;
+  grid-template-columns: 1fr;
 
+}
 .soundswitch{
   grid-column: 2;
   position : relative;
@@ -19,14 +27,36 @@
   width : auto;
   grid-column-gap: 5px;
 }
+
 .sound{
   display : grid;
   grid-template-columns: 40px 60px;
-  grid-column: 3;
-  grid-row: 2;
+  grid-row: 1;
+  grid-column-gap: 5px;
 }
-.soundimg{
+
+.music{
+  display : grid;
+  grid-template-columns: 40px 60px;
+  grid-row: 2;
+  grid-column-gap: 5px;
+}
+.musicswitch{
+  grid-column: 2;
+  position : relative;
+  display : grid;
+  grid-template-columns: 26px 26px;
+  width : auto;
+  grid-column-gap: 5px;
+}
+.musicimg{
   width : 38px;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.soundimg{
+  width : 40px;
   grid-column: 1;
   grid-row: 1;
 

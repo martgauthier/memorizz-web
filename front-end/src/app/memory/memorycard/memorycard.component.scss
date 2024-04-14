@@ -42,10 +42,25 @@
 
 .type-text{
   font-family: 'Poppins', sans-serif;
-  font-size:200%;
+  font-size:1.5em;
+  text-align: center;
+  width: 90%;
+  margin: auto;
   color: white;
 }
 
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  opacity: 1;
+  transition: opacity 1s/*durée de la disparition des conffetis */ 0.5s/* délai avant de commencer à faire disparaitre les confettis*/;
+}
 
-
+:host(.matched) .confetti {
+  visibility: visible;
+  opacity: 0;
+}
 
