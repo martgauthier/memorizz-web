@@ -44,9 +44,9 @@ export class Template extends GestionFront  implements OnInit {
       this.router.navigate(['memoryGame'])
     }
     public onclick_difficulties(id : string){
-      if(this.beginning){
+      if(this.beginning && ( id=='facile' || (id=='moyen' && this.userService.availableCards$.value.length>=5) || (id=="difficile" && this.userService.availableCards$.value.length>=7) )){
         (document.querySelector(".template") as HTMLDivElement)!.style.animationPlayState = "running";
-        //this.beginning = false;
+        this.beginning = false;
         (document.querySelector("#jouer") as HTMLDivElement)!.style.display ="block";
         document.querySelector("#jouer div")!.classList.add("jouer");
         document.querySelector("#jouer div h3")!.classList.add("jouer_txt");
@@ -56,10 +56,13 @@ export class Template extends GestionFront  implements OnInit {
           //Pour que la barre apparaisse pour l'animation
           (document.querySelector("#ligne") as HTMLDivElement).style.width = "6px";
         },1);
+        this.affichageDroite(id);
+      }else if(!this.beginning){
+        this.affichageDroite(id);
       }
       //new Niveau(id,this.configService);
       //this.configService.setFrontDifficulties(id);
-      this.affichageDroite(id);
+      
     }
     public affichageDroite(niveau : string){
       switch (niveau) {
@@ -86,14 +89,9 @@ export class Template extends GestionFront  implements OnInit {
             super.setType(this.presets.hard.cardsAreBothImage);
             this.userService.setConfig(this.presets.hard);
             super.changementFrontDifficultyGauche(niveau);
-          }else if(this.beginning){
-            //C'est le début et on a pris une diff pas possible (pas assez de cartes)
-            if(this.userService.availableCards$.value.length>=5) this.affichageDroite("moyen");
-            else if(this.userService.availableCards$.value.length>=3) this.affichageDroite("facile");
           }
           break;
       }
-      this.beginning = false;
     }
   public onclick_enregistrement(){
     let currentPresetDict: PresetDict = this.presets;
