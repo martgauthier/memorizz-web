@@ -12,6 +12,7 @@ import { MemorytemplateComponent } from './memory/memorytemplate.component';
 
 const routes: Routes = [
   {path : "play", component: Template},
+  {path: "stats", redirectTo: "stats/cardsStats", pathMatch:"full"},
   {path : "stats", component: StatistiquesDisplayerComponent, children: [
       {
         path: "cardsStats",

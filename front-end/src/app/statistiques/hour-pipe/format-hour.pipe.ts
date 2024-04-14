@@ -5,9 +5,7 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 export class FormatHourPipe implements PipeTransform {
   transform(value: number, shouldFormat: boolean): any {
-    if(!shouldFormat) return value.toFixed(1);
-
-    console.log("Piped value: ", value)
+    if(!shouldFormat) return value.toFixed(1)
 
     let decimalValue=value-Math.floor(value);
     let seconds=Math.round(60*decimalValue);
