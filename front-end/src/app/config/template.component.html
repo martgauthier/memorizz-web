@@ -4,17 +4,17 @@
             <h3 class="text-diff">Difficulté</h3>
         </div>
         <div class="choix_diff">
-            <app-bouton id="facile" [text]="'facile'" (click)="onclick_difficulties('facile')"></app-bouton>
+            <app-bouton class="toHover" id="facile" [text]="'facile'" (click)="onclick_difficulties('facile')"></app-bouton>
             <div class="tooltip-diff" id="moyen-div">
-                <app-bouton id="moyen" [text]="'moyen'" (click)="onclick_difficulties('moyen')"></app-bouton>
+                <app-bouton class="toHover" id="moyen" [text]="'moyen'" (click)="onclick_difficulties('moyen')"></app-bouton>
                 <div id="tooltip-text-moyen">Nombre d'images insuffisant</div>
             </div>
             <div class="tooltip-diff" id="difficile-div">
-                <app-bouton id="difficile" [text]="'difficile'" (click)="onclick_difficulties('difficile')"></app-bouton>
+                <app-bouton class="toHover" id="difficile" [text]="'difficile'" (click)="onclick_difficulties('difficile')"></app-bouton>
                 <div id="tooltip-text-difficile">Nombre d'images insuffisant</div>
             </div>
         </div>
-            <app-bouton id="jouer" [text]="'JOUER'" (click)="onclick_jouer()" style="display: none;"></app-bouton>
+            <app-bouton class="toHover" id="jouer" [text]="'JOUER'" (click)="onclick_jouer()" style="display: none;"></app-bouton>
     </div>
     <div class="droite">
         <div id="ligne"></div>

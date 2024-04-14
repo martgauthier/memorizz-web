@@ -5,8 +5,10 @@ export class GestionFront{
         (document.querySelector("#divPlus") as HTMLInputElement).classList.add("tooltip");
         (document.querySelector("#tooltiptext") as HTMLInputElement).style.display = "block";
         document.querySelector(".input-number-increment")!.classList.remove("clickable");
+        document.querySelector(".input-number-increment")!.classList.remove("toHover");
         document.querySelector(".input-number-increment")!.classList.add("not_clickable");
       }else{
+        document.querySelector(".input-number-increment")!.classList.add("toHover");
         (document.querySelector("#divPlus") as HTMLInputElement).classList.remove("tooltip");
         (document.querySelector("#tooltiptext") as HTMLInputElement).style.display = "none";
       }
@@ -14,9 +16,11 @@ export class GestionFront{
         (document.querySelector(".input-number") as HTMLInputElement).value = value +"";
         if(value == 3){
           document.querySelector(".input-number-decrement")!.classList.remove("clickable");
+          document.querySelector(".input-number-decrement")!.classList.remove("toHover");
           document.querySelector(".input-number-decrement")!.classList.add("not_clickable");
         }
         else{
+          document.querySelector(".input-number-decrement")!.classList.add("toHover");
           document.querySelector(".input-number-decrement")!.classList.remove("not_clickable");
           document.querySelector(".input-number-decrement")!.classList.add("clickable");
         }
