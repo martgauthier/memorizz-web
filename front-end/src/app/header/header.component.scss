@@ -246,7 +246,7 @@ $wave-animation-duration: 0.3s;
   height: 80px;
 }
 
-button{
+.disconnect-button {
   padding : 10px 10px 10px 10px;
   font-weight: bold;
   border-radius: 5px;
@@ -254,12 +254,14 @@ button{
   color: #fff;
   font-size: 13px;
   transition: 0.5s;
+  font-family: "Poppins", sans-serif;
+  border: none;
 }
 
-button:hover{
+.disconnect-button:hover{
   cursor: pointer;
   background-color: $red-hard-hover;
   filter: drop-shadow(0 0 5px $red-hard-hover);
-  color: $dark-blue;
+  color: #990000;
   transition: 0.5s;
 }
