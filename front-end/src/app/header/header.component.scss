@@ -191,22 +191,22 @@ $wave-animation-duration: 0.3s;
   border: none;
   align-items: center;
 
-  transition: filter 0.2s;
 
   span{
     font-size: 20px;
     width: fit-content;
     text-align: center;
   }
+}
+
+#changeButton{
+  font-size: 13px!important;
+  transition: filter 0.2s;
 
   &:hover {
     cursor: pointer;
     filter: drop-shadow(0 0 2px white);
   }
-}
-
-#changeButton{
-  font-size: 12px!important;
 }
 
 .texteSouligneParLeBas {
