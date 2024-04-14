@@ -97,13 +97,15 @@ aside{
 
 
 .bouton, input::file-selector-button{
-  padding : 10px 10px 10px 10px;
+  padding : 15px;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   border-radius: 5px;
   background-color: $dark-blue;
   color: #fff;
   font-size: 18px;
   transition: 0.5s;
+  border: none;
 }
 
 .bouton:hover, input::file-selector-button:hover{
@@ -170,6 +172,7 @@ aside{
   position: relative;
   align-items: center;
 }
+
 
 .listItem::before {
   content: "";
