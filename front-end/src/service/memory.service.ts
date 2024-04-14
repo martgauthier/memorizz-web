@@ -192,6 +192,8 @@ export class MemoryService {
     card1.state = 'matched';
     card2.state = 'matched';
     console.log('matchy');
+    await this.sleep(500);
+    this.playMelody("/assets/audio/success.mp3");
 
     await this.sleep(2000);
     card1.state = 'disappear';
@@ -209,7 +211,7 @@ export class MemoryService {
       card1.state =  (this.config.cardsAreVisible)? 'visible' : "default";
       card2.state = this.config.cardsAreVisible? 'visible' : "default";
 
-      this.checkClueNeeded(card1, card2);
+      await this.checkClueNeeded(card1, card2);
     }
 
   }
@@ -269,14 +271,15 @@ export class MemoryService {
         return false;
       }
     }
-    this.gameWin==(true);
+    this.gameWin=true;
     this.win$.next(true);
     console.log('winnnnnn!!!');
     return true;
   }
 
   private celebrate() {
-    //alert("YOU WON !!!");
+    this.speak("Bravo! Vous avez retrouvé toutes les paires. Voulez-vous rejouer?");
+    this.playMelody("/assets/audio/goodresult.mp3");
   }
 
   public shuffleMemoryCards(): void {  // méthode refactor ok
@@ -299,5 +302,15 @@ export class MemoryService {
 
   public setSound(checked: boolean) {
     this.soundOn = checked
+  }
+  public playMelody(src : string) {
+    /*
+    const audioPlayer = document.getElementById('melodyPlayer') as HTMLAudioElement;
+    (audioPlayer as any).play();
+     */
+    if (this.soundOn) {
+      let audio = new Audio(src);
+      audio.play();
+    }
   }
 }
