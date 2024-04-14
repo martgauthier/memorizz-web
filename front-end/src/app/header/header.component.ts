@@ -59,4 +59,9 @@ export class HeaderComponent {
         this.stopDisplay();
       }
     }
+
+    onTitleClick() {
+      this.router.navigate(["/nav"]);
+      if(this.deployed) this.stopDisplay();
+    }
 }
