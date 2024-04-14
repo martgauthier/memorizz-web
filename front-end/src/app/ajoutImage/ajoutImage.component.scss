@@ -25,21 +25,21 @@
 
 aside{
   margin-top: 50%;
-  margin-left: 5px;
-  color: $dark-blue;
-  background-color: lightgray;
-  border: 2px solid lightgray;
-  border-radius: 5px;
-  width: fit-content;
+  color: white;
+  background-color: $dark-blue;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 100%;
   height: fit-content;
   grid-column: 1;
   grid-row:1/3;
-  
+  padding: 1px ;
 }
 
 #imageList{
-  overflow-y:scroll; 
-  height:300px;
+  overflow-y:auto;
+  max-height:300px;
+  overflow-x: hidden;
   border-top: 1px solid $dark-blue;
 }
 
@@ -141,7 +141,7 @@ aside{
 
 
 .titreListe{
-  margin: 10px 5px 10px 0;
+  margin: 15px;
   width:fit-content!important;
 }
 
@@ -151,17 +151,40 @@ aside{
   height: 75px;
   margin-right:25px;
   margin-bottom: 6px;
+  margin-top: 6px;
   object-fit: cover;
+  display: block;
   object-position: center;/* pour dire de rogner l'image autour de son centre */
 }
 
 .listItem{
   border-bottom: 1px solid $dark-blue;
   margin-bottom: 4px;
-  width: fit-content;
+  margin-top: 4px;
+  background-color: $dark-blue;
+  width: 100%;
+  justify-content: space-between;
   display:flex;
   flex-direction: row;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
   align-items: center;
+}
+
+.listItem::before {
+  content: "";
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid white;
+}
+
+.listItem:hover {
+  background-color: white;
+  color: $dark-blue;
 }
 
 .textPreview{
@@ -192,13 +215,6 @@ aside{
   border-bottom-right-radius: 1px;
   margin-top: 4px;
   transition : 0.3s;
-  &:hover{
-    box-shadow:
-      0 0 0 2px $red-hard-hover,
-      inset -2px 0 0 $red-hard-hover,
-      inset 2px 0 0 $red-hard-hover!important;
-    transition : 0.3s;
-  }
 }
 .gg-trash::after,
 .gg-trash::before {
@@ -215,13 +231,9 @@ aside{
   top: -4px;
   left: -5px;
   transition : 0.3s;
-  &:hover{
-    background: $red-hard-hover!important;
-    transition : 0.3s;
-  }
 }
 .gg-trash::before {
-  
+
   width: 10px;
   height: 4px;
   border: 2px solid $red-hard;
@@ -231,8 +243,14 @@ aside{
   top: -7px;
   left: -2px;
   transition : 0.3s;
-  &:hover{
-    border: 2px solid $red-hard-hover!important;
-    transition : 0.3s;
-  }
+}
+
+.trash-icon {
+  transition: filter 0.4s;
+  transform: scale(1.3);
+  filter: saturate(500%) contrast(40%);
+}
+
+.trash-icon:hover {
+  filter: saturate(500%) contrast(100%);
 }
