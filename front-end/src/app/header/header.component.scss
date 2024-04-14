@@ -187,21 +187,26 @@ $wave-animation-duration: 0.3s;
 #patient{
   margin-top: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  border: none;
   align-items: center;
+
+  transition: filter 0.2s;
+
   span{
     font-size: 20px;
     width: fit-content;
     text-align: center;
   }
+
+  &:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 2px white);
+  }
 }
 
 #changeButton{
-  font-size: 10px!important;
-
-  &:hover{
-    cursor: pointer;
-  }
+  font-size: 12px!important;
 }
 
 .texteSouligneParLeBas {
