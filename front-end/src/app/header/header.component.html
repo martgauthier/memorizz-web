@@ -31,10 +31,10 @@
       <span id="nomSoignant">Marguerite LESOIGNANT</span>
       <button class="disconnect-button">Déconnexion</button>
       <span id="separator"></span>
-      <div id="patient">
+      <div id="patient" >
       <div *ngIf="this.user.id!==-1;then userPresent else userAbsent"></div>
-        <ng-template #userPresent><span>{{user.prenom}} {{user.nom}}</span> <span (click)="router.navigate(['/nav']); stopDisplay()" id="changeButton"> - changer de profil</span></ng-template>
-        <ng-template #userAbsent><span style="font-style: italic;">Pas d'utilisateur sélectionné</span> <span (click)="router.navigate(['/nav']); stopDisplay()" id="changeButton"> - choisir un profil</span></ng-template>
+        <ng-template #userPresent><span>{{user.prenom}} {{user.nom}} </span> <span id="changeButton" (click)="router.navigate(['/nav']); stopDisplay()">-Cliquez ici pour changer de profil-</span></ng-template>
+        <ng-template #userAbsent><span style="font-style: italic;">Pas d'utilisateur sélectionné </span> <span id="changeButton" (click)="router.navigate(['/nav']); stopDisplay()">-Cliquez ici pour choisir un profil-</span></ng-template>
       </div>
     </div>
 

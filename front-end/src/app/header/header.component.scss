@@ -187,8 +187,11 @@ $wave-animation-duration: 0.3s;
 #patient{
   margin-top: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  border: none;
   align-items: center;
+
+
   span{
     font-size: 20px;
     width: fit-content;
@@ -197,10 +200,12 @@ $wave-animation-duration: 0.3s;
 }
 
 #changeButton{
-  font-size: 10px!important;
+  font-size: 13px!important;
+  transition: filter 0.2s;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
+    filter: drop-shadow(0 0 2px white);
   }
 }
 
