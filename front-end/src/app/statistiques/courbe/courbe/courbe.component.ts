@@ -60,7 +60,7 @@ export class CourbeComponent {
     },
     series: [{
       type: "line",
-      name: "Simple",
+      name: "Facile",
       data: [],
       color: "green",
       visible: false

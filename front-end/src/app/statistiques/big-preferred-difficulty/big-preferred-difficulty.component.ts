@@ -23,7 +23,7 @@ export class BigPreferredDifficultyComponent {
 
   public chartOptions: Highcharts.Options = {
     xAxis: {
-      categories: ["Simple", "Moyen", "Difficile"],
+      categories: ["Facile  ", "Moyen", "Difficile"],
       labels: {
         style: {
           color: "white"

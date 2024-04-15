@@ -25,7 +25,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   public statShortSuffix: string="";
   public statPercentageSuffix: string="";
 
-  difficultyDescriptor: string = "simple";//arbitrary default value
+  difficultyDescriptor: string = "facile";//arbitrary default value
 
   constructor(private statsService: StatistiquesService) {
     this.nowDate=statsService.getDateString();
@@ -40,7 +40,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   ngOnInit() {
     switch (this.difficulty) {
       case "simple":
-        this.difficultyDescriptor="simple";
+        this.difficultyDescriptor="facile";
         break;
       case "medium":
         this.difficultyDescriptor="moyen";
