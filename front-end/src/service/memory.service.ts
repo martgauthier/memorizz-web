@@ -63,7 +63,6 @@ export class MemoryService {
     // on vérifie si le patient a assez d'images ajoutées
 
     if(totalcards.length<this.config.pairsNumber){
-      alert('You dont have enough cards for this user');
       return [];
     }
 

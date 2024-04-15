@@ -33,6 +33,71 @@ export const AVAILABLE_CARDS: Card[][]=[
       textValue: "Arbre",
       imgValue: "assets/arbre.png",
       id: 3
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 4
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 5
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 6
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 7
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 8
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 9
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 10
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 11
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 12
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 13
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 14
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 15
+    },
+    {
+      textValue: "Arbre",
+      imgValue: "assets/arbre.png",
+      id: 16
     }],//jacqueline
   [{
     textValue: "Marine",
