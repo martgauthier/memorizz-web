@@ -2,9 +2,9 @@
     <h1 id="login-txt">Connection</h1>
     <div id="inputs">
         <h3 id="username_txt">Identifiant</h3>
-        <input type="text" placeholder="Identifiant">
+        <input type="text" placeholder="Identifiant" (change)="changeUsername($event)">
         <h3 id="password_txt">Mot de passe</h3>
-        <input type="password" placeholder="Mot de passe">
+        <input id="input_password" type="password" placeholder="Mot de passe" (change)="changePassword($event)">
     </div>
     <div class="btn_login toHover" (click)="onclick_login()">
         <h6 class="btn_login_txt">Se connecter</h6>

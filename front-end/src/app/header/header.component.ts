@@ -64,4 +64,8 @@ export class HeaderComponent {
       this.router.navigate(["/nav"]);
       if(this.deployed) this.stopDisplay();
     }
+    public deconnexion(){
+      this.router.navigate([""]);
+      this.stopDisplay();
+    }
 }

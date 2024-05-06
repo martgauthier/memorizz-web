@@ -11,9 +11,18 @@ import { Router } from '@angular/router';
 })
 
 export class Login implements OnInit {
+    constructor(private router: Router){
+    }
+
     ngOnInit(): void {
     }
     public onclick_login(){
-        alert("hehe");
+        this.router.navigate(['nav'])
+    }
+    public changeUsername(event : any){
+        document.getElementById("input_password")!.focus();
+    }
+    public changePassword(event : any){
+        this.onclick_login();
     }
 }
