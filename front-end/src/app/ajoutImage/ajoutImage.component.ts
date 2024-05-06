@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import { Card, Identification } from 'src/models/user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-ajoutImage',
@@ -18,10 +19,13 @@ export class AjoutImage implements OnInit {
         src:"/assets/icon.png"
     };
 
+    loadedImage : any;
+
     public availableCards: Card[]=[];
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private http : HttpClient) {
         this.imageSrc = 'assets/chargez-votre-image.png';
+        this.loadedImage = null;
         this.userService.identification$.subscribe((identification) => {
             this.user=identification;
           });
@@ -34,12 +38,12 @@ export class AjoutImage implements OnInit {
     readURL(event: any): void {
         if(event.target != null){
             if (event.target.files && event.target.files[0]) {
-                const file = event.target.files[0];
+                this.loadedImage = event.target.files[0];
 
                 const reader = new FileReader();
                 reader.onload = e => this.imageSrc = reader.result;
 
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(this.loadedImage);
 
                 const myPreview = document.getElementById("preview");
                 myPreview?.classList.add("loaded");
@@ -51,5 +55,14 @@ export class AjoutImage implements OnInit {
       let currentCards=this.availableCards;
       currentCards.splice(this.availableCards.indexOf(card), 1);
       this.userService.availableCards$.next(currentCards);
+    }
+
+    sendImage(){
+        let text = (document.querySelector("#desc") as HTMLInputElement).value
+        if(text === "" || this.loadedImage === null){
+            alert("Veuillez Renseigner tous les champs pour ajouter une image")
+            return;
+        }
+        this.http.post
     }
 }
