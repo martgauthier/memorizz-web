@@ -1,7 +1,9 @@
-import BaseModel from "../../utils/base-model";
+const BaseModel = require("../../utils/base-model")
 const Joi = require("joi");
 
-export default new BaseModel("DataPerDifficultyForSingleStat", {
+
+
+module.exports = new BaseModel("DataPerDifficultyForSingleStat", {
    lastTimeValue: Joi.number().required(),
    nowValue: Joi.number().required(),
     /**

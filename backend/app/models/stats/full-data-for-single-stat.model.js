@@ -1,8 +1,8 @@
-import BaseModel from "../../utils/base-model";
-import AllDifficultiesData from "./all-difficulties-data.model";
+const BaseModel = require("../../utils/base-model")
+const AllDifficultiesData = require("./all-difficulties-data.model")
 const Joi = require("joi");
 
-export default new BaseModel("FullDataForSingleStat", {
+module.exports =  new BaseModel("FullDataForSingleStat", {
     statType: Joi.string().valid("errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorPercentageOnWholeGame", "meanGameDuration").required(),
     /**
      * Duration between the two mesures {@link DataPerDifficultyForSingleStat.lastTimeValue} and {@link DataPerDifficultyForSingleStat.nowValue}

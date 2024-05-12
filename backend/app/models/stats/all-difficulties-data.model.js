@@ -1,7 +1,7 @@
-import BaseModel from "../../utils/base-model";
-import DataPerDifficultyForSingleStat from "./data-per-difficulty-for-single-stat.model";
+const BaseModel = require("../../utils/base-model")
+const DataPerDifficultyForSingleStat = require("./data-per-difficulty-for-single-stat.model")
 
-export default new BaseModel("AllDifficultiesData", {
+module.exports = new BaseModel("AllDifficultiesData", {
     simple: DataPerDifficultyForSingleStat.schema.required(),
     medium: DataPerDifficultyForSingleStat.schema.required(),
     hard: DataPerDifficultyForSingleStat.schema.required()
