@@ -40,6 +40,7 @@ import {CarouselModule} from "ngx-owl-carousel-o";
 import { ClientSelector } from './nav/cards-selector/client-selector.component';
 import {DurationPipe} from "./statistiques/duration-pipe/duration.pipe";
 import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
+import { Login } from './login/login.component';
 
 
 
@@ -73,7 +74,8 @@ import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
     MemorywinComponent,
     ClientSelector,
     DurationPipe,
-    FormatHourPipe
+    FormatHourPipe,
+    Login
   ],
 
   imports: [
