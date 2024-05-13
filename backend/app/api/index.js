@@ -1,6 +1,13 @@
 const { Router } = require('express')
-const cardsRouter = require('./cards')
+
+const usersRouter = require('./users')
+const StatsRouter = require("./stats")
+
+
+
 const router = new Router()
 router.get('/status', (req, res) => res.status(200).json('ok'))
-router.use('/cards', UserRouter)
+router.use('/users', usersRouter)
+router.use("/stats", StatsRouter);
+
 module.exports = router
