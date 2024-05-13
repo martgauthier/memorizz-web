@@ -9,15 +9,28 @@ router.post("/:userid/addgamedata", (req, res) => {
     })
 })
 
-router.get("/:userid/:cardid/:duration?", (req, res) => {
-    if(req.params.duration) {
+router.get("/:userid/:cardid", (req, res) => {
+    if(req.query.duration && req.query.stattype) {
         res.status(200).json({
-            "message": "this is the way to acquire all 'FullDataForSingleStat' for a card, FOR A SPECIFIED DURATION OF " + req.params.duration
+            "message": "this is the way to acquire 'FullDataForSingleStat' for a card, FOR A SPECIFIED DURATION OF " + req.query.duration + " and for a specified type of " + req.query.stattype
         })
     }
     else {
+        res.status(400).json({
+            "message": "You're missing duration or stattype query argument !!"
+        })
+    }
+})
+
+router.get("/:userid/fullgames", (req, res) => {
+    if(req.query.duration && req.query.stattype) {
         res.status(200).json({
-            "message": "this returns all 'FullDataForSingleStat' for a card, for all durations, in an array"
+            "message": "this is the way to acquire 'FullDataForSingleStat' for full games, FOR A SPECIFIED DURATION OF " + req.query.duration + " and for a specified type of " + req.query.stattype
+        })
+    }
+    else {
+        res.status(400).json({
+            "message": "You're missing duration or stattype query argument !!"
         })
     }
 })
@@ -28,10 +41,17 @@ router.delete("/:userid/:cardid", (req, res) => {
     })
 })
 
-router.get("/:userid/:cardid/courbe/:stattype/:duree", (req, res) => {
+router.get("/:userid/:cardid/courbe", (req, res) => {
+    if(!req.query.stattype || !req.query.duration) {
+        res.status(400).json({
+            "message": "You're missing ?stattype or ?duration query parameter !!"
+        })
+    }
+
     res.status(200).json({
         "message": "this returns courbe data asked with these parameters",
-        ...req.params
+        ...req.params,
+        ...req.query
     })
 })
 
