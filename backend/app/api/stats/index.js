@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const {FullDataForSingleStat, SelectedStat} = require("../../models");
+const {getCardStat, getGameStat} = require("./manager");
 
 const router = new Router();
 
@@ -9,11 +10,9 @@ router.post("/:userid/addgamedata", (req, res) => {
     })
 })
 
-router.get("/:userid/:cardid", (req, res) => {
+router.get("/:userid/fullgames", (req, res) => {
     if(req.query.duration && req.query.stattype) {
-        res.status(200).json({
-            "message": "this is the way to acquire 'FullDataForSingleStat' for a card, FOR A SPECIFIED DURATION OF " + req.query.duration + " and for a specified type of " + req.query.stattype
-        })
+        res.status(200).json(getGameStat(req.params.userid, req.query.stattype, req.query.duration))
     }
     else {
         res.status(400).json({
@@ -22,11 +21,10 @@ router.get("/:userid/:cardid", (req, res) => {
     }
 })
 
-router.get("/:userid/fullgames", (req, res) => {
+
+router.get("/:userid/:cardid", (req, res) => {
     if(req.query.duration && req.query.stattype) {
-        res.status(200).json({
-            "message": "this is the way to acquire 'FullDataForSingleStat' for full games, FOR A SPECIFIED DURATION OF " + req.query.duration + " and for a specified type of " + req.query.stattype
-        })
+        res.status(200).json(getCardStat(req.params.userid, req.params.cardid, req.query.stattype, req.query.duration))
     }
     else {
         res.status(400).json({
