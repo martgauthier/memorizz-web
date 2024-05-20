@@ -14,7 +14,7 @@ import {HelpIconComponent} from "../help-icon/help-icon.component";
   styleUrls: ['./big-singlestat.component.scss']
 })
 export class BigSinglestatComponent implements OnInit {
-  @Input({required: true}) public statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorPercentageOnWholeGame" | "meanGameDuration" = "errorsPerGame";
+  @Input({required: true}) public statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorsOnWholeGame" | "gameDuration" = "errorsPerGame";
   @Input({required: true}) public shouldFormatHour: boolean=false;
 
   /**

@@ -16,7 +16,7 @@ for (let identification of PROFILS_LIST[0]) {
   for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.id])]) {
     MOCKED_STAT_DATA[identification.id][card.id]={};
     MOCKED_COURBE_DATA[identification.id][card.id]={};
-    for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorPercentageOnWholeGame", "meanGameDuration"]) {
+    for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorsOnWholeGame", "gameDuration"]) {
       MOCKED_STAT_DATA[identification.id][card.id][statType]={};
       MOCKED_COURBE_DATA[identification.id][card.id][statType]={};
       for (let duration of ["1", "2", "3", "6", "8", "12"]) {

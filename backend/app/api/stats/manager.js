@@ -3,7 +3,7 @@ const StatsPerGameData=require("../../../database/stats-per-games.data.json");
 
 
 const CARDS_STATS_TYPES=["errorsPerGame", "timeToDiscoverFullPair"]
-const GAMES_STATS_TYPES=["preferredDifficultyMode", "errorsOnWholeGame", "meanGameDuration"]
+const GAMES_STATS_TYPES=["preferredDifficultyMode", "errorsOnWholeGame", "gameDuration"]
 
 /**
  *
@@ -91,7 +91,26 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
         nowMeans[selectedStat.difficulty].mean=(nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(nowMeans[selectedStat.difficulty].denominateur)
     }
 
-    return {lastTimeMeans, nowMeans}
+    let returnedObject = {
+        simple: {
+            lastTimeValue: lastTimeMeans.simple.mean / lastTimeMeans.simple.denominateur,
+            nowValue: nowMeans.simple.mean / nowMeans.simple.denominateur
+        },
+        medium: {
+            lastTimeValue: lastTimeMeans.medium.mean / lastTimeMeans.medium.denominateur,
+            nowValue: nowMeans.medium.mean / nowMeans.medium.denominateur
+        },
+        hard: {
+            lastTimeValue: lastTimeMeans.hard.mean / lastTimeMeans.hard.denominateur,
+            nowValue: nowMeans.hard.mean / nowMeans.hard.denominateur
+        }
+    }
+
+    return {
+        statType: stattype,
+        duration: parseInt(duration),
+        ...returnedObject
+    }
 };
 
 const getGameStat = (userid, stattype, duration) => {
@@ -157,7 +176,26 @@ const getGameStat = (userid, stattype, duration) => {
             nowMeans[selectedStat.difficulty].mean=(nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(nowMeans[selectedStat.difficulty].denominateur)
         }
 
-        return {lastTimeMeans, nowMeans}
+        let returnedObject = {
+            simple: {
+                lastTimeValue: lastTimeMeans.simple.mean / lastTimeMeans.simple.denominateur,
+                nowValue: nowMeans.simple.mean / nowMeans.simple.denominateur
+            },
+            medium: {
+                lastTimeValue: lastTimeMeans.medium.mean / lastTimeMeans.medium.denominateur,
+                nowValue: nowMeans.medium.mean / nowMeans.medium.denominateur
+            },
+            hard: {
+                lastTimeValue: lastTimeMeans.hard.mean / lastTimeMeans.hard.denominateur,
+                nowValue: nowMeans.hard.mean / nowMeans.hard.denominateur
+            }
+        }
+
+        return {
+            statType: stattype,
+            duration: parseInt(duration),
+            ...returnedObject
+        }
     }
     else {//we are in the specific case "preferred difficulty mode"
         let nowTimestamp=Date.now()
