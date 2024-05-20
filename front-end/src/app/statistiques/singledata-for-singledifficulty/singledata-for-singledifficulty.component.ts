@@ -65,6 +65,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
     }
     else {
       let percentage=100*(this.statData.nowValue-this.statData.lastTimeValue)/this.statData.lastTimeValue;
+      if(this.statData.lastTimeValue===0) return "+100";
       return (percentage<0 ? "" : "+") + Math.round(percentage).toString();
     }
   }
