@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {
-  FullDataForSingleStat
+  FullDataForSingleStat, GamesQuantity
 } from "../../../models/stats-data.model";
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
@@ -15,11 +15,11 @@ import * as Highcharts from "highcharts";
 })
 export class BigPreferredDifficultyComponent {
   public statType: string = "preferredDifficultyMode";
-  public statData?: FullDataForSingleStat;
   public duration: number=1;
-  public gamesQuantity: number=0;
+  public gamesQuantity?: GamesQuantity;
   public Highcharts: typeof Highcharts = Highcharts;
   public updateChart: boolean=false;
+  public totalGamesNumber: number = 0;
 
   public chartOptions: Highcharts.Options = {
     xAxis: {
@@ -95,22 +95,19 @@ export class BigPreferredDifficultyComponent {
   };
 
   constructor(private statsService: StatistiquesService) {
-    let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType];
+    statsService.gamesQuantity$.subscribe((gamesQuantity) => {
+      this.gamesQuantity=gamesQuantity;
 
-    dataToSubscribeTo.subscribe((data) => {
-      this.statData = data;
-      this.gamesQuantity=0;
-
-      let k: keyof typeof data.difficulty;
-      for(k in data.difficulty) {
-        this.gamesQuantity+=data.difficulty[k].gamesQuantity;
-      }
-
-      for(k in data.difficulty) {
+      for(let k of Object.keys(gamesQuantity)) {
         let dataIndex=["simple", "medium", "hard"].indexOf(k);
 
+        this.totalGamesNumber=0
+        Object.values(gamesQuantity).forEach(value => this.totalGamesNumber+=value)
+
+        console.log(gamesQuantity)
+
         // @ts-ignore
-        this.chartOptions.series![0].data[dataIndex].y=Math.round(data.difficulty[k].gamesQuantity*100/this.gamesQuantity);
+        this.chartOptions.series![0].data[dataIndex].y=Math.round(gamesQuantity[k]*100/this.totalGamesNumber);
       }
     });
 

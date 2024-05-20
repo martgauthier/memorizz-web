@@ -11,6 +11,12 @@ export interface FullDataForSingleStat {
   difficulty: AllDifficultiesData
 }
 
+export interface GamesQuantity {
+  simple: number,
+  medium: number,
+  hard: number
+}
+
 export interface AllDifficultiesData {
   simple: DataPerDifficultyForSingleStat,
   medium: DataPerDifficultyForSingleStat,

@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {FullDataForSingleStat, SelectedStat} from "../../models/stats-data.model";
+import {FullDataForSingleStat, GamesQuantity, SelectedStat} from "../../models/stats-data.model";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
 import {AVAILABLE_CARDS} from "../../mocks/user.mock";
@@ -25,6 +25,12 @@ export class StatistiquesService {
     simple: [],
     medium: [],
     hard: []
+  });
+
+  public gamesQuantity$: BehaviorSubject<GamesQuantity> = new BehaviorSubject<GamesQuantity>({
+    simple: 38,
+    medium: 40,
+    hard: 51
   });
 
   private identificationId: number=0;//jacqueline par défaut
