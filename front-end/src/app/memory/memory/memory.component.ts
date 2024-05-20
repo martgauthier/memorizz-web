@@ -1,6 +1,7 @@
 import {Component, OnInit, signal} from "@angular/core";
 import {MemoryCard} from "../../../models/memorycard.model";
 import {MemoryService} from "../../../service/memory.service";
+import {MemoryCardWithUniqueId} from "../../../models/memorycard-with-unique-id.model";
 
 @Component({
   selector : 'app-memory',
@@ -9,9 +10,9 @@ import {MemoryService} from "../../../service/memory.service";
 })
 
 export class MemoryComponent implements OnInit{
-  public memoryCardList : MemoryCard[] = [];
+  public memoryCardList : MemoryCardWithUniqueId[] = [];
   public nbpaires : number =3;
-  public memoryCardClicked(card : MemoryCard){
+  public memoryCardClicked(card : MemoryCardWithUniqueId){
     console.log("the card "+card.cardId+"wants to be returned");
     this.memoryService.memoryCardClicked(card);
   }

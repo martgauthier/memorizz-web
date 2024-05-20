@@ -4,11 +4,11 @@ import {MemoryCard} from "../models/memorycard.model";
 import {BehaviorSubject} from "rxjs";
 import {
   AVAILABLE_CARDS,
-  PRESET_DICTS
 } from "../mocks/user.mock";
 import { UserService } from "src/services/user/user.service";
 import {Card, Identification, Preset } from "src/models/user.model";
-import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagnostics";
+import {StatCounter} from "../utils/StatCounter";
+import {MemoryCardWithUniqueId} from "../models/memorycard-with-unique-id.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,10 @@ import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagno
 export class MemoryService {
 
   private gameWin : boolean = false;
-  private memorycards : MemoryCard[] = [];     //MEMORYCARD_LIST;
+  private memorycards : MemoryCardWithUniqueId[] = [];     //MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
   public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
-  public memorycards$ : BehaviorSubject<MemoryCard[]> = new BehaviorSubject(this.memorycards);
+  public memorycards$ : BehaviorSubject<MemoryCardWithUniqueId[]> = new BehaviorSubject(this.memorycards);
   public selectedcards : MemoryCard[] = [];
   public identification?: Identification;
   public config : Preset = {
@@ -28,6 +28,10 @@ export class MemoryService {
     cardsAreVisible: false,
     cardsAreBothImage: false
   };
+
+  private startTimestamp: number=0;
+
+  private statsCounter: {[cardSrc: string]: StatCounter} = {};
 
   private nbTentatives :number = 0;
   private NB_TENTATIVES_MAX  = 4;
@@ -48,7 +52,7 @@ export class MemoryService {
     this.musicOn = false;
     this.shuffleMemoryCards();
   }
-  createMemoryCardList(): MemoryCard[] {
+  createMemoryCardList(): MemoryCardWithUniqueId[] {
 
     //TO DO: il faudrat :
     // - regarder combien de cartes mettres dans la memory list en focntion des configs,
@@ -56,7 +60,7 @@ export class MemoryService {
     // - regarder le type de jeu ( pour savoir si les cartes seront image/image ou pas )
     // @ts-ignore
     let userid= this.identification.id;
-    let memorycardslist : MemoryCard[] = [];
+    let memorycardslist : MemoryCardWithUniqueId[] = [];
     let totalcards = AVAILABLE_CARDS[userid];
     let cards : Card[] = [];
 
@@ -74,8 +78,10 @@ export class MemoryService {
         cards.push(totalcards[i]);
     }
 
+    let cardUniqueId=0
+
     for(let i=0; i<cards.length ; i++){
-      let memorycard1 :MemoryCard = {
+      let memorycard1 :MemoryCardWithUniqueId = {
         src: cards[i].imgValue,
         type: "image",
         cardId: cards[i].id,
@@ -83,9 +89,10 @@ export class MemoryService {
         state: (this.config.cardsAreVisible)? 'visible' : "default",
         isKnown : false,
         paireIsKnown : false,
-        nbOfFlipped : 0
+        nbOfFlipped : 0,
+        uniqueId: cardUniqueId++
       };
-      let memorycard2 :MemoryCard = {
+      let memorycard2 :MemoryCardWithUniqueId = {
         src: cards[i].imgValue,
         type: (this.config.cardsAreBothImage)? "image" : "text",
         cardId: cards[i].id,
@@ -93,7 +100,8 @@ export class MemoryService {
         state: (this.config.cardsAreVisible)? 'visible' : "default",
         isKnown : false,
         paireIsKnown : false,
-        nbOfFlipped : 0
+        nbOfFlipped : 0,
+        uniqueId: cardUniqueId++
       };
       memorycardslist.push(memorycard1);
       memorycardslist.push(memorycard2);
@@ -102,8 +110,14 @@ export class MemoryService {
   }
 
 
-  async memoryCardClicked(card: MemoryCard) {
+  async memoryCardClicked(card: MemoryCardWithUniqueId) {
+    console.log("card clicked: ", card)
     if(card.state=='default' || (card.state=='visible' && this.config.cardsAreVisible)){
+      let correspondingStatCounter=this.statsCounter[card.src]
+
+      correspondingStatCounter.countClickOnCard(card.uniqueId)
+
+
       if(this.selectedcards.length==0) {
         card.state = 'flipped';
         card.nbOfFlipped++;
@@ -120,6 +134,7 @@ export class MemoryService {
         this.speak(card.description);
         this.selectedcards.push(card);
         if(this.checkMatchy()){
+          correspondingStatCounter.setCardFound(true)
           await this.isMatchy();
           if(this.checkEndGame()){
             this.celebrate();
@@ -178,6 +193,7 @@ export class MemoryService {
       card.state=this.config.cardsAreVisible? 'visible' : 'default';
     }
     this.shuffleMemoryCards();
+    this.startTimestamp=new Date().getTime();
   }
 
   private checkMatchy():boolean {
@@ -281,6 +297,7 @@ export class MemoryService {
   }
 
   async celebrate() {
+    this.postGameResults();
     this.playMelody("/assets/audio/goodresult.mp3");
     await this.sleep(2000);
     this.speak("Bravo! Vous avez retrouvé toutes les paires. Voulez-vous rejouer?");
@@ -293,6 +310,28 @@ export class MemoryService {
       [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
     this.memorycards = shuffledArray;
+
+
+
+    this.statsCounter={} //refreshs it
+    this.memorycards.forEach((memoryCard) => {
+      if(!Object.keys(this.statsCounter).includes(memoryCard.src)) {//si il n'existe pas encore
+        this.statsCounter[memoryCard.src]=new StatCounter(memoryCard)
+      }
+    })
+  }
+
+  private postGameResults() {
+    let postBody: any = {
+      "difficulty": this.userService.getDifficultyMode(),
+      "gameDuration": Math.floor((new Date().getTime() - this.startTimestamp) / 1000)
+    }
+
+    Object.values(this.statsCounter).forEach(statCounter => {
+      postBody[statCounter.getCardId()]=statCounter.getResults();
+    })
+
+    console.log(postBody) //TODO : post it
   }
 
   shuffleTotalCards(totalcards: Card[]) : Card[] {
@@ -316,6 +355,4 @@ export class MemoryService {
       audio.play();
     }
   }
-
-
 }
