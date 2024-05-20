@@ -109,7 +109,9 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
     return {
         statType: stattype,
         duration: parseInt(duration),
-        ...returnedObject
+        difficulty: {
+            ...returnedObject
+        }
     }
 };
 
@@ -194,7 +196,9 @@ const getGameStat = (userid, stattype, duration) => {
         return {
             statType: stattype,
             duration: parseInt(duration),
-            ...returnedObject
+            difficulty: {
+                ...returnedObject
+            }
         }
     }
     else {//we are in the specific case "preferred difficulty mode"
