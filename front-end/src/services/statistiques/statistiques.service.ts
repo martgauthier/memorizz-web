@@ -25,6 +25,8 @@ export class StatistiquesService {
     "gameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["gameDuration"]["1"])
   };
 
+  public selectedCardHasValidData$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(true);
+
   public courbeData$: BehaviorSubject<any> = new BehaviorSubject<any>({
     simple: [],
     medium: [],
@@ -90,9 +92,15 @@ export class StatistiquesService {
 
     console.log("Sent this request: ", url)
 
-    this.http.get<FullDataForSingleStat>(url).subscribe((data) => {
+    this.http.get<FullDataForSingleStat>(url).subscribe({
+      next: (data) => {
         console.log(data)
-      })
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+        this.selectedCardHasValidData$.next(false);
+      }
+    })
   }
 
   public retrieveGamesQuantity() {
@@ -105,16 +113,17 @@ export class StatistiquesService {
   }
 
   updateSelectedCard(cardIndex: number) {
-    for(let observableKey in this.data) {
-      this.retrieveStat(observableKey)
-    }
-
     let currentSelectedStat=this.selectedStat$.getValue();
     currentSelectedStat.cardId=cardIndex;
 
     this.selectedCardIndex=cardIndex;
 
     this.selectedStat$.next(currentSelectedStat);
+
+    this.selectedCardHasValidData$.next(true)
+    for(let observableKey in this.data) {
+      this.retrieveStat(observableKey)
+    }
 
     this.updateCourbeData();
   }
@@ -145,6 +154,7 @@ export class StatistiquesService {
       statType: statType
     });
 
+
     this.updateCourbeData(statType);
 
     console.log("new selected stat: ", statType)
@@ -155,13 +165,10 @@ export class StatistiquesService {
   setDuration(duration: number) {
     this.duration$.next(duration);
 
-    this.data["errorsPerGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorsPerGame"][duration.toString()]);
-    this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["timeToDiscoverFullPair"][duration.toString()]);
-    this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["preferredDifficultyMode"][duration.toString()]);
-    this.data["errorsOnWholeGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorsOnWholeGame"][duration.toString()]);
-    this.data["gameDuration"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["gameDuration"][duration.toString()]);
-
-
+    this.selectedCardHasValidData$.next(true)
+    for(let observableKey in this.data) {
+      this.retrieveStat(observableKey)
+    }
     this.retrieveGamesQuantity()
     this.updateCourbeData(undefined, duration);
   }

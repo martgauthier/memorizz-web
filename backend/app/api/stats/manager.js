@@ -13,7 +13,7 @@ const GAMES_STATS_TYPES=["preferredDifficultyMode", "errorsOnWholeGame", "gameDu
  * @param duration number in months
  * @returns {{nowMeans: {simple: {denominateur: number, mean: number}, medium: {denominateur: number, mean: number}, hard: {denominateur: number, mean: number}}, lastTimeMeans: {simple: {denominateur: number, mean: number}, medium: {denominateur: number, mean: number}, hard: {denominateur: number, mean: number}}}}
  */
-const getCardStat = (userid, idcarte, stattype, duration) => {
+const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     let lastTimeDatasKeys=[];
     let nowDatasKeys=[];
 
@@ -38,19 +38,19 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
 
 
     if(!Object.keys(StatsPerCardData).includes(userid)) {
-        return {
+        res.status(400).json({
             "message": "Specified user doesn't have stat !"
-        }
+        })
     }
     if(!Object.keys(StatsPerCardData[userid]).includes(idcarte)) {
-        return {
+        res.status(400).json({
             "message": "Specified user doesn't have stat for this card !" + idcarte
-        }
+        })
     }
     if(!CARDS_STATS_TYPES.includes(stattype)) {
-        return {
+        res.status(400).json({
             "message": "Specified stat type doesn't exist ! " + stattype
-        }
+        })
     }
 
 
@@ -115,25 +115,31 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
         }
     }
 
-    return {
+    res.status(200).json({
         statType: stattype,
         duration: parseInt(duration),
         difficulty: {
             ...returnedObject
         }
-    }
+    })
 };
 
-const getGameStat = (userid, stattype, duration) => {
+const respondWithGameStat = (res, userid, stattype, duration) => {
     if(userid==="0") {
         userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
     }
 
     if(!Object.keys(StatsPerGameData).includes(userid)) {
-        return {
+        res.status(400).json({
             "message": "Specified user doesn't have stat !"
-        }
+        })
     }
+    if(!GAMES_STATS_TYPES.includes(stattype)) {
+        res.status(400).json({
+            "message": "Specified stat type doesn't exist ! " + stattype
+        })
+    }
+
     if(stattype!=="preferredDifficultyMode") {
         let lastTimeDatasKeys = [];
         let nowDatasKeys = [];
@@ -206,13 +212,13 @@ const getGameStat = (userid, stattype, duration) => {
             }
         }
 
-        return {
+        res.status(200).json({
             statType: stattype,
             duration: parseInt(duration),
             difficulty: {
                 ...returnedObject
             }
-        }
+        })
     }
     else {//we are in the specific case "preferred difficulty mode"
         let nowTimestamp=Date.now()
@@ -233,8 +239,8 @@ const getGameStat = (userid, stattype, duration) => {
             difficultiesCounterMap[StatsPerGameData[userid][key].difficulty]++
         }
 
-        return difficultiesCounterMap
+        res.status(200).json(difficultiesCounterMap)
     }
 }
 
-module.exports = {getCardStat, getGameStat}
+module.exports = {respondWithCardStat, respondWithGameStat}
