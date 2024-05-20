@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const {FullDataForSingleStat, SelectedStat} = require("../../models");
-const {getCardStat, getGameStat} = require("./manager");
+const {respondWithCardStat, respondWithGameStat} = require("./manager");
 
 const router = new Router();
 
@@ -12,7 +12,7 @@ router.post("/:userid/addgamedata", (req, res) => {
 
 router.get("/:userid/fullgames", (req, res) => {
     if(req.query.duration && req.query.stattype) {
-        res.status(200).json(getGameStat(req.params.userid, req.query.stattype, req.query.duration))
+        respondWithGameStat(res, req.params.userid, req.query.stattype, req.query.duration)
     }
     else {
         res.status(400).json({
@@ -24,7 +24,7 @@ router.get("/:userid/fullgames", (req, res) => {
 
 router.get("/:userid/:cardid", (req, res) => {
     if(req.query.duration && req.query.stattype) {
-        res.status(200).json(getCardStat(req.params.userid, req.params.cardid, req.query.stattype, req.query.duration))
+        respondWithCardStat(res, req.params.userid, req.params.cardid, req.query.stattype, req.query.duration)
     }
     else {
         res.status(400).json({
