@@ -39,6 +39,7 @@ export class BigSinglestatComponent implements OnInit {
 
     this.statsService.duration$.subscribe((duration) => {
       this.duration=duration;
+      this.statsService.retrieveStat(this.statType)
     })
   }
 

@@ -28,6 +28,15 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
 
     nowDateRange[0].setDate(nowDateRange[0].getDate() - 14)//set it to now time minus two weeks
 
+    if(userid==="0") {
+        userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
+    }
+    if(idcarte==="0") {
+        idcarte=Object.keys(StatsPerCardData[userid])[0];//replace the mean calculus by the first card. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
+    }
+
+
+
     if(!Object.keys(StatsPerCardData).includes(userid)) {
         return {
             "message": "Specified user doesn't have stat !"
@@ -35,12 +44,12 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
     }
     if(!Object.keys(StatsPerCardData[userid]).includes(idcarte)) {
         return {
-            "message": "Specified user doesn't have stat for this card !"
+            "message": "Specified user doesn't have stat for this card !" + idcarte
         }
     }
     if(!CARDS_STATS_TYPES.includes(stattype)) {
         return {
-            "message": "Specified stat type doesn't exist !"
+            "message": "Specified stat type doesn't exist ! " + stattype
         }
     }
 
@@ -116,6 +125,10 @@ const getCardStat = (userid, idcarte, stattype, duration) => {
 };
 
 const getGameStat = (userid, stattype, duration) => {
+    if(userid==="0") {
+        userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
+    }
+
     if(!Object.keys(StatsPerGameData).includes(userid)) {
         return {
             "message": "Specified user doesn't have stat !"

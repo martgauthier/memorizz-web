@@ -5,11 +5,15 @@ import {UserService} from "../user/user.service";
 import {AVAILABLE_CARDS} from "../../mocks/user.mock";
 import {Card} from "../../models/user.model";
 import {MOCKED_STAT_DATA, MOCKED_COURBE_DATA} from "../../mocks/generated-statistiques.mock";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
 })
 export class StatistiquesService {
+
+  private statUrl  = "http://localhost:9428/api/stats"
+
   /**
    * Keys are in string format, to make it easy for BigSingleStatComponent to choose programmatically which data to listen to
    */
@@ -49,7 +53,7 @@ export class StatistiquesService {
 
   public duration$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient) {
     this.userService.identification$.subscribe((identification) => {
       if(identification.id>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.id;
@@ -74,10 +78,35 @@ export class StatistiquesService {
     });
   }
 
+  public retrieveStat(statType: string) {
+    let url: string="";
+
+    if(statType === "errorsPerGame" || statType === "timeToDiscoverFullPair") {//card-specific statistic
+      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/${this.selectedCardIndex}?stattype=${statType}&duration=${this.duration$.getValue()}`;
+    }
+    else {//game-specific statistic
+      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=${statType}&duration=${this.duration$.getValue()}`
+    }
+
+    console.log("Sent this request: ", url)
+
+    this.http.get<FullDataForSingleStat>(url).subscribe((data) => {
+        console.log(data)
+      })
+  }
+
+  public retrieveGamesQuantity() {
+    this.http.get<GamesQuantity>(`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=preferredDifficultyMode&duration=${this.duration$.getValue()}`)
+      .subscribe((gamesQuantity) => {
+        console.log("Retrieved games quantity for user " + this.userService.identification$.getValue().id + " and for duration " + this.duration$.getValue())
+        console.log(gamesQuantity)
+        this.gamesQuantity$.next(gamesQuantity)
+      })
+  }
+
   updateSelectedCard(cardIndex: number) {
     for(let observableKey in this.data) {
-      let observable: BehaviorSubject<FullDataForSingleStat> = this.data[observableKey];
-      observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey][this.duration$.getValue().toString()]);
+      this.retrieveStat(observableKey)
     }
 
     let currentSelectedStat=this.selectedStat$.getValue();
@@ -133,6 +162,7 @@ export class StatistiquesService {
     this.data["gameDuration"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["gameDuration"][duration.toString()]);
 
 
+    this.retrieveGamesQuantity()
     this.updateCourbeData(undefined, duration);
   }
 
