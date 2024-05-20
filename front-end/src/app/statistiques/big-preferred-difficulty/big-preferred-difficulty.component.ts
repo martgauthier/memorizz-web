@@ -1,9 +1,8 @@
 import {Component} from "@angular/core";
 import {
-  FullDataForSingleStat, GamesQuantity
+  GamesQuantity
 } from "../../../models/stats-data.model";
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
-import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
 import * as Highcharts from "highcharts";
 
@@ -18,7 +17,7 @@ export class BigPreferredDifficultyComponent {
   public duration: number=1;
   public gamesQuantity?: GamesQuantity;
   public Highcharts: typeof Highcharts = Highcharts;
-  public updateChart: boolean=false;
+  public updateFlag: boolean=false;
   public totalGamesNumber: number = 0;
 
   public chartOptions: Highcharts.Options = {
@@ -96,24 +95,46 @@ export class BigPreferredDifficultyComponent {
 
   constructor(private statsService: StatistiquesService) {
     statsService.gamesQuantity$.subscribe((gamesQuantity) => {
-      this.gamesQuantity=gamesQuantity;
-
-      for(let k of Object.keys(gamesQuantity)) {
-        let dataIndex=["simple", "medium", "hard"].indexOf(k);
-
-        this.totalGamesNumber=0
-        Object.values(gamesQuantity).forEach(value => this.totalGamesNumber+=value)
-
-        console.log(gamesQuantity)
-
-        // @ts-ignore
-        this.chartOptions.series![0].data[dataIndex].y=Math.round(gamesQuantity[k]*100/this.totalGamesNumber);
-      }
+      this.updateChart(gamesQuantity)
     });
 
     this.statsService.duration$.subscribe((duration) => {
       this.duration=duration;
     });
+  }
+
+  updateChart(gamesQuantity: GamesQuantity) {
+    console.log("Games quantity changed !")
+    this.gamesQuantity = gamesQuantity;
+
+    this.totalGamesNumber = 0;
+    Object.values(gamesQuantity).forEach(value => this.totalGamesNumber += value);
+
+    const updatedData = [
+      {
+        y: Math.round(gamesQuantity.simple * 100 / this.totalGamesNumber),
+        color: "#49960b"
+      },
+      {
+        y: Math.round(gamesQuantity.medium * 100 / this.totalGamesNumber),
+        color: "#a6a612"
+      },
+      {
+        y: Math.round(gamesQuantity.hard * 100 / this.totalGamesNumber),
+        color: "#b31414"
+      }
+    ];
+
+    this.chartOptions = {
+      ...this.chartOptions,
+        //@ts-ignore
+      series: [{
+        ...this.chartOptions.series![0],
+        data: updatedData
+      }]
+    };
+
+    this.updateFlag = true;
   }
 
   onMonitoringClick() {
