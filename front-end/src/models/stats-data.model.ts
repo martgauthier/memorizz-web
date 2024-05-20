@@ -28,11 +28,7 @@ export interface AllDifficultiesData {
  */
 export interface DataPerDifficultyForSingleStat {
   lastTimeValue: number,
-  nowValue: number,
-  /**
-   * Indique le nombre de parties jouées avec ce mode de difficulté, sur l'écart de temps sélectionné
-   */
-  gamesQuantity: number
+  nowValue: number
 }
 
 /**
@@ -41,8 +37,7 @@ export interface DataPerDifficultyForSingleStat {
 export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficultyForSingleStat {
   return {
     lastTimeValue: 0,
-    nowValue: 0,
-    gamesQuantity: 0
+    nowValue: 0
   }
 }
 

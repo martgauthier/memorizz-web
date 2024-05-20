@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {
   AllDifficultiesData,
   createDefaultDataPerDifficultyForSingleStat,
-  FullDataForSingleStat
+  FullDataForSingleStat, GamesQuantity
 } from "../../../models/stats-data.model";
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService, SUFFIXES_PER_STAT_TYPE} from "../../../services/statistiques/statistiques.service";
 import {BehaviorSubject} from "rxjs";
@@ -49,9 +49,10 @@ export class BigSinglestatComponent implements OnInit {
     for (let difficultyKey in this.statData?.difficulty) {
       let dataForThisDifficulty=this.statData.difficulty[difficultyKey as keyof AllDifficultiesData]
 
-      nowValuesSum+=dataForThisDifficulty.nowValue * dataForThisDifficulty.gamesQuantity;
-      lastTimeValuesSum+=dataForThisDifficulty.lastTimeValue * dataForThisDifficulty.gamesQuantity;//moyenne pondérée
-      totalGamesNumber+=dataForThisDifficulty.gamesQuantity;
+      let gamesQuantity = this.statsService.gamesQuantity$.getValue()[difficultyKey as keyof GamesQuantity];
+      nowValuesSum+=dataForThisDifficulty.nowValue * gamesQuantity;
+      lastTimeValuesSum+=dataForThisDifficulty.lastTimeValue * gamesQuantity;//moyenne pondérée
+      totalGamesNumber+=gamesQuantity;
     }
     let meanNowValues=nowValuesSum/totalGamesNumber;
     let meanLastTimeValues=lastTimeValuesSum/totalGamesNumber;
