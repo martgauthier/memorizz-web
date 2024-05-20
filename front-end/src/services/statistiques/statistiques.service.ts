@@ -95,6 +95,7 @@ export class StatistiquesService {
     this.http.get<FullDataForSingleStat>(url).subscribe({
       next: (data) => {
         console.log(data)
+        this.data[statType].next(data)
       },
       error: (err) => {
         console.log("Erreur attrapée !", err)
@@ -106,8 +107,6 @@ export class StatistiquesService {
   public retrieveGamesQuantity() {
     this.http.get<GamesQuantity>(`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=preferredDifficultyMode&duration=${this.duration$.getValue()}`)
       .subscribe((gamesQuantity) => {
-        console.log("Retrieved games quantity for user " + this.userService.identification$.getValue().id + " and for duration " + this.duration$.getValue())
-        console.log(gamesQuantity)
         this.gamesQuantity$.next(gamesQuantity)
       })
   }

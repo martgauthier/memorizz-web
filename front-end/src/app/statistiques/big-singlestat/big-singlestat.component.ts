@@ -60,6 +60,7 @@ export class BigSinglestatComponent implements OnInit {
 
     let overallPercentage = Math.round((100*(meanNowValues - meanLastTimeValues)/meanLastTimeValues));
 
+    if(meanLastTimeValues===0) return "100";//si la valeur de la dernière fois est à 0
     return (overallPercentage<0 ? "" : "+") + overallPercentage.toFixed(1);
   }
 

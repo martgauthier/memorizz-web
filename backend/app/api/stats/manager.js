@@ -40,17 +40,20 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     if(!Object.keys(StatsPerCardData).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
-        })
+        });
+        return;
     }
     if(!Object.keys(StatsPerCardData[userid]).includes(idcarte)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat for this card !" + idcarte
-        })
+        });
+        return;
     }
     if(!CARDS_STATS_TYPES.includes(stattype)) {
         res.status(400).json({
             "message": "Specified stat type doesn't exist ! " + stattype
         })
+        return;
     }
 
 
@@ -102,16 +105,16 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
     let returnedObject = {
         simple: {
-            lastTimeValue: lastTimeMeans.simple.mean / lastTimeMeans.simple.denominateur,
-            nowValue: nowMeans.simple.mean / nowMeans.simple.denominateur
+            lastTimeValue: (lastTimeMeans.simple.denominateur !== 0) ? lastTimeMeans.simple.mean / lastTimeMeans.simple.denominateur : 0,
+            nowValue: (nowMeans.simple.denominateur !== 0) ? nowMeans.simple.mean / nowMeans.simple.denominateur : 0
         },
         medium: {
-            lastTimeValue: lastTimeMeans.medium.mean / lastTimeMeans.medium.denominateur,
-            nowValue: nowMeans.medium.mean / nowMeans.medium.denominateur
+            lastTimeValue: (lastTimeMeans.medium.denominateur !== 0) ? lastTimeMeans.medium.mean / lastTimeMeans.medium.denominateur : 0,
+            nowValue: (nowMeans.medium.denominateur !== 0) ? nowMeans.medium.mean / nowMeans.medium.denominateur : 0
         },
         hard: {
-            lastTimeValue: lastTimeMeans.hard.mean / lastTimeMeans.hard.denominateur,
-            nowValue: nowMeans.hard.mean / nowMeans.hard.denominateur
+            lastTimeValue: (lastTimeMeans.hard.denominateur !== 0) ? lastTimeMeans.hard.mean / lastTimeMeans.hard.denominateur : 0,
+            nowValue: (nowMeans.hard.denominateur !== 0) ? nowMeans.hard.mean / nowMeans.hard.denominateur : 0
         }
     }
 
@@ -121,7 +124,7 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
         difficulty: {
             ...returnedObject
         }
-    })
+    });
 };
 
 const respondWithGameStat = (res, userid, stattype, duration) => {
@@ -132,12 +135,14 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
     if(!Object.keys(StatsPerGameData).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
-        })
+        });
+        return;
     }
     if(!GAMES_STATS_TYPES.includes(stattype)) {
         res.status(400).json({
             "message": "Specified stat type doesn't exist ! " + stattype
-        })
+        });
+        return;
     }
 
     if(stattype!=="preferredDifficultyMode") {
@@ -218,7 +223,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
             difficulty: {
                 ...returnedObject
             }
-        })
+        });
     }
     else {//we are in the specific case "preferred difficulty mode"
         let nowTimestamp=Date.now()

@@ -104,7 +104,6 @@ export class BigPreferredDifficultyComponent {
   }
 
   updateChart(gamesQuantity: GamesQuantity) {
-    console.log("Games quantity changed !")
     this.gamesQuantity = gamesQuantity;
 
     this.totalGamesNumber = 0;
