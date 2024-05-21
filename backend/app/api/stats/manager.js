@@ -1,5 +1,5 @@
-const StatsPerCardData=require("../../../database/stats-per-cards.data.json");
-const StatsPerGameData=require("../../../database/stats-per-games.data.json");
+const StatsPerCardsManager=require("../../../database/stats-per-cards.manager");
+const StatsPerGamesManager=require("../../../database/stats-per-games.manager");
 
 
 const CARDS_STATS_TYPES=["errorsPerGame", "timeToDiscoverFullPair"]
@@ -30,13 +30,13 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
 
 
-    if(!Object.keys(StatsPerCardData).includes(userid)) {
+    if(!Object.keys(StatsPerCardsManager.getData()).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
         });
         return;
     }
-    if(idcarte!=="0" && !Object.keys(StatsPerCardData[userid]).includes(idcarte)) {
+    if(idcarte!=="0" && !Object.keys(StatsPerCardsManager.getData()[userid]).includes(idcarte)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat for this card !" + idcarte
         });
@@ -51,18 +51,18 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
     if(idcarte!=="0") {
         //keep only keys that are in the two-week-range around last time and now
-        lastTimeDatasKeys = Object.keys(StatsPerCardData[userid][idcarte]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
-        nowDatasKeys = Object.keys(StatsPerCardData[userid][idcarte]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
+        lastTimeDatasKeys = Object.keys(StatsPerCardsManager.getData()[userid][idcarte]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
+        nowDatasKeys = Object.keys(StatsPerCardsManager.getData()[userid][idcarte]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
     }
     else {//cas "en moyenne"
-        for(let indexCarte of Object.keys(StatsPerCardData[userid])) {
+        for(let indexCarte of Object.keys(StatsPerCardsManager.getData()[userid])) {
             lastTimeDatasKeys = [...lastTimeDatasKeys, {
                 indexCarte: indexCarte,
-                timestamps: Object.keys(StatsPerCardData[userid][indexCarte]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
+                timestamps: Object.keys(StatsPerCardsManager.getData()[userid][indexCarte]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
             }];
             nowDatasKeys = [...nowDatasKeys, {
                 indexCarte: indexCarte,
-                timestamps: Object.keys(StatsPerCardData[userid][indexCarte]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
+                timestamps: Object.keys(StatsPerCardsManager.getData()[userid][indexCarte]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
             }];
         }
     }
@@ -84,7 +84,7 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
     if(idcarte!=="0") {
         for (let key of lastTimeDatasKeys) {
-            let selectedStat = StatsPerCardData[userid][idcarte][key]
+            let selectedStat = StatsPerCardsManager.getData()[userid][idcarte][key]
 
             lastTimeMeans[selectedStat.difficulty].mean = (lastTimeMeans[selectedStat.difficulty].mean * lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(lastTimeMeans[selectedStat.difficulty].denominateur)
         }
@@ -92,7 +92,7 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     else {//cas "en moyenne"
         for(let cardIndexAndTimestamps of Object.values(lastTimeDatasKeys)) {
             for(let key of cardIndexAndTimestamps.timestamps) {
-                let selectedStat = StatsPerCardData[userid][cardIndexAndTimestamps.indexCarte][key]
+                let selectedStat = StatsPerCardsManager.getData()[userid][cardIndexAndTimestamps.indexCarte][key]
 
                 lastTimeMeans[selectedStat.difficulty].mean = (lastTimeMeans[selectedStat.difficulty].mean * lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(lastTimeMeans[selectedStat.difficulty].denominateur)
             }
@@ -116,7 +116,7 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
     if(idcarte!=="0") {
         for (let key of nowDatasKeys) {
-            let selectedStat = StatsPerCardData[userid][idcarte][key]
+            let selectedStat = StatsPerCardsManager.getData()[userid][idcarte][key]
 
             nowMeans[selectedStat.difficulty].mean = (nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(nowMeans[selectedStat.difficulty].denominateur)
         }
@@ -124,7 +124,7 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     else {//cas "en moyenne"
         for(let cardIndexAndTimestamps of Object.values(nowDatasKeys)) {
             for(let key of cardIndexAndTimestamps.timestamps) {
-                let selectedStat = StatsPerCardData[userid][cardIndexAndTimestamps.indexCarte][key]
+                let selectedStat = StatsPerCardsManager.getData()[userid][cardIndexAndTimestamps.indexCarte][key]
 
                 nowMeans[selectedStat.difficulty].mean = (nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(nowMeans[selectedStat.difficulty].denominateur)
             }
@@ -160,7 +160,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
     }
 
-    if(!Object.keys(StatsPerGameData).includes(userid)) {
+    if(!Object.keys(StatsPerGamesManager.getData()).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
         });
@@ -185,8 +185,8 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         nowDateRange[0].setDate(nowDateRange[0].getDate() - 14)//set it to now time minus two weeks
 
         //keep only keys that are in the two-week-range around last time and now
-        lastTimeDatasKeys = Object.keys(StatsPerGameData[userid]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
-        nowDatasKeys = Object.keys(StatsPerGameData[userid]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
+        lastTimeDatasKeys = Object.keys(StatsPerGamesManager.getData()[userid]).filter(value => lastTimeDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= lastTimeDateRange[1].getTime())
+        nowDatasKeys = Object.keys(StatsPerGamesManager.getData()[userid]).filter(value => nowDateRange[0].getTime() <= parseInt(value) && parseInt(value) <= nowDateRange[1].getTime())
 
         let lastTimeMeans = {
             simple: {
@@ -204,7 +204,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         }
 
         for(let key of lastTimeDatasKeys) {
-            let selectedStat=StatsPerGameData[userid][key]
+            let selectedStat=StatsPerGamesManager.getData()[userid][key]
 
             lastTimeMeans[selectedStat.difficulty].mean=(lastTimeMeans[selectedStat.difficulty].mean*lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(lastTimeMeans[selectedStat.difficulty].denominateur)
         }
@@ -225,7 +225,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         }
 
         for(let key of nowDatasKeys) {
-            let selectedStat=StatsPerGameData[userid][key]
+            let selectedStat=StatsPerGamesManager.getData()[userid][key]
 
             nowMeans[selectedStat.difficulty].mean=(nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(nowMeans[selectedStat.difficulty].denominateur)
         }
@@ -260,7 +260,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         lastTimestamp=lastTimestamp.getTime()
         console.log(lastTimestamp)
 
-        let keysInRange=Object.keys(StatsPerGameData[userid]).filter(value => lastTimestamp <= parseInt(value) && parseInt(value) <= nowTimestamp)
+        let keysInRange=Object.keys(StatsPerGamesManager.getData()[userid]).filter(value => lastTimestamp <= parseInt(value) && parseInt(value) <= nowTimestamp)
 
         let difficultiesCounterMap = {
             simple: 0,
@@ -269,7 +269,7 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         }
 
         for(let key of keysInRange) {
-            difficultiesCounterMap[StatsPerGameData[userid][key].difficulty]++
+            difficultiesCounterMap[StatsPerGamesManager.getData()[userid][key].difficulty]++
         }
 
         res.status(200).json(difficultiesCounterMap)
