@@ -9,6 +9,7 @@ import { UserService } from "src/services/user/user.service";
 import {Card, Identification, Preset } from "src/models/user.model";
 import {StatCounter} from "../utils/StatCounter";
 import {MemoryCardWithUniqueId} from "../models/memorycard-with-unique-id.model";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class MemoryService {
     cardsAreBothImage: false
   };
 
+  private statsUrl: string = "http://localhost:9428/api/stats/";
+
   private startTimestamp: number=0;
 
   private statsCounter: {[cardSrc: string]: StatCounter} = {};
@@ -37,7 +40,7 @@ export class MemoryService {
   private NB_TENTATIVES_MAX  = 4;
   private soundOn : boolean ;
   private musicOn : boolean ;
-  constructor(public userService : UserService){
+  constructor(public userService : UserService, private http: HttpClient){
     this.userService.identification$.subscribe( identification => {
       this.identification = identification;
     });
@@ -332,7 +335,17 @@ export class MemoryService {
       postBody[statCounter.getCardId()]=statCounter.getResults();
     })
 
-    console.log(postBody) //TODO : post it
+    console.log("post game results : ")
+    console.log(postBody)
+
+    this.http.post<any>(this.statsUrl + this.identification!.id + "/addgamedata", postBody).subscribe({
+      next: (data) => {
+        console.log("successfully posted game data !")
+      },
+      error: (error) => {
+        console.error("POST Error : ", error)
+      }
+    })
   }
 
   shuffleTotalCards(totalcards: Card[]) : Card[] {
