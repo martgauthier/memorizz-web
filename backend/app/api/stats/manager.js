@@ -24,10 +24,6 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
         userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
     }
 
-    if(idcarte==="0") {
-        console.log("Asked for mean calculus")
-    }
-
 
 
     if(!Object.keys(StatsPerCardsManager.getData()).includes(userid)) {
@@ -86,7 +82,8 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
         for (let key of lastTimeDatasKeys) {
             let selectedStat = StatsPerCardsManager.getData()[userid][idcarte][key]
 
-            lastTimeMeans[selectedStat.difficulty].mean = (lastTimeMeans[selectedStat.difficulty].mean * lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(lastTimeMeans[selectedStat.difficulty].denominateur)
+            lastTimeMeans[selectedStat.difficulty].mean = lastTimeMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+            lastTimeMeans[selectedStat.difficulty].denominateur++;
         }
     }
     else {//cas "en moyenne"
@@ -94,7 +91,8 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
             for(let key of cardIndexAndTimestamps.timestamps) {
                 let selectedStat = StatsPerCardsManager.getData()[userid][cardIndexAndTimestamps.indexCarte][key]
 
-                lastTimeMeans[selectedStat.difficulty].mean = (lastTimeMeans[selectedStat.difficulty].mean * lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(lastTimeMeans[selectedStat.difficulty].denominateur)
+                lastTimeMeans[selectedStat.difficulty].mean = lastTimeMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+                lastTimeMeans[selectedStat.difficulty].denominateur++;
             }
         }
     }
@@ -117,8 +115,13 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     if(idcarte!=="0") {
         for (let key of nowDatasKeys) {
             let selectedStat = StatsPerCardsManager.getData()[userid][idcarte][key]
+            if(userid==="1" && idcarte==="6") {
+                console.log("nowMeans selected stat for key : " + key)
+                console.log(selectedStat[stattype])
+            }
 
-            nowMeans[selectedStat.difficulty].mean = (nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(nowMeans[selectedStat.difficulty].denominateur)
+            nowMeans[selectedStat.difficulty].mean = nowMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+            nowMeans[selectedStat.difficulty].denominateur++;
         }
     }
     else {//cas "en moyenne"
@@ -126,9 +129,15 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
             for(let key of cardIndexAndTimestamps.timestamps) {
                 let selectedStat = StatsPerCardsManager.getData()[userid][cardIndexAndTimestamps.indexCarte][key]
 
-                nowMeans[selectedStat.difficulty].mean = (nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype]) / ++(nowMeans[selectedStat.difficulty].denominateur)
+                nowMeans[selectedStat.difficulty].mean = nowMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+                nowMeans[selectedStat.difficulty].denominateur++;
             }
         }
+    }
+
+    if(userid==="1" && idcarte==="6") {
+        console.log("DEBUG nowMeans")
+        console.log(nowMeans)
     }
 
     let returnedObject = {
@@ -146,9 +155,17 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
         }
     }
 
+    if(stattype==="timeToDiscoverFullPair") {
+        for(let key of Object.keys(returnedObject)) {
+            for(let valueIndex of ["lastTimeValue", "nowValue"]) {
+                returnedObject[key][valueIndex]/=60
+            }
+        }
+    }
+
     res.status(200).json({
         statType: stattype,
-        duration: parseInt(duration),
+        duration: duration,//as front end needs minutes stored with decimals
         difficulty: {
             ...returnedObject
         }
@@ -206,7 +223,8 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         for(let key of lastTimeDatasKeys) {
             let selectedStat=StatsPerGamesManager.getData()[userid][key]
 
-            lastTimeMeans[selectedStat.difficulty].mean=(lastTimeMeans[selectedStat.difficulty].mean*lastTimeMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(lastTimeMeans[selectedStat.difficulty].denominateur)
+            lastTimeMeans[selectedStat.difficulty].mean=lastTimeMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+            lastTimeMeans[selectedStat.difficulty].denominateur++;
         }
 
         let nowMeans = {
@@ -227,7 +245,8 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         for(let key of nowDatasKeys) {
             let selectedStat=StatsPerGamesManager.getData()[userid][key]
 
-            nowMeans[selectedStat.difficulty].mean=(nowMeans[selectedStat.difficulty].mean * nowMeans[selectedStat.difficulty].denominateur + selectedStat[stattype])/++(nowMeans[selectedStat.difficulty].denominateur)
+            nowMeans[selectedStat.difficulty].mean=nowMeans[selectedStat.difficulty].mean + selectedStat[stattype]
+            nowMeans[selectedStat.difficulty].denominateur++;
         }
 
         let returnedObject = {
@@ -245,6 +264,14 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
             }
         }
 
+        if(stattype==="gameDuration") {
+            for(let key of Object.keys(returnedObject)) {
+                for(let valueIndex of ["lastTimeValue", "nowValue"]) {
+                    returnedObject[key][valueIndex]/=60
+                }
+            }
+        }
+
         res.status(200).json({
             statType: stattype,
             duration: parseInt(duration),
@@ -258,7 +285,6 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
         let lastTimestamp=new Date()
         lastTimestamp.setDate(lastTimestamp.getDate() - 31 * duration)
         lastTimestamp=lastTimestamp.getTime()
-        console.log(lastTimestamp)
 
         let keysInRange=Object.keys(StatsPerGamesManager.getData()[userid]).filter(value => lastTimestamp <= parseInt(value) && parseInt(value) <= nowTimestamp)
 
@@ -276,4 +302,22 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
     }
 }
 
-module.exports = {respondWithCardStat, respondWithGameStat}
+
+
+
+
+function respondToPostGameData(req, res) {
+    let bodyKeys=Object.keys(req.body)
+    if(!bodyKeys.includes("userid") || !bodyKeys.includes("gameDuration") || !bodyKeys.includes("difficulty")) {
+        res.status(400).json({
+            "message": "Incorrect request ! You're either missing 'userid' or 'duration' or 'difficulty' in JSON Body !"
+        });
+        return;
+    }
+
+    StatsPerCardsManager.addStatForCards(req.body);
+    StatsPerGamesManager.addStatForGame(req.body);
+    res.status(201).json()
+}
+
+module.exports = {respondWithCardStat, respondWithGameStat, respondToPostGameData}

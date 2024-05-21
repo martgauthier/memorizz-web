@@ -324,7 +324,8 @@ export class MemoryService {
   private postGameResults() {
     let postBody: any = {
       "difficulty": this.userService.getDifficultyMode(),
-      "gameDuration": Math.floor((new Date().getTime() - this.startTimestamp) / 1000)
+      "gameDuration": Math.floor((new Date().getTime() - this.startTimestamp) / 1000),
+      "userid": this.userService.identification$.getValue().id
     }
 
     Object.values(this.statsCounter).forEach(statCounter => {

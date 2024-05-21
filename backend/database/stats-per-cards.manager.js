@@ -1,10 +1,29 @@
 const StatPerCardsData = require("./stats-per-cards.data.json");
 
+
+//https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
+function isNumeric(value) {
+    return /^-?\d+$/.test(value);
+}
+
 module.exports = class {
     static items = StatPerCardsData
 
-    static addStatForCard(userid, cardid) {
-        //TODO: receive POST data and add it to items
+    static addStatForCards(body) {
+        let timestamp=new Date().getTime().toString()
+
+        if(this.items[body.userid.toString()] === undefined) this.items[body.userid.toString()]={};
+
+        for(let key of Object.keys(body)) {
+            if(isNumeric(key)) {//then it's a card id
+                if(this.items[body.userid.toString()][key] === undefined) this.items[body.userid.toString()][key]={};
+
+                this.items[body.userid.toString()][key][timestamp]={
+                    ...body[key],
+                    "difficulty": body.difficulty
+                }
+            }
+        }
     }
 
     static getData() {
