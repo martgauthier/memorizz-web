@@ -1,13 +1,11 @@
 const { Router } = require("express");
 const {FullDataForSingleStat, SelectedStat} = require("../../models");
-const {respondWithCardStat, respondWithGameStat} = require("./manager");
+const {respondWithCardStat, respondWithGameStat, respondToPostGameData} = require("./manager");
 
 const router = new Router();
 
 router.post("/:userid/addgamedata", (req, res) => {
-    res.status(201).json({
-        "message": "this is the good URL to send the statistics from the last game played by user:" + req.params.userid
-    })
+    respondToPostGameData(req, res)
 })
 
 router.get("/:userid/fullgames", (req, res) => {
