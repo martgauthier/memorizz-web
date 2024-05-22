@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 })
 // obtenir les infos d'un user
 router.get('/:id', (req, res) => {
-  res.status(200).json(User.getById(req.params.id))
+  res.status(200).json(Identification.getById(req.params.id))
 })
 // obtenir les presetDict d'un user
 router.get('/:id/presetDict', (req, res) => {
@@ -21,3 +21,4 @@ router.get('/:id/cards', (req, res) => {
   res.status(200).json(getCards(req.params.id))
 })
 module.exports = router
+
