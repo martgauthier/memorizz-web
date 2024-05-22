@@ -40,6 +40,8 @@ import {CarouselModule} from "ngx-owl-carousel-o";
 import { ClientSelector } from './nav/cards-selector/client-selector.component';
 import {DurationPipe} from "./statistiques/duration-pipe/duration.pipe";
 import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
+import { Login } from './login/login.component';
+import {provideHttpClient} from "@angular/common/http";
 
 
 
@@ -73,7 +75,8 @@ import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
     MemorywinComponent,
     ClientSelector,
     DurationPipe,
-    FormatHourPipe
+    FormatHourPipe,
+    Login
   ],
 
   imports: [
@@ -83,9 +86,9 @@ import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
     FormsModule,
     HighchartsChartModule,
     BrowserAnimationsModule,
-    CarouselModule
+    CarouselModule,
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

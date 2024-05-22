@@ -4,3 +4,23 @@
   justify-content: space-around;
   margin-top: 50px;
 }
+
+.not-valid-block {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+}
+
+.not-valid-block img {
+  display: block;
+  max-height: 300px;
+  margin: 20px;
+}
+
+.not-valid-block h1 {
+  font-size: 1.3em;
+  color: black;
+}

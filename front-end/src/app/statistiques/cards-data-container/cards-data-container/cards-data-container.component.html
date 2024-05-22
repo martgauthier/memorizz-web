@@ -1,6 +1,12 @@
 <app-cards-selector></app-cards-selector>
 
-<div class="big-stats-container">
+<div *ngIf="selectedCardHasValidData; else notValidBlock" class="big-stats-container">
   <app-big-singlestat [statType]="'errorsPerGame'" [style.width]="'45%'" [shouldFormatHour]="false"></app-big-singlestat>
   <app-big-singlestat [statType]="'timeToDiscoverFullPair'" [style.width]="'45%'" [shouldFormatHour]="true"></app-big-singlestat>
 </div>
+<ng-template #notValidBlock>
+  <div class="not-valid-block">
+    <img src="/assets/cross-red-circle.png" alt="Croix rouge" />
+    <h1>Cette carte n'a pas encore de statistiques ...</h1>
+  </div>
+</ng-template>

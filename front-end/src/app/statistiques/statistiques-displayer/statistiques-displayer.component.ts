@@ -2,6 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {Identification} from "../../../models/user.model";
 import {UserService} from "../../../services/user/user.service";
 import {Router} from "@angular/router";
+import {StatistiquesService} from "../../../services/statistiques/statistiques.service";
 
 @Component({
   selector: 'app-statistiques-displayer',
@@ -16,13 +17,18 @@ export class StatistiquesDisplayerComponent implements AfterViewInit {
     src : ""
   };
 
-  constructor(private userService: UserService, private router: Router) {
+  public selectedCardHasValidData: boolean=false;
+
+  constructor(private userService: UserService, private router: Router, private statsService: StatistiquesService) {
     userService.identification$.subscribe((identification) => {
       this.user=identification;
       if(identification.id===-1) {
         router.navigate(["/nav"]);
       }
     });
+    statsService.selectedCardHasValidData$.subscribe((value) => {
+      this.selectedCardHasValidData=value;
+    })
   }
 
   ngAfterViewInit() {

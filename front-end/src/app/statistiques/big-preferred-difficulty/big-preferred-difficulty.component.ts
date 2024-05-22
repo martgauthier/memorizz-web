@@ -1,9 +1,8 @@
 import {Component} from "@angular/core";
 import {
-  FullDataForSingleStat
+  GamesQuantity
 } from "../../../models/stats-data.model";
 import {STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE, StatistiquesService} from "../../../services/statistiques/statistiques.service";
-import {BehaviorSubject} from "rxjs";
 import {HelpIconComponent} from "../help-icon/help-icon.component";
 import * as Highcharts from "highcharts";
 
@@ -15,11 +14,11 @@ import * as Highcharts from "highcharts";
 })
 export class BigPreferredDifficultyComponent {
   public statType: string = "preferredDifficultyMode";
-  public statData?: FullDataForSingleStat;
   public duration: number=1;
-  public gamesQuantity: number=0;
+  public gamesQuantity?: GamesQuantity;
   public Highcharts: typeof Highcharts = Highcharts;
-  public updateChart: boolean=false;
+  public updateFlag: boolean=false;
+  public totalGamesNumber: number = 0;
 
   public chartOptions: Highcharts.Options = {
     xAxis: {
@@ -95,28 +94,46 @@ export class BigPreferredDifficultyComponent {
   };
 
   constructor(private statsService: StatistiquesService) {
-    let dataToSubscribeTo: BehaviorSubject<FullDataForSingleStat> = this.statsService.data[this.statType];
-
-    dataToSubscribeTo.subscribe((data) => {
-      this.statData = data;
-      this.gamesQuantity=0;
-
-      let k: keyof typeof data.difficulty;
-      for(k in data.difficulty) {
-        this.gamesQuantity+=data.difficulty[k].gamesQuantity;
-      }
-
-      for(k in data.difficulty) {
-        let dataIndex=["simple", "medium", "hard"].indexOf(k);
-
-        // @ts-ignore
-        this.chartOptions.series![0].data[dataIndex].y=Math.round(data.difficulty[k].gamesQuantity*100/this.gamesQuantity);
-      }
+    statsService.gamesQuantity$.subscribe((gamesQuantity) => {
+      this.updateChart(gamesQuantity)
     });
 
     this.statsService.duration$.subscribe((duration) => {
       this.duration=duration;
     });
+  }
+
+  updateChart(gamesQuantity: GamesQuantity) {
+    this.gamesQuantity = gamesQuantity;
+
+    this.totalGamesNumber = 0;
+    Object.values(gamesQuantity).forEach(value => this.totalGamesNumber += value);
+
+    const updatedData = [
+      {
+        y: Math.round(gamesQuantity.simple * 100 / this.totalGamesNumber),
+        color: "#49960b"
+      },
+      {
+        y: Math.round(gamesQuantity.medium * 100 / this.totalGamesNumber),
+        color: "#a6a612"
+      },
+      {
+        y: Math.round(gamesQuantity.hard * 100 / this.totalGamesNumber),
+        color: "#b31414"
+      }
+    ];
+
+    this.chartOptions = {
+      ...this.chartOptions,
+        //@ts-ignore
+      series: [{
+        ...this.chartOptions.series![0],
+        data: updatedData
+      }]
+    };
+
+    this.updateFlag = true;
   }
 
   onMonitoringClick() {
