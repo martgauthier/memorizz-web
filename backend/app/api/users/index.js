@@ -21,3 +21,4 @@ router.get('/:id/cards', (req, res) => {
   res.status(200).json(getCards(req.params.id))
 })
 module.exports = router
+
