@@ -3,72 +3,72 @@
   "presetDictId": 0,
   "simple": {
     "pairsNumber" : 3,
-    "cardsAreVisible" : true,
-    "cardsAreBothImages" : true
+    "cardsAreBothImage": true,
+    "cardsAreVisible": true
   },
   "medium": {
     "pairsNumber": 5,
-    "cardsAreBothImage": true,
-    "cardsAreVisible": false
+    "cardsAreVisible": true,
+    "cardsAreBothImage": false
   },
   "hard": {
     "pairsNumber": 8,
-    "cardsAreBothImage": false,
-    "cardsAreVisible": false
+    "cardsAreVisible": false,
+    "cardsAreBothImage": false
   }
 },
   {
   "presetDictId" : 1,
   "simple": {
     "pairsNumber": 4,
-    "cardsAreBothImage": true,
-    "cardsAreVisible": true
+    "cardsAreVisible": true,
+    "cardsAreBothImage": true
   },
   "medium": {
     "pairsNumber": 6,
-    "cardsAreBothImage": true,
-    "cardsAreVisible": false
+    "cardsAreVisible": true,
+    "cardsAreBothImage": false
   },
   "hard": {
     "pairsNumber": 8,
-    "cardsAreBothImage": false,
-    "cardsAreVisible": false
+    "cardsAreVisible": false,
+    "cardsAreBothImage": false
   }
   },
   {
     "presetDictId": 2,
     "simple": {
       "pairsNumber": 4,
-      "cardsAreBothImage": true,
-      "cardsAreVisible": true
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
     },
     "medium": {
       "pairsNumber": 6,
-      "cardsAreBothImage": true,
-      "cardsAreVisible": false
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
     },
     "hard": {
       "pairsNumber": 8,
-      "cardsAreBothImage": false,
-      "cardsAreVisible": false
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
     }
   },
   {
     "presetDictId" : 3,
     "simple": {
       "pairsNumber": 3,
-      "cardsAreBothImage": true,
-      "cardsAreVisible": true
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
     },
     "medium": {
       "pairsNumber": 6,
-      "cardsAreBothImage": true,
-      "cardsAreVisible": false
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
     },
     "hard": {
       "pairsNumber": 8,
-      "cardsAreBothImage": false,
-      "cardsAreVisible": false
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
     }
   }
 ]
