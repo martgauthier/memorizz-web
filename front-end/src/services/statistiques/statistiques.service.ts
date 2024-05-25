@@ -1,15 +1,19 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {FullDataForSingleStat, SelectedStat} from "../../models/stats-data.model";
+import {FullDataForSingleStat, GamesQuantity, SelectedStat} from "../../models/stats-data.model";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
 import {AVAILABLE_CARDS} from "../../mocks/user.mock";
 import {Card} from "../../models/user.model";
 import {MOCKED_STAT_DATA, MOCKED_COURBE_DATA} from "../../mocks/generated-statistiques.mock";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
 })
 export class StatistiquesService {
+
+  private statUrl  = "http://localhost:9428/api/stats"
+
   /**
    * Keys are in string format, to make it easy for BigSingleStatComponent to choose programmatically which data to listen to
    */
@@ -17,14 +21,22 @@ export class StatistiquesService {
     "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]["1"]),
     "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]["1"]),
     "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["preferredDifficultyMode"]["1"]),
-    "errorPercentageOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorPercentageOnWholeGame"]["1"]),
-    "meanGameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["meanGameDuration"]["1"])
+    "errorsOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsOnWholeGame"]["1"]),
+    "gameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["gameDuration"]["1"])
   };
+
+  public selectedCardHasValidData$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(true);
 
   public courbeData$: BehaviorSubject<any> = new BehaviorSubject<any>({
     simple: [],
     medium: [],
     hard: []
+  });
+
+  public gamesQuantity$: BehaviorSubject<GamesQuantity> = new BehaviorSubject<GamesQuantity>({
+    simple: 38,
+    medium: 40,
+    hard: 51
   });
 
   private identificationId: number=0;//jacqueline par défaut
@@ -43,15 +55,15 @@ export class StatistiquesService {
 
   public duration$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient) {
     this.userService.identification$.subscribe((identification) => {
       if(identification.id>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.id;
         this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"][this.duration$.getValue().toString()]);
         this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"][this.duration$.getValue().toString()]);
         this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.id][0]["preferredDifficultyMode"][this.duration$.getValue().toString()]);
-        this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorPercentageOnWholeGame"][this.duration$.getValue().toString()]);
-        this.data["meanGameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["meanGameDuration"][this.duration$.getValue().toString()]);
+        this.data["errorsOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsOnWholeGame"][this.duration$.getValue().toString()]);
+        this.data["gameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["gameDuration"][this.duration$.getValue().toString()]);
         this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
 
         this.selectedStat$.next({
@@ -68,18 +80,49 @@ export class StatistiquesService {
     });
   }
 
-  updateSelectedCard(cardIndex: number) {
-    for(let observableKey in this.data) {
-      let observable: BehaviorSubject<FullDataForSingleStat> = this.data[observableKey];
-      observable.next(MOCKED_STAT_DATA[this.identificationId][cardIndex][observableKey][this.duration$.getValue().toString()]);
+  public retrieveStat(statType: string) {
+    let url: string="";
+
+    if(statType === "errorsPerGame" || statType === "timeToDiscoverFullPair") {//card-specific statistic
+      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/${this.selectedCardIndex}?stattype=${statType}&duration=${this.duration$.getValue()}`;
+    }
+    else {//game-specific statistic
+      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=${statType}&duration=${this.duration$.getValue()}`
     }
 
+    console.log("Sent this request: ", url)
+
+    this.http.get<FullDataForSingleStat>(url).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.data[statType].next(data)
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+        this.selectedCardHasValidData$.next(false);
+      }
+    })
+  }
+
+  public retrieveGamesQuantity() {
+    this.http.get<GamesQuantity>(`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=preferredDifficultyMode&duration=${this.duration$.getValue()}`)
+      .subscribe((gamesQuantity) => {
+        this.gamesQuantity$.next(gamesQuantity)
+      })
+  }
+
+  updateSelectedCard(cardIndex: number) {
     let currentSelectedStat=this.selectedStat$.getValue();
     currentSelectedStat.cardId=cardIndex;
 
     this.selectedCardIndex=cardIndex;
 
     this.selectedStat$.next(currentSelectedStat);
+
+    this.selectedCardHasValidData$.next(true)
+    for(let observableKey in this.data) {
+      this.retrieveStat(observableKey)
+    }
 
     this.updateCourbeData();
   }
@@ -110,6 +153,7 @@ export class StatistiquesService {
       statType: statType
     });
 
+
     this.updateCourbeData(statType);
 
     console.log("new selected stat: ", statType)
@@ -120,13 +164,11 @@ export class StatistiquesService {
   setDuration(duration: number) {
     this.duration$.next(duration);
 
-    this.data["errorsPerGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorsPerGame"][duration.toString()]);
-    this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["timeToDiscoverFullPair"][duration.toString()]);
-    this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["preferredDifficultyMode"][duration.toString()]);
-    this.data["errorPercentageOnWholeGame"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["errorPercentageOnWholeGame"][duration.toString()]);
-    this.data["meanGameDuration"].next(MOCKED_STAT_DATA[this.identificationId][this.selectedCardIndex]["meanGameDuration"][duration.toString()]);
-
-
+    this.selectedCardHasValidData$.next(true)
+    for(let observableKey in this.data) {
+      this.retrieveStat(observableKey)
+    }
+    this.retrieveGamesQuantity()
     this.updateCourbeData(undefined, duration);
   }
 
@@ -160,12 +202,12 @@ export const SUFFIXES_PER_STAT_TYPE: {[id: string]: {statLongSuffix: string, sta
     statLongSuffix: "",
     statShortSuffix: ""//arbitrary values as this is a different type of stat
   },
-  "errorPercentageOnWholeGame": {
+  "errorsOnWholeGame": {
     statPercentageSuffix: "d'erreurs",
     statLongSuffix: "erreurs sur toute la partie",
     statShortSuffix: "erreurs"
   },
-  "meanGameDuration": {
+  "gameDuration": {
     statPercentageSuffix: "de durée",
     statLongSuffix: " pour finir",
     statShortSuffix: ""//covered by the FormatHour pipe
@@ -189,11 +231,11 @@ export const STAT_TITLE_AND_DESCRIPTION_PER_STAT_TYPE: {[statType: string]: {sta
     statTitle: "Pourcentage de choix de chaque mode de difficulté",
     statDescription: "Montre le pourcentage de choix de chaque mode de difficulté, sur l'ensemble des parties effectué dans l'intervalle de temps choisi"
   },
-  "errorPercentageOnWholeGame": {
-    statTitle: "Pourcentage d'erreurs sur toute la partie",
-    statDescription: "Pourcentage d'erreurs. Comptabilise toutes les erreurs sur la partie.",
+  "errorsOnWholeGame": {
+    statTitle: "Erreurs sur toute la partie",
+    statDescription: "Comptabilise toutes les erreurs sur la partie.",
   },
-  "meanGameDuration": {
+  "gameDuration": {
     statTitle: "Durée moyenne d'une partie",
     statDescription: "Durée moyenne d'une partie, en minutes.",
   }

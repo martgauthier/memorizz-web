@@ -2,13 +2,19 @@
  * Représente les données pour un type de statistiques, sur une période donnée, pour toutes les difficultés (+ "en moyenne")
  */
 export interface FullDataForSingleStat {
-  statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorPercentageOnWholeGame" | "meanGameDuration",
+  statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorsOnWholeGame" | "gameDuration",
   /**
    * Duration between the two mesures {@link DataPerDifficultyForSingleStat.lastTimeValue} and {@link DataPerDifficultyForSingleStat.nowValue}
    * (1 month, 2 months, 3 months, 6 months, 8 months, 12 months)
    */
   duration: number,
   difficulty: AllDifficultiesData
+}
+
+export interface GamesQuantity {
+  simple: number,
+  medium: number,
+  hard: number
 }
 
 export interface AllDifficultiesData {
@@ -22,11 +28,7 @@ export interface AllDifficultiesData {
  */
 export interface DataPerDifficultyForSingleStat {
   lastTimeValue: number,
-  nowValue: number,
-  /**
-   * Indique le nombre de parties jouées avec ce mode de difficulté, sur l'écart de temps sélectionné
-   */
-  gamesQuantity: number
+  nowValue: number
 }
 
 /**
@@ -35,8 +37,7 @@ export interface DataPerDifficultyForSingleStat {
 export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficultyForSingleStat {
   return {
     lastTimeValue: 0,
-    nowValue: 0,
-    gamesQuantity: 0
+    nowValue: 0
   }
 }
 

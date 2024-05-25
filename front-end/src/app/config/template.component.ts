@@ -47,6 +47,19 @@ export class Template extends GestionFront  implements OnInit {
       if(this.beginning && ( id=='facile' || (id=='moyen' && this.userService.availableCards$.value.length>=5) || (id=="difficile" && this.userService.availableCards$.value.length>=7) )){
         (document.querySelector(".template") as HTMLDivElement)!.style.animationPlayState = "running";
         this.beginning = false;
+
+        switch(id) {
+          case "facile":
+            this.userService.setDifficultyMode("simple");
+            break;
+          case "moyen":
+            this.userService.setDifficultyMode("medium");
+            break;
+          case "difficile":
+            this.userService.setDifficultyMode("hard");
+            break;
+        }
+
         (document.querySelector("#jouer") as HTMLDivElement)!.style.display ="block";
         document.querySelector("#jouer div")!.classList.add("jouer");
         document.querySelector("#jouer div h3")!.classList.add("jouer_txt");
@@ -62,7 +75,7 @@ export class Template extends GestionFront  implements OnInit {
       }
       //new Niveau(id,this.configService);
       //this.configService.setFrontDifficulties(id);
-      
+
     }
     public affichageDroite(niveau : string){
       switch (niveau) {

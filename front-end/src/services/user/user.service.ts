@@ -32,6 +32,8 @@ export class UserService {
    */
   public presetConfig$: BehaviorSubject<Preset> = new BehaviorSubject<Preset>(createEmptyPresetStart());
 
+  private difficultyMode: "simple" | "medium" | "hard" = "simple";
+
   /**
    * Observable that stores every card for profile
    */
@@ -89,6 +91,14 @@ export class UserService {
 
   setAvailableCards(cards: Card[]) {
     this.availableCards$.next(cards);
+  }
+
+  setDifficultyMode(difficultyMode: "simple" | "medium" | "hard") {
+    this.difficultyMode=difficultyMode;
+  }
+
+  getDifficultyMode() : "simple" | "medium" | "hard" {
+    return this.difficultyMode
   }
 
   addCardToAvailableCards(card: Card) {

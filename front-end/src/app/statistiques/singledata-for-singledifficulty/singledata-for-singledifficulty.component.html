@@ -8,4 +8,4 @@
   <br />
   {{nowDate}}: {{statData.nowValue | formatHour:shouldFormatHour}} {{statShortSuffix}}
 </span>
-<span class="games-quantity">{{statData.gamesQuantity}} parties depuis {{duration | durationInMonthsOrYear}}</span>
+<span class="games-quantity" *ngIf="statType!=='errorsPerGame' && statType!=='timeToDiscoverFullPair'">{{gamesQuantity}} parties depuis {{duration | durationInMonthsOrYear}}</span>

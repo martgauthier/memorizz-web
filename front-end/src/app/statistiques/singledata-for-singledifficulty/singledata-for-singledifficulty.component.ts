@@ -25,11 +25,15 @@ export class SingledataForSingledifficultyComponent implements OnInit {
   public statShortSuffix: string="";
   public statPercentageSuffix: string="";
 
+  public gamesQuantity: number=0;
   difficultyDescriptor: string = "facile";//arbitrary default value
 
   constructor(private statsService: StatistiquesService) {
     this.nowDate=statsService.getDateString();
     this.lastTimeDate=statsService.getLastTimeDateString();
+    this.statsService.gamesQuantity$.subscribe((gamesQuantity) => {
+      this.gamesQuantity=gamesQuantity[this.difficulty]
+    })
     this.statsService.duration$.subscribe((duration) => {
       this.duration=duration;
       this.lastTimeDate=this.statsService.getLastTimeDateString();
@@ -50,6 +54,8 @@ export class SingledataForSingledifficultyComponent implements OnInit {
         break;
     }
 
+    this.gamesQuantity=this.statsService.gamesQuantity$.getValue()[this.difficulty];
+
     ({statLongSuffix: this.statLongSuffix, statShortSuffix: this.statShortSuffix, statPercentageSuffix: this.statPercentageSuffix} = SUFFIXES_PER_STAT_TYPE[this.statType!]);
   }
 
@@ -59,6 +65,7 @@ export class SingledataForSingledifficultyComponent implements OnInit {
     }
     else {
       let percentage=100*(this.statData.nowValue-this.statData.lastTimeValue)/this.statData.lastTimeValue;
+      if(this.statData.lastTimeValue===0) return "+100";
       return (percentage<0 ? "" : "+") + Math.round(percentage).toString();
     }
   }
