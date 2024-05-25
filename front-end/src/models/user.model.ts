@@ -51,6 +51,7 @@ export function createEmptyPresetDict() {
 }
 
 export interface Card {
+  id: number
   /**
    * The text that represents what's on the card
    */
@@ -59,5 +60,5 @@ export interface Card {
    * The url of the image of the card (that could be used in the "src" attribute of an img)
    */
   imgValue: string,
-  id: number
+
 }

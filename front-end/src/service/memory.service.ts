@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {MemoryCard} from "../models/memorycard.model";
-//import {MEMORYCARD_LIST} from "../mocks/card-list.mocks";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
 import {
   AVAILABLE_CARDS,
 } from "../mocks/user.mock";
@@ -20,6 +19,7 @@ export class MemoryService {
   private gameWin : boolean = false;
   private memorycards : MemoryCardWithUniqueId[] = [];     //MEMORYCARD_LIST;
   public win$ :  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.gameWin);
+  // @ts-ignore
   public nbpaires$ : BehaviorSubject<number> = new BehaviorSubject<number>(this.memorycards.length/2);
   public memorycards$ : BehaviorSubject<MemoryCardWithUniqueId[]> = new BehaviorSubject(this.memorycards);
   public selectedcards : MemoryCard[] = [];
@@ -31,23 +31,26 @@ export class MemoryService {
   };
 
   private statsUrl: string = "http://localhost:9428/api/stats/";
-
+  private usersUrl: string = "http://localhost:9428/api/users/";
   private startTimestamp: number=0;
-
   private statsCounter: {[cardSrc: string]: StatCounter} = {};
-
   private nbTentatives :number = 0;
   private NB_TENTATIVES_MAX  = 4;
   private soundOn : boolean ;
   private musicOn : boolean ;
-  constructor(public userService : UserService, private http: HttpClient){
-    this.userService.identification$.subscribe( identification => {
+  private userId : number ;
+  private availableCards : Card[] = [];
+  constructor(public userService: UserService, private http: HttpClient) {
+
+    this.userService.identification$.subscribe(identification => {
       this.identification = identification;
     });
+    this.userId = 1;
+    // récupérer toutes les cartes du user :
     this.userService.presetConfig$.subscribe((data) => {
-      this.config=data;
+      this.config = data;
       console.log(data);
-      this.memorycards=this.createMemoryCardList();
+      this.memorycards = this.createMemoryCardList();
       this.memorycards$.next(this.memorycards);
       this.nbpaires$.next(data.pairsNumber);
     });
@@ -55,21 +58,40 @@ export class MemoryService {
     this.musicOn = false;
     this.shuffleMemoryCards();
   }
-  createMemoryCardList(): MemoryCardWithUniqueId[] {
 
+  public getAvailableCards() : Observable<Card[]> {
+    return this.http.get<Card[]>(this.usersUrl+this.userId+"/cards").pipe(tap(cards=>{
+      this.availableCards = cards;
+    }));
+
+  }
+  createMemoryCardList(): MemoryCardWithUniqueId[]{
+    console.log("Dans create memorycardList ");
     //TO DO: il faudrat :
     // - regarder combien de cartes mettres dans la memory list en focntion des configs,
     // - shuffle la liste avant
     // - regarder le type de jeu ( pour savoir si les cartes seront image/image ou pas )
     // @ts-ignore
-    let userid= this.identification.id;
     let memorycardslist : MemoryCardWithUniqueId[] = [];
-    let totalcards = AVAILABLE_CARDS[userid];
+    if(this.availableCards.length === 0){
+      this.getAvailableCards().subscribe(
+        (data : Card[]) => {
+          this.availableCards = data;
+        });
+    }
+    console.log("Available cards :"+this.availableCards);
+    let totalcards = this.availableCards;
+
     let cards : Card[] = [];
 
     // on vérifie si le patient a assez d'images ajoutées
+    if(!totalcards){
+      console.log("totalcards error");
+      return [];
+    }
 
     if(totalcards.length<this.config.pairsNumber){
+      console.log("not enough cards ");
       return [];
     }
 
@@ -80,7 +102,6 @@ export class MemoryService {
     for(let i=0; i<this.config.pairsNumber; i++){
         cards.push(totalcards[i]);
     }
-
     let cardUniqueId=0
 
     for(let i=0; i<cards.length ; i++){
@@ -109,6 +130,7 @@ export class MemoryService {
       memorycardslist.push(memorycard1);
       memorycardslist.push(memorycard2);
     }
+    console.log("quitte create memo list"+memorycardslist);
     return memorycardslist;
   }
 
