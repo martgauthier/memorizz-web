@@ -10,9 +10,11 @@ import {
 import {GamesDataContainerComponent} from "./statistiques/games-data-container/games-data-container/games-data-container.component";
 import { MemorytemplateComponent } from './memory/memorytemplate.component';
 import { Login } from './login/login.component';
+import { SignIn } from './signin/signin.component';
 
 const routes: Routes = [
   {path : "login", component: Login},
+  {path : "signin", component: SignIn},
   {path : "play", component: Template},
   {path: "stats", redirectTo: "stats/cardsStats", pathMatch:"full"},
   {path : "stats", component: StatistiquesDisplayerComponent, children: [

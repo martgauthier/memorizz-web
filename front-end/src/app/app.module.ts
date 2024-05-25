@@ -41,6 +41,7 @@ import { ClientSelector } from './nav/cards-selector/client-selector.component';
 import {DurationPipe} from "./statistiques/duration-pipe/duration.pipe";
 import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
 import { Login } from './login/login.component';
+import { SignIn } from './signin/signin.component';
 
 
 
@@ -75,7 +76,8 @@ import { Login } from './login/login.component';
     ClientSelector,
     DurationPipe,
     FormatHourPipe,
-    Login
+    Login,
+    SignIn
   ],
 
   imports: [
