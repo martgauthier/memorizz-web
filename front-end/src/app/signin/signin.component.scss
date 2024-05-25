@@ -1,0 +1,70 @@
+@import "../../styles/variables.scss";
+
+#login-txt{
+    padding-top: 40px;
+    text-align: center;
+    color: $dark-blue;
+}
+.signin{
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 500px;
+    background-color: rgb(32, 145, 136,0.5);
+    border-radius: 5px;
+}
+#inputs{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#inputs h3{
+    margin: 0;
+    color: $dark-blue;
+}
+#inputs input{
+    background-color: rgba(61, 155, 147, 0.7);
+    border-radius: 3px;
+    height: 25px;
+    width: 100%;
+    border: 2px solid $dark-blue;
+    outline: none;
+    color: $dark-blue;
+}
+::placeholder {
+    color: $dark-blue;
+    opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12-18 */
+    color: $dark-blue;
+}
+#password_txt{
+    margin-top: 10px !important;
+}
+.btn_login {
+    margin-left: auto;
+    margin-right: auto;
+    width: 155px;
+    cursor: pointer;
+}
+.btn_login_txt{
+    border-radius: 5px;
+    font-size: larger;
+    padding: 10px 0;
+    background-color: #01274a;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins';
+}
+#txt_create{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 333px;
+    color: #01274a;
+}
+#create{
+    margin: 0;
+    cursor: pointer;
+}

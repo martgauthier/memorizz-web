@@ -25,4 +25,7 @@ export class Login implements OnInit {
     public changePassword(event : any){
         this.onclick_login();
     }
+    public goTo_signIn(){
+        this.router.navigate(['signin'])
+    }
 }

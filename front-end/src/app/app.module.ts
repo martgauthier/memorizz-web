@@ -42,6 +42,7 @@ import {DurationPipe} from "./statistiques/duration-pipe/duration.pipe";
 import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
 import { Login } from './login/login.component';
 import {provideHttpClient} from "@angular/common/http";
+import { SignIn } from './signin/signin.component';
 
 
 
@@ -76,7 +77,8 @@ import {provideHttpClient} from "@angular/common/http";
     ClientSelector,
     DurationPipe,
     FormatHourPipe,
-    Login
+    Login,
+    SignIn
   ],
 
   imports: [
