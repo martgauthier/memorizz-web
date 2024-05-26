@@ -43,12 +43,28 @@ router.get("/:userid/:cardid/courbe", (req, res) => {
             "message": "You're missing ?stattype or ?duration query parameter !!"
         })
     }
+    else {
+        res.status(200).json({
+            "message": "this returns courbe data asked with these parameters",
+            ...req.params,
+            ...req.query
+        })
+    }
+})
 
-    res.status(200).json({
-        "message": "this returns courbe data asked with these parameters",
-        ...req.params,
-        ...req.query
-    })
+router.get("/:userid/fullgames/courbe", (req, res) => {
+    if(!req.query.stattype || !req.query.duration) {
+        res.status(400).json({
+            "message": "You're missing ?stattype or ?duration query parameter !!"
+        })
+    }
+    else {
+        res.status(200).json({
+            "message": "this returns courbe data asked with these parameters",
+            ...req.params,
+            ...req.query
+        })
+    }
 })
 
 module.exports = router
