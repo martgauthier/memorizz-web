@@ -304,6 +304,77 @@ const respondWithGameStat = (res, userid, stattype, duration) => {
 
 
 
+function getDateString(date) {
+    //FOR DEBUG PURPOSES ONLY
+    const months = [
+        "janvier", "février", "mars", "avril", "mai", "juin",
+        "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+    ];
+
+    const currentDate = date ?? new Date();
+    const dayOfMonth = currentDate.getDate();
+    const monthIndex = currentDate.getMonth();
+    return dayOfMonth + " " + months[monthIndex] + " " + date.getFullYear();
+}
+
+function respondWithFullGameCourbe(req, res) {
+    if(!Object.keys(StatsPerGamesManager.getData()).includes(req.params.userid)) {
+        res.status(400).json({
+            "message": "Specified user doesn't have stat !"
+        });
+        return;
+    }
+
+
+    let currentTimestamp=new Date()
+
+    currentTimestamp.setHours(23, 59)//set current timestamp hour to maximum hour of the current day
+
+    let lastDateTimestamp=new Date()
+    lastDateTimestamp.setDate(lastDateTimestamp.getDate()-1)
+    lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - req.query.duration)
+    lastDateTimestamp.setHours(0,1)
+
+    console.log("current timestamp: ", currentTimestamp.getTime())
+    console.log("lastDate timestamp: ", lastDateTimestamp.getTime())
+
+    let numbersOfIndexes=Math.floor((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
+
+    let results = {
+        simple: [],
+        medium: [],
+        hard: []
+    };
+
+    for(let i=0; i < numbersOfIndexes; i++) {
+        //set min timestamp to 00h01 and max timestamp to 23h59 for the same day, to retrieve all games in this range
+        let minDayTimestamp=new Date(lastDateTimestamp);
+        minDayTimestamp.setDate(lastDateTimestamp.getDate()+i);
+        let maxDayTimestamp=new Date(minDayTimestamp);
+        maxDayTimestamp.setHours(23,59);
+        let todaySum = {//variable used if there are more than one game this day
+            simple: 0,
+            medium: 0,
+            hard: 0
+        }
+
+        for(let timestampKey of Object.keys(StatsPerGamesManager.getData()[req.params.userid])) {//pour toutes les parties (on filtrera pour garder celles du jour uniquement)
+            if(minDayTimestamp.getTime() <= parseInt(timestampKey) && parseInt(timestampKey) <= maxDayTimestamp.getTime()) {//if game is in the day range
+                let gameData=StatsPerGamesManager.getData()[req.params.userid][timestampKey];
+                todaySum[gameData.difficulty]+=gameData[req.query.stattype];
+            }
+        }
+
+        Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
+            results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+        });
+    }
+
+
+    res.status(200).json(results);
+}
+
+
 
 
 function respondToPostGameData(req, res) {
@@ -320,4 +391,4 @@ function respondToPostGameData(req, res) {
     res.status(201).json()
 }
 
-module.exports = {respondWithCardStat, respondWithGameStat, respondToPostGameData}
+module.exports = {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe}
