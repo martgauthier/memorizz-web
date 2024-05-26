@@ -82,11 +82,12 @@ export class CourbeComponent {
         type: "line",
         name: "En moyenne",
         data: [],
+        visible: true
       }],
     tooltip: {
       animation: false,
       formatter: function(): string {
-        return `${this.series.name} : ${this.y?.toFixed(1)}% d'erreurs sur les parties de ce jour`
+        return `${this.series.name} : ${this.y?.toFixed(1)}`
       },
       backgroundColor: "#01274a",
       style: {
@@ -102,7 +103,7 @@ export class CourbeComponent {
           offsetY: 0
         },
         marker: {
-          enabled: false
+          enabled: true
         },
         legendSymbol: "rectangle"
       }
@@ -122,9 +123,20 @@ export class CourbeComponent {
     let meanValues: number[] = new Array(this.chartOptions.series[0].data.length);
 
     for(let i=0; i < meanValues.length; i++) {
+      let denominateur=0;
+      let sum=0;
+
+      [0,1,2].forEach(index => {
+        // @ts-ignore
+        if(this.chartOptions.series[index].data[i] !== null) {
+          // @ts-ignore
+          sum+=this.chartOptions.series[index].data[i];
+          denominateur++;
+        }
+      })
+
       // @ts-ignore
-      meanValues[i]=(this.chartOptions.series[0].data[i] + this.chartOptions.series[1].data[i] + this.chartOptions.series[2].data[i])/3;
-      //PROBLEM: this doesn't ponderate with games number per difficulty. It is a simple mean
+      meanValues[i]=(denominateur != 0) ? sum / denominateur : 0;
     }
 
     return meanValues;
@@ -144,12 +156,22 @@ export class CourbeComponent {
         else labels[i]="";
       }
 
-      (this.chartOptions.xAxis as Highcharts.XAxisOptions).categories=labels;
+      let chartOptionsCopy= {
+        ...this.chartOptions
+      };
 
-      (this.chartOptions.series![0] as any).data = courbeData.simple;
-      (this.chartOptions.series![1] as any).data = courbeData.medium;
-      (this.chartOptions.series![2] as any).data = courbeData.hard;
-      (this.chartOptions.series![3] as any).data = this.calculateMeanValues();
+      (chartOptionsCopy.xAxis as Highcharts.XAxisOptions).categories=labels;
+
+      (chartOptionsCopy.series![0] as any).data = courbeData.simple.map((value: number) => value === 0 ? null : value);
+      (chartOptionsCopy.series![1] as any).data = courbeData.medium.map((value: number) => value === 0 ? null : value);
+      (chartOptionsCopy.series![2] as any).data = courbeData.hard.map((value: number) => value === 0 ? null : value);
+      (chartOptionsCopy.series![3] as any).data = this.calculateMeanValues().map((value: number) => value === 0 ? null : value);
+
+      console.log(this.chartOptions)
+
+      this.chartOptions=chartOptionsCopy;
+
+      console.log("Copie: ", chartOptionsCopy)
 
       this.updateChart=true;
     });

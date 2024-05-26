@@ -366,7 +366,7 @@ function respondWithFullGameCourbe(res, userid, stattype, duration) {
         }
 
         Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
-            results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+            results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : 0;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
         });
     }
 
@@ -410,7 +410,7 @@ function respondWithCardCourbe(res, userid, cardid, stattype, duration) {
     lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - duration)
     lastDateTimestamp.setHours(0,1)
 
-    let numbersOfIndexes=Math.floor((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
+    let numbersOfIndexes=Math.ceil((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
 
     if(cardid==="0") {//cas "en moyenne"
         for(let i=0; i < numbersOfIndexes; i++) {
@@ -449,7 +449,7 @@ function respondWithCardCourbe(res, userid, cardid, stattype, duration) {
             })
 
             Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
-                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : 0;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
             });
         }
     }
@@ -474,7 +474,7 @@ function respondWithCardCourbe(res, userid, cardid, stattype, duration) {
             }
 
             Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
-                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : 0;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
             });
         }
     }
