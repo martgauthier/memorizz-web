@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const {FullDataForSingleStat, SelectedStat} = require("../../models");
-const {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe} = require("./manager");
+const {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe,
+    respondWithCardCourbe
+} = require("./manager");
 
 const router = new Router();
 
@@ -49,7 +51,7 @@ router.get("/:userid/fullgames/courbe", (req, res) => {
         })
     }
     else {
-        respondWithFullGameCourbe(req, res)
+        respondWithFullGameCourbe(res, req.params.userid, req.query.stattype, req.query.duration)
     }
 })
 
@@ -61,11 +63,7 @@ router.get("/:userid/:cardid/courbe", (req, res) => {
         })
     }
     else {
-        res.status(200).json({
-            "message": "this returns courbe data asked with these parameters",
-            ...req.params,
-            ...req.query
-        })
+        respondWithCardCourbe(res, req.params.userid, req.params.cardid, req.query.stattype, req.query.duration);
     }
 })
 

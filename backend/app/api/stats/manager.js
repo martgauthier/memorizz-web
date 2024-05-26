@@ -317,8 +317,8 @@ function getDateString(date) {
     return dayOfMonth + " " + months[monthIndex] + " " + date.getFullYear();
 }
 
-function respondWithFullGameCourbe(req, res) {
-    if(!Object.keys(StatsPerGamesManager.getData()).includes(req.params.userid)) {
+function respondWithFullGameCourbe(res, userid, stattype, duration) {
+    if(!Object.keys(StatsPerGamesManager.getData()).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
         });
@@ -332,7 +332,7 @@ function respondWithFullGameCourbe(req, res) {
 
     let lastDateTimestamp=new Date()
     lastDateTimestamp.setDate(lastDateTimestamp.getDate()-1)
-    lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - req.query.duration)
+    lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - duration)
     lastDateTimestamp.setHours(0,1)
 
     console.log("current timestamp: ", currentTimestamp.getTime())
@@ -358,10 +358,10 @@ function respondWithFullGameCourbe(req, res) {
             hard: 0
         }
 
-        for(let timestampKey of Object.keys(StatsPerGamesManager.getData()[req.params.userid])) {//pour toutes les parties (on filtrera pour garder celles du jour uniquement)
+        for(let timestampKey of Object.keys(StatsPerGamesManager.getData()[userid])) {//pour toutes les parties (on filtrera pour garder celles du jour uniquement)
             if(minDayTimestamp.getTime() <= parseInt(timestampKey) && parseInt(timestampKey) <= maxDayTimestamp.getTime()) {//if game is in the day range
-                let gameData=StatsPerGamesManager.getData()[req.params.userid][timestampKey];
-                todaySum[gameData.difficulty]+=gameData[req.query.stattype];
+                let gameData=StatsPerGamesManager.getData()[userid][timestampKey];
+                todaySum[gameData.difficulty]+=gameData[stattype];
             }
         }
 
@@ -372,6 +372,114 @@ function respondWithFullGameCourbe(req, res) {
 
 
     res.status(200).json(results);
+}
+
+
+function respondWithCardCourbe(res, userid, cardid, stattype, duration) {
+    if(!Object.keys(StatsPerCardsManager.getData()).includes(userid)) {
+        res.status(400).json({
+            "message": "Specified user doesn't have stat !"
+        });
+        return;
+    }
+    if(cardid !=="0" && !Object.keys(StatsPerCardsManager.getData()[userid]).includes(cardid)) {
+        res.status(400).json({
+            "message": "Specified user doesn't have stat for this card !" + cardid
+        });
+        return;
+    }
+    if(!CARDS_STATS_TYPES.includes(stattype)) {
+        res.status(400).json({
+            "message": "Specified stat type doesn't exist ! " + stattype
+        })
+        return;
+    }
+
+    let results={
+        simple: [],
+        medium: [],
+        hard: []
+    }
+
+    let currentTimestamp=new Date()
+
+    currentTimestamp.setHours(23, 59)//set current timestamp hour to maximum hour of the current day
+
+    let lastDateTimestamp=new Date()
+    lastDateTimestamp.setDate(lastDateTimestamp.getDate()-1)
+    lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - duration)
+    lastDateTimestamp.setHours(0,1)
+
+    let numbersOfIndexes=Math.floor((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
+
+    if(cardid==="0") {//cas "en moyenne"
+        for(let i=0; i < numbersOfIndexes; i++) {
+            //set min timestamp to 00h01 and max timestamp to 23h59 for the same day, to retrieve all games in this range
+            let minDayTimestamp=new Date(lastDateTimestamp);
+            minDayTimestamp.setDate(lastDateTimestamp.getDate()+i);
+            let maxDayTimestamp=new Date(minDayTimestamp);
+            maxDayTimestamp.setHours(23,59);
+            let todaySum = {//variable used if there are more than one game this day
+                simple: {
+                    sum: 0,
+                    denominateur: 0
+                },
+                medium: {
+                    sum: 0,
+                    denominateur: 0
+                },
+                hard: {
+                    sum: 0,
+                    denominateur: 0
+                }
+            }
+
+            for(let cardkey of Object.keys(StatsPerCardsManager.getData()[userid])) {
+                for (let timestampKey of Object.keys(StatsPerCardsManager.getData()[userid][cardkey])) {//pour toutes les parties (on filtrera pour garder celles du jour uniquement)
+                    if (minDayTimestamp.getTime() <= parseInt(timestampKey) && parseInt(timestampKey) <= maxDayTimestamp.getTime()) {//if game is in the day range
+                        let gameData = StatsPerCardsManager.getData()[userid][cardkey][timestampKey];
+                        todaySum[gameData.difficulty].sum += gameData[stattype];
+                        todaySum[gameData.difficulty].denominateur++;
+                    }
+                }
+            }
+
+            Object.keys(todaySum).forEach(key => {
+                todaySum[key]=(todaySum[key].denominateur !== 0) ? todaySum[key].sum / todaySum[key].denominateur : 0;//on remplace les "sum" et "denominateur" par la moyenne effectivement calculée
+            })
+
+            Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
+                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+            });
+        }
+    }
+    else {
+        for(let i=0; i < numbersOfIndexes; i++) {
+            //set min timestamp to 00h01 and max timestamp to 23h59 for the same day, to retrieve all games in this range
+            let minDayTimestamp=new Date(lastDateTimestamp);
+            minDayTimestamp.setDate(lastDateTimestamp.getDate()+i);
+            let maxDayTimestamp=new Date(minDayTimestamp);
+            maxDayTimestamp.setHours(23,59);
+            let todaySum = {//variable used if there are more than one game this day
+                simple: 0,
+                medium: 0,
+                hard: 0
+            }
+
+            for(let timestampKey of Object.keys(StatsPerCardsManager.getData()[userid][cardid])) {//pour toutes les parties (on filtrera pour garder celles du jour uniquement)
+                if(minDayTimestamp.getTime() <= parseInt(timestampKey) && parseInt(timestampKey) <= maxDayTimestamp.getTime()) {//if game is in the day range
+                    let gameData=StatsPerCardsManager.getData()[userid][cardid][timestampKey];
+                    todaySum[gameData.difficulty]+=gameData[stattype];
+                }
+            }
+
+            Object.entries(todaySum).forEach(entry => {//ajouter le résultat de ce jour au tableau
+                results[entry[0]][i]=(entry[1] !== 0) ? entry[1] : undefined;//si il n'y a pas eu de parties pour ce jour, renvoyer undefined
+            });
+        }
+    }
+
+    res.status(200).json(results)
 }
 
 
@@ -391,4 +499,4 @@ function respondToPostGameData(req, res) {
     res.status(201).json()
 }
 
-module.exports = {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe}
+module.exports = {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe, respondWithCardCourbe}
