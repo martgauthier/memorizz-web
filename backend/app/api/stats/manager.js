@@ -115,10 +115,6 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
     if(idcarte!=="0") {
         for (let key of nowDatasKeys) {
             let selectedStat = StatsPerCardsManager.getData()[userid][idcarte][key]
-            if(userid==="1" && idcarte==="6") {
-                console.log("nowMeans selected stat for key : " + key)
-                console.log(selectedStat[stattype])
-            }
 
             nowMeans[selectedStat.difficulty].mean = nowMeans[selectedStat.difficulty].mean + selectedStat[stattype]
             nowMeans[selectedStat.difficulty].denominateur++;
@@ -133,11 +129,6 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
                 nowMeans[selectedStat.difficulty].denominateur++;
             }
         }
-    }
-
-    if(userid==="1" && idcarte==="6") {
-        console.log("DEBUG nowMeans")
-        console.log(nowMeans)
     }
 
     let returnedObject = {
@@ -335,10 +326,7 @@ function respondWithFullGameCourbe(res, userid, stattype, duration) {
     lastDateTimestamp.setMonth(lastDateTimestamp.getMonth() - duration)
     lastDateTimestamp.setHours(0,1)
 
-    console.log("current timestamp: ", currentTimestamp.getTime())
-    console.log("lastDate timestamp: ", lastDateTimestamp.getTime())
-
-    let numbersOfIndexes=Math.floor((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
+    let numbersOfIndexes=Math.ceil((currentTimestamp.getTime() - lastDateTimestamp.getTime()) / 86400000);//un index par jour
 
     let results = {
         simple: [],
@@ -493,6 +481,8 @@ function respondToPostGameData(req, res) {
         });
         return;
     }
+
+    console.log("POST BODY:", req.body)
 
     StatsPerCardsManager.addStatForCards(req.body);
     StatsPerGamesManager.addStatForGame(req.body);
