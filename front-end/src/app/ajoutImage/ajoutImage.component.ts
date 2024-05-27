@@ -64,19 +64,13 @@ export class AjoutImage implements OnInit {
             return;
         }
 
-        let body = new URLSearchParams()
-        body.set("name", text)
-        body.set("image", this.loadedImage)
-
-        const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/x-www-form-urlencoded'
-            })
-        };
+        let body = new FormData()
+        body.append("name", text)
+        body.append("image", this.loadedImage)
 
         console.log(body)
 
-        this.http.post<any>("http://localhost:9428/api/users/"+this.user.id+"/cards", body, httpOptions).subscribe({
+        this.http.post<any>("http://localhost:9428/api/users/"+this.user.id+"/cards", body).subscribe({
             next: (data) => {
                 console.log("SUCCESS!", data)
             },
