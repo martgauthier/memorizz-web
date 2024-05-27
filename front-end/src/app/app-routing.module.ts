@@ -4,6 +4,7 @@ import { Template } from './config/template.component';
 import { StatistiquesDisplayerComponent } from './statistiques/statistiques-displayer/statistiques-displayer.component';
 import { PageNavComponent } from './nav/pageNav.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
+import { AjoutPatient } from './ajoutPatient/ajoutPatient.component';
 import {
   CardsDataContainerComponent
 } from "./statistiques/cards-data-container/cards-data-container/cards-data-container.component";
@@ -27,6 +28,7 @@ const routes: Routes = [
     ]},
   {path : "nav", component : PageNavComponent},
   {path : "ajoutImage", component : AjoutImage},
+  {path : "ajoutPatient", component : AjoutPatient},
   {path : "memoryGame", component : MemorytemplateComponent},
   {path: '', redirectTo : '/login', pathMatch : "full"}
 ];

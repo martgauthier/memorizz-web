@@ -13,6 +13,7 @@ import {MemorywinComponent} from "./memory/memorywin/memorywin.component";
 import { NgParticlesModule } from "ng-particles";
 import { HeaderComponent } from './header/header.component';
 import { AjoutImage } from './ajoutImage/ajoutImage.component';
+import { AjoutPatient } from './ajoutPatient/ajoutPatient.component';
 import {Bouton} from "./bouton.component";
 import { StatistiquesDisplayerComponent } from './statistiques/statistiques-displayer/statistiques-displayer.component';
 import {BigSinglestatComponent} from "./statistiques/big-singlestat/big-singlestat.component";
@@ -50,6 +51,7 @@ import {provideHttpClient} from "@angular/common/http";
     AppComponent,
     HeaderComponent,
     AjoutImage,
+    AjoutPatient,
     AppComponent,
     Template,
     NbCard,

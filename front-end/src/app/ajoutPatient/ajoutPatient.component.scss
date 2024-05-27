@@ -1,0 +1,16 @@
+@import "../../styles/variables.scss";
+
+.addPatient{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  grid-template-rows: 1fr, 1fr, 1fr, 1fr;
+}
+
+#add-Patient-title{
+  display: block;
+  grid-column : 1/3;
+  grid-row : 1;
+  color: $dark-blue;
+  font-size: 40px;
+  text-align: center;
+}

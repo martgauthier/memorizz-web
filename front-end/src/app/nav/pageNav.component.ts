@@ -23,6 +23,10 @@ export class PageNavComponent {
             this.router.navigate([str]);
         }
         else{
+            if(str == "ajoutPatient" ){
+                this.router.navigate([str]);
+                return;
+            }
             alert("Veuillez choisir un User avant de continuer.");
         }
     }
