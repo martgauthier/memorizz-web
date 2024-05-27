@@ -1,6 +1,5 @@
 const { Router } = require('express')
 const { Identification } = require('../../models/user')
-const { User } = require('../../models/user')
 const { getPresetDict, getCards } = require('./manager')
 
 const router = new Router()
