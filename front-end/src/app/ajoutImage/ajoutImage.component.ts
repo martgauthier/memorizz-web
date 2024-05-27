@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import { Card, Identification } from 'src/models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
     selector: 'app-ajoutImage',
@@ -63,6 +63,26 @@ export class AjoutImage implements OnInit {
             alert("Veuillez Renseigner tous les champs pour ajouter une image")
             return;
         }
-        this.http.post
+
+        let body = new URLSearchParams()
+        body.set("name", text)
+        body.set("image", this.loadedImage)
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/x-www-form-urlencoded'
+            })
+        };
+
+        console.log(body)
+
+        this.http.post<any>("http://localhost:9428/api/users/"+this.user.id+"/cards", body, httpOptions).subscribe({
+            next: (data) => {
+                console.log("SUCCESS!", data)
+            },
+            error: (err) => {
+                console.error("Post Eroor", err)
+            }
+        });
     }
 }
