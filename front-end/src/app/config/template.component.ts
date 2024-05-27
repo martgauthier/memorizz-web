@@ -124,7 +124,7 @@ export class Template extends GestionFront  implements OnInit {
       currentPresetDict.hard.cardsAreVisible = (document.querySelector("#visibles") as HTMLHRElement).classList.contains("cocher");
     }
 
-    this.userService.setPresetDict(currentPresetDict);
+    this.userService.updatePresetDict(currentPresetDict);
   }
   public onclick_defaut(){
     let currentPresetDict: PresetDict = this.presets;
@@ -156,6 +156,6 @@ export class Template extends GestionFront  implements OnInit {
       this.config = this.presets.hard;
     }
 
-    this.userService.setPresetDict(currentPresetDict);
+    this.userService.updatePresetDict(currentPresetDict);
   }
 }

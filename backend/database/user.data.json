@@ -1,8 +1,8 @@
 [
   {
-  "id": 0,
-  "presetDictId" : 0,
-  "cardsId" : [1,2,3]
+    "id": 0,
+    "presetDictId" : 0,
+    "cardsId" : [1,2,3]
   },
   {
     "id": 1,

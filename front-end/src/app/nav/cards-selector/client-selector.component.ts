@@ -104,14 +104,20 @@ export class ClientSelector implements AfterViewInit {
     //this.el.nativeElement.style.height=this.ul.nativeElement.offsetHeight + 20 + "px";
     this.ul.nativeElement.scrollTo(0, childNode.offsetTop);
     this.cardSelectedIndex=index;
-    if( this.userService.availableCards$.value.length < 3){
-      (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "block";
-      (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0.9)";
-      (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "no-drop";
-    }else{
-      (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "none";
-      (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0)";
-      (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "pointer";
-    }
+
+    setTimeout(() => {
+      //attendre que les cartes soit lu par le back
+      if( this.userService.availableCards$.value.length < 3){
+        console.log(2);
+        (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "block";
+        (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0.9)";
+        (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "no-drop";
+      }else{
+        console.log(3);
+        (document.querySelector("#tooltip-text") as HTMLDivElement).style.display = "none";
+        (document.querySelector("#jouer_div") as HTMLDivElement).style.filter = "grayscale(0)";
+        (document.querySelector("#jouer_div .niveau") as HTMLDivElement).style.cursor = "pointer";
+      }
+    }, 100);
   }
 }
