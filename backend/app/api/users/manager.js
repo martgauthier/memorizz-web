@@ -17,15 +17,16 @@ const addToCards = (req, res, userId) => {
   const user = User.getById(userId)
   let cardsid = user.cardsId
 
-  const form = formidable({uploadDir:"/database/Images/"+userId,filename:(name, ext, part, form) => {
-      return ""+Card.get().length+1+ext;
+  const form = formidable({uploadDir:"./database/Images/"+userId,filename:(name, ext, part, form) => {
+    return ""+Card.get().length+1+".png";
   } });
 
 
   form.parse(req, (err, fields, files) => {
     console.log('fields:', fields);
     console.log('files:', files);
-    /*let newCard = Card.create(Card.get().length+1,fields.name,files.image.path)
+    //console.log(files.image.path);
+    /*let newCard = Card.create(Card.get().length+1,fields.name,"/"+userId+"/"+newCard.id)
     user.cardsId.push(newCard.id)*/
     res.status(200).json("OK")
   });
