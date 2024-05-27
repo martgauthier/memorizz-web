@@ -1,0 +1,74 @@
+[
+  {
+  "presetDictId": 0,
+  "simple": {
+    "pairsNumber" : 3,
+    "cardsAreBothImage": true,
+    "cardsAreVisible": true
+  },
+  "medium": {
+    "pairsNumber": 5,
+    "cardsAreVisible": true,
+    "cardsAreBothImage": false
+  },
+  "hard": {
+    "pairsNumber": 8,
+    "cardsAreVisible": false,
+    "cardsAreBothImage": false
+  }
+},
+  {
+  "presetDictId" : 1,
+  "simple": {
+    "pairsNumber": 4,
+    "cardsAreVisible": true,
+    "cardsAreBothImage": true
+  },
+  "medium": {
+    "pairsNumber": 6,
+    "cardsAreVisible": true,
+    "cardsAreBothImage": false
+  },
+  "hard": {
+    "pairsNumber": 8,
+    "cardsAreVisible": false,
+    "cardsAreBothImage": false
+  }
+  },
+  {
+    "presetDictId": 2,
+    "simple": {
+      "pairsNumber": 4,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
+    },
+    "medium": {
+      "pairsNumber": 6,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
+  },
+  {
+    "presetDictId" : 3,
+    "simple": {
+      "pairsNumber": 3,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
+    },
+    "medium": {
+      "pairsNumber": 6,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
+  }
+]

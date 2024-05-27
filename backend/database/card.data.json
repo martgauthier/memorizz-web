@@ -1,0 +1,71 @@
+[
+  {
+  "id": 1,
+  "textValue": "Ma maison",
+  "imgValue": "assets/maison_jacqueline.png"
+  },
+  {
+    "id": 2,
+    "textValue": "Rantanplan",
+    "imgValue": "assets/rantanplan.png"
+  },
+  {
+    "id": 3,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
+  },
+  {
+    "id": 4,
+    "textValue": "Marine",
+    "imgValue": "assets/marine.png"
+  },
+  {
+    "id": 5,
+    "textValue": "Ma voiture",
+    "imgValue": "assets/voitureJeanMich.png"
+  },
+  {
+    "id": 6,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
+  },
+  {
+    "id": 7,
+    "textValue": "Ma maison",
+    "imgValue": "assets/maison.png"
+  },
+  {
+    "id": 8,
+    "textValue": "George",
+    "imgValue": "assets/george.png"
+  },
+  {
+    "id": 9,
+    "textValue": "Mon chien",
+    "imgValue": "assets/rantanplan.png"
+  },
+  {
+    "id": 10,
+    "textValue": "Ma maison",
+    "imgValue": "assets/maison_jacqueline.png"
+  },
+  {
+  "id": 11,
+  "textValue": "Rantanplan",
+  "imgValue": "assets/rantanplan.png"
+
+  },
+  {
+    "id": 12,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
+
+  },
+  {
+  "id": 13,
+  "textValue": "Moi",
+  "imgValue": "assets/icon.png"
+
+}
+]
+

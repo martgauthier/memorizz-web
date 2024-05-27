@@ -1,0 +1,29 @@
+[
+  {
+    "nom" : "STADCAT",
+    "prenom" : "Jacqueline",
+    "id" : 0,
+    "imgValue": "/assets/marine.png"
+  },
+  {
+
+    "nom": "STADECISSE",
+    "prenom": "Jean-michel",
+    "id": 1,
+    "imgValue": "/assets/icon.png"
+  },
+  {
+
+    "nom": "RICHARD",
+    "prenom": "Claude",
+    "id": 2,
+    "imgValue": "/assets/icon.png"
+  },
+  {
+
+    "nom": "JULES",
+    "prenom": "Richard",
+    "id": 3,
+    "imgValue": "/assets/icon.png"
+  }
+]
