@@ -15,22 +15,25 @@ const getCards = (userId) => {
 
 const addToCards = (req, res, userId) => {
   const user = User.getById(userId)
-  let cardsid = user.cardsId
-
+  let newId = new Date().getTime();
   const form = formidable({uploadDir:"./database/Images/"+userId,filename:(name, ext, part, form) => {
-    return ""+Card.get().length+1+".png";
+    return ""+newId+".png";
   } });
 
-
   form.parse(req, (err, fields, files) => {
-    console.log('fields:', fields);
-    console.log('files:', files);
-    //console.log(files.image.path);
-    /*let newCard = Card.create(Card.get().length+1,fields.name,"/"+userId+"/"+newCard.id)
-    user.cardsId.push(newCard.id)*/
-    res.status(200).json("OK")
+    try{
+      let newCard = Card.create({
+        id : newId,
+        textValue:fields.name[0],
+        imgValue:"/"+userId+"/"+newId+".png"
+      });
+      user.cardsId.push(newCard.id)
+      res.status(200).json("OK")
+    }catch(err){
+      res.status(300).json("NOT OK")
+    }
+    
   });
-  return true;
 }
 
 module.exports = {

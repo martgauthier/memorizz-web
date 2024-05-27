@@ -72,7 +72,11 @@ export class AjoutImage implements OnInit {
 
         this.http.post<any>("http://localhost:9428/api/users/"+this.user.id+"/cards", body).subscribe({
             next: (data) => {
-                console.log("SUCCESS!", data)
+                console.log("SUCCESS!", data);
+                (document.querySelector("#desc") as HTMLInputElement).value = "";
+                this.imageSrc = 'assets/chargez-votre-image.png';
+                document.getElementById("preview")?.classList.remove("loaded");
+
             },
             error: (err) => {
                 console.error("Post Eroor", err)
