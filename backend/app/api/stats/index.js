@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const {FullDataForSingleStat, SelectedStat} = require("../../models");
-const {respondWithCardStat, respondWithGameStat, respondToPostGameData} = require("./manager");
+const {respondWithCardStat, respondWithGameStat, respondToPostGameData, respondWithFullGameCourbe,
+    respondWithCardCourbe
+} = require("./manager");
 
 const router = new Router();
 
@@ -36,6 +38,23 @@ router.delete("/:userid/:cardid", (req, res) => {
         "message": "this deletes all stats saved for the card of id: " + req.params.cardid
     })
 })
+router.get("/:userid/fullgames/courbe", (req, res) => {
+    console.log("fullgame courbe asked !")
+    if(!req.query.stattype || !req.query.duration) {
+        res.status(400).json({
+            "message": "You're missing ?stattype or ?duration query parameter !!"
+        })
+    }
+    else if(req.query.stattype !== "errorsOnWholeGame" && req.query.stattype!=="gameDuration") {
+        res.status(400).json({
+            "message": "?stattype must be 'errorsOnWholeGame' or 'gameDuration' !"
+        })
+    }
+    else {
+        respondWithFullGameCourbe(res, req.params.userid, req.query.stattype, req.query.duration)
+    }
+})
+
 
 router.get("/:userid/:cardid/courbe", (req, res) => {
     if(!req.query.stattype || !req.query.duration) {
@@ -43,12 +62,9 @@ router.get("/:userid/:cardid/courbe", (req, res) => {
             "message": "You're missing ?stattype or ?duration query parameter !!"
         })
     }
-
-    res.status(200).json({
-        "message": "this returns courbe data asked with these parameters",
-        ...req.params,
-        ...req.query
-    })
+    else {
+        respondWithCardCourbe(res, req.params.userid, req.params.cardid, req.query.stattype, req.query.duration);
+    }
 })
 
 module.exports = router
