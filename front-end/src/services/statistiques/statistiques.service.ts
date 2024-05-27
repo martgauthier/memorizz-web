@@ -173,11 +173,27 @@ export class StatistiquesService {
   }
 
   updateCourbeData(statType?: string, duration?: number): void {
-    this.courbeData$.next({
-      simple: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].simple],
-      medium: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].medium],
-      hard: [...MOCKED_COURBE_DATA[this.identificationId][this.selectedCardIndex][statType ?? this.selectedStat$.getValue().statType][duration ?? this.duration$.getValue().toString()].hard]
-    });
+    let url: string = this.statUrl+"/"+this.userService.identification$.getValue().id+"/";
+
+    if((["errorsPerGame", "timeToDiscoverFullPair"].includes(this.selectedStat$.getValue().statType))) {//stat for a specific card
+      url+=this.selectedStat$.getValue().cardId+"/courbe?stattype="+ (statType ?? this.selectedStat$.getValue().statType) +"&duration="+(duration ?? this.duration$.getValue().toString());
+    }
+    else {//stat relevant to fullgames
+      url+="fullgames/courbe?stattype="+ (statType ?? this.selectedStat$.getValue().statType) +"&duration="+(duration ?? this.duration$.getValue().toString());
+    }
+
+    this.http.get<any>(url).subscribe({
+      next: (data) => {
+        this.courbeData$.next({
+          simple: data.simple,
+          medium: data.medium,
+          hard: data.hard
+        })
+      },
+      error: (err) => {
+        console.log("Erreur de requête " + url, err);
+      }
+    })
   }
 }
 
