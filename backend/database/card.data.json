@@ -1,68 +1,71 @@
 [
   {
-  "cardId": 1,
-  "src": "assets/maison_jacqueline.png",
-  "texte": "Ma maison"
+  "id": 1,
+  "textValue": "Ma maison",
+  "imgValue": "assets/maison_jacqueline.png"
   },
   {
-    "cardId": 2,
-    "src": "assets/rantanplan.png",
-    "texte": "Rantanplan"
+    "id": 2,
+    "textValue": "Rantanplan",
+    "imgValue": "assets/rantanplan.png"
   },
   {
-    "cardId": 3,
-    "src" : "assets/arbre.png",
-    "texte" : "Arbre"
+    "id": 3,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
   },
   {
-    "cardId" : 4,
-    "src" : "assets/marine.png",
-    "texte" : "Marine"
+    "id": 4,
+    "textValue": "Marine",
+    "imgValue": "assets/marine.png"
   },
   {
-    "cardId" : 5,
-    "src" : "assets/voitureJeanMich.png",
-    "texte" : "Ma voiture"
+    "id": 5,
+    "textValue": "Ma voiture",
+    "imgValue": "assets/voitureJeanMich.png"
   },
   {
-    "cardId" : 6,
-    "src" : "assets/arbre.png",
-    "texte" : "Arbre"
+    "id": 6,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
   },
   {
-    "cardId" : 7,
-    "src" : "assets/maison.png",
-    "texte" : "Ma maison"
+    "id": 7,
+    "textValue": "Ma maison",
+    "imgValue": "assets/maison.png"
   },
   {
-    "cardId" : 8,
-    "src" : "assets/george.png",
-    "texte" : "George"
+    "id": 8,
+    "textValue": "George",
+    "imgValue": "assets/george.png"
   },
   {
-    "cardId" : 9,
-    "src" : "assets/rantanplan.png",
-    "texte" : "Mon chien"
+    "id": 9,
+    "textValue": "Mon chien",
+    "imgValue": "assets/rantanplan.png"
   },
   {
-    "cardId" : 10,
-    "src" : "assets/maison_jacqueline.png",
-    "texte" : "Ma maison"
+    "id": 10,
+    "textValue": "Ma maison",
+    "imgValue": "assets/maison_jacqueline.png"
   },
   {
-  "cardId" : 11,
-  "src" : "assets/rantanplan.png",
-  "texte" : "Rantanplan"
+  "id": 11,
+  "textValue": "Rantanplan",
+  "imgValue": "assets/rantanplan.png"
+
   },
   {
-    "cardId" : 12,
-    "src" : "assets/arbre.png",
-    "texte" : "Arbre"
+    "id": 12,
+    "textValue": "Arbre",
+    "imgValue": "assets/arbre.png"
+
   },
   {
-  "cardId" : 13,
-  "src" : "assets/icon.png",
-  "texte" : "Moi"
+  "id": 13,
+  "textValue": "Moi",
+  "imgValue": "assets/icon.png"
+
 }
 ]
 

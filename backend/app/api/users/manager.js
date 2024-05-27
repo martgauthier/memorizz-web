@@ -9,8 +9,10 @@ const getPresetDict = (userId) => {
 const getCards = (userId) => {
   const user = User.getById(userId)
   const cardsid = user.cardsId
-  return Card.get().filter((item) => cardsid.includes(item.cardId))
+  return Card.get().filter((item) => cardsid.includes(item.id))
 }
+
+
 
 module.exports = {
   getPresetDict, getCards,
