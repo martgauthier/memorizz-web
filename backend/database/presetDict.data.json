@@ -1,6 +1,6 @@
 [
   {
-  "presetDictId": 0,
+  "id": 0,
   "simple": {
     "pairsNumber" : 3,
     "cardsAreBothImage": true,
@@ -18,7 +18,7 @@
   }
 },
   {
-  "presetDictId" : 1,
+  "id" : 1,
   "simple": {
     "pairsNumber": 4,
     "cardsAreVisible": true,
@@ -36,7 +36,7 @@
   }
   },
   {
-    "presetDictId": 2,
+    "id": 2,
     "simple": {
       "pairsNumber": 4,
       "cardsAreVisible": true,
@@ -54,7 +54,7 @@
     }
   },
   {
-    "presetDictId" : 3,
+    "id" : 3,
     "simple": {
       "pairsNumber": 3,
       "cardsAreVisible": true,
