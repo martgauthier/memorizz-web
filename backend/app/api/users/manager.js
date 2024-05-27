@@ -28,7 +28,7 @@ const addToCards = (req, res, userId) => {
     try{
       let newCard = Card.create({
         textValue:fields.name[0],
-        imgValue:"/"+userId+"/"+newImageId+".png"
+        imgValue: userId+"/"+newImageId+".png"
       });
       cards = user.cardsId
       cards.push(newCard.id)

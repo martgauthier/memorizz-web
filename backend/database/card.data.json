@@ -2,17 +2,17 @@
   {
     "id": 1,
     "textValue": "Ma maison",
-    "imgValue": "assets/maison_jacqueline.png"
+    "imgValue": "0/maison_jacqueline.png"
   },
   {
     "id": 2,
     "textValue": "Rantanplan",
-    "imgValue": "assets/rantanplan.png"
+    "imgValue": "0/rantanplan.png"
   },
   {
     "id": 3,
     "textValue": "Arbre",
-    "imgValue": "assets/arbre.png"
+    "imgValue": "0/arbre.png"
   },
   {
     "id": 4,

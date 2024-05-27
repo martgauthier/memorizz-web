@@ -3,7 +3,7 @@
     <aside>
         <h2 class="titreListe">Vos Images: </h2>
         <div id="imageList">
-          <div *ngFor="let card of availableCards;" class="listItem"><img src={{card.imgValue}} class="previewFromList"/> <span class="textPreview">{{card.textValue}}</span><span class="trash-icon" (click)="onItemClick(card)"><i class="gg-trash trashcan"></i></span></div>
+          <div *ngFor="let card of availableCards;" class="listItem"><img [src]="getImageUrlForCard(card)" class="previewFromList"/> <span class="textPreview">{{card.textValue}}</span><span class="trash-icon" (click)="onItemClick(card)"><i class="gg-trash trashcan"></i></span></div>
         </div>
     </aside>
 

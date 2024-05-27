@@ -78,10 +78,15 @@ export class AjoutImage implements OnInit {
                 (document.querySelector("#file-input") as HTMLInputElement).value = "";
                 this.imageSrc = 'assets/chargez-votre-image.png';
                 document.getElementById("preview")?.classList.remove("loaded");
+                this.userService.setAvailableCards(this.user.id);
             },
             error: (err) => {
                 console.error("Post Eroor", err)
             }
         });
+    }
+
+    getImageUrlForCard(card:Card){
+        return "http://localhost:9428/api/images/"+card.imgValue;
     }
 }
