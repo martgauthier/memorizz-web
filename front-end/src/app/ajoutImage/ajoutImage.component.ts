@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user/user.service";
 import { Card, Identification } from 'src/models/user.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
     selector: 'app-ajoutImage',
@@ -74,9 +75,9 @@ export class AjoutImage implements OnInit {
             next: (data) => {
                 console.log("SUCCESS!", data);
                 (document.querySelector("#desc") as HTMLInputElement).value = "";
+                (document.querySelector("#file-input") as HTMLInputElement).value = "";
                 this.imageSrc = 'assets/chargez-votre-image.png';
                 document.getElementById("preview")?.classList.remove("loaded");
-
             },
             error: (err) => {
                 console.error("Post Eroor", err)
