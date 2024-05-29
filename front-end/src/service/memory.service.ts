@@ -38,14 +38,12 @@ export class MemoryService {
   private NB_TENTATIVES_MAX  = 4;
   private soundOn : boolean ;
   private musicOn : boolean ;
-  private userId : number ;
   private availableCards : Card[] = [];
   constructor(public userService: UserService, private http: HttpClient) {
-
     this.userService.identification$.subscribe(identification => {
       this.identification = identification;
     });
-    this.userId = 1;
+
     // récupérer toutes les cartes du user :
     this.userService.presetConfig$.subscribe((data) => {
       this.config = data;
@@ -60,7 +58,7 @@ export class MemoryService {
   }
 
   public getAvailableCards() : Observable<Card[]> {
-    return this.http.get<Card[]>(this.usersUrl+this.userId+"/cards").pipe(tap(cards=>{
+    return this.http.get<Card[]>(this.usersUrl+this.userService.identification$.getValue().id+"/cards").pipe(tap(cards=>{
       this.availableCards = cards;
     }));
 

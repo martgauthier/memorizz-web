@@ -68,4 +68,8 @@ export class HeaderComponent {
       this.router.navigate([""]);
       this.stopDisplay();
     }
+
+    getProfilePicUrl(){
+      return "http://localhost:9428/api/images/"+this.user.id+"/pfp.png";
+    }
 }

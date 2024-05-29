@@ -2,5 +2,5 @@
 .idea/
 node_modules/
 !database/.gitkeep
-database/Images/*
+!database/Images/*
 !database/Images/.gitkeep

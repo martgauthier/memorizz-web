@@ -120,4 +120,8 @@ export class ClientSelector implements AfterViewInit {
       }
     }, 100);
   }
+
+  getProfilePicUrl(user:Identification){
+    return "http://localhost:9428/api/images/"+user.id+"/pfp.png";
+  }
 }
