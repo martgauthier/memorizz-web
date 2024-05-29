@@ -19,5 +19,7 @@ export class MemorycardComponent implements OnInit {
 
   }
 
-
+  getUrlForCard(card : MemoryCard){
+    return "http://localhost:9428/api/images/"+card.src;
+  }
 }
