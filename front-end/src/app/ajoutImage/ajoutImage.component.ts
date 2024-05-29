@@ -53,9 +53,15 @@ export class AjoutImage implements OnInit {
     }
 
     onItemClick(card: Card) {
-      let currentCards=this.availableCards;
-      currentCards.splice(this.availableCards.indexOf(card), 1);
-      this.userService.availableCards$.next(currentCards);
+      this.http.delete("http://localhost:9428/api/users/"+this.user.id+"/cards/"+card.id).subscribe({
+        next: (data) => {
+            console.log("SUCCESS!", data);
+            this.userService.setAvailableCards(this.user.id);
+        },
+        error: (err) => {
+            console.error("Delete Eroor", err)
+        }
+      })
     }
 
     sendImage(){
