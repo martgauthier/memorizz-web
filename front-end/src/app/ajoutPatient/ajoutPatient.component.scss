@@ -1,0 +1,122 @@
+@import "../../styles/variables.scss";
+
+#ajoutPatient-card{
+  display : grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap : 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top : 50px;
+  width: 600px;
+  height: 500px;
+  background-color: rgb(32, 145, 136,0.5);
+  border-radius: 5px;
+}
+
+#ajoutPatient-titre{
+  text-align: center;
+  font-size: 40px;
+  color: $dark-blue;
+  grid-row : 1;
+  grid-column: 1/3;
+}
+
+
+#inputs{
+  grid-column: 1;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#patient-nom{
+  grid-column: 1;
+  grid-row : 2;
+}
+
+#patient-prenom{
+  grid-column: 1;
+  grid-row : 3;
+}
+
+h3{
+  margin: 0;
+  color: $dark-blue;
+}
+
+.input{
+  background-color: rgba(61, 155, 147, 0.7);
+  border-radius: 3px;
+  height: 25px;
+  width: 100%;
+  border: 2px solid $dark-blue;
+  outline: none;
+  color: $dark-blue;
+}
+
+#add-img{
+  grid-column: 2;
+  grid-row : 2/4;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+}
+
+#img-div{
+  grid-row : 1;
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  cursor : pointer;
+}
+
+#img{
+  width: 50px;
+
+}
+#img-txt{
+  text-align: center;
+  grid-row: 2;
+
+}
+
+::placeholder {
+  color: $dark-blue;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12-18 */
+  color: $dark-blue;
+}
+#password_txt{
+  margin-top: 10px !important;
+}
+.btn_ajoutPatient {
+  margin-left: auto;
+  margin-right: auto;
+  width: 155px;
+  cursor: pointer;
+  grid-column: 1/3;
+  grid-row : 4;
+}
+.btn_ajoutPatient_txt{
+  border-radius: 5px;
+  font-size: larger;
+  padding: 10px 0;
+  background-color: #01274a;
+  text-align: center;
+  color: white;
+  font-family: 'Poppins';
+}
+#txt_create{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 333px;
+  color: #01274a;
+}
+#create{
+  margin: 0;
+  cursor: pointer;
+}

@@ -27,7 +27,7 @@ $slightly-different-turquoise: #022d29;
 
 #boutonsNav{
     overflow: hidden;
-    
+
 }
 
 .nav_btn:hover{
@@ -44,6 +44,20 @@ $slightly-different-turquoise: #022d29;
     font-size: 30px;
     text-align: center;
 }
+#ajouter-lien{
+  color: $dark-blue;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: underline;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  cursor : pointer;
+}
+
+#ajouter-lien:hover{
+  color: darkslateblue;
+}
+
 
 @keyframes changeWidth-open {
     from {

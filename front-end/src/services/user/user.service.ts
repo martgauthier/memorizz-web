@@ -116,4 +116,9 @@ export class UserService {
     availableProfil.push(profils);
     this.availableProfil$.next(availableProfil);
   }
+
+  addPatient(surname: string, name: string) {
+    //TODO : requete post à user, avec presetDict de base, 0 cartes, et identification recue via component
+
+  }
 }

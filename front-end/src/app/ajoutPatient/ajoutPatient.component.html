@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div id="ajoutPatient">
+  <div id="ajoutPatient-card">
+    <h1 id="ajoutPatient-titre">Ajouter un profil</h1>
+    <div id="inputs">
+      <div id="patient-nom">
+        <h3 id="username_txt">Nom</h3>
+        <input class="input" type="text" placeholder="Nom" (change)="changeUserSurname($event)">
+      </div>
+      <div id="patient-prenom">
+        <h3 id="password_txt">Prénom</h3>
+        <input class="input" type="text" placeholder="Prénom" (change)="changeUserName($event)">
+      </div>
+    </div>
+    <div id="add-img">
+      <div id="img-div" (click)="onclick_photo($event)">
+           <img id="img" src="../assets/add-photo.png"/>
+      </div>
+      <h3 id="img-txt"> Ajouter une photo de profil</h3>
+    </div>
+    <div class="btn_ajoutPatient toHover" (click)="onclick_ajoutPatient()">
+      <h6 class="btn_ajoutPatient_txt">Enregistrer le profil</h6>
+    </div>
+  </div>
+  <app-ajoutPatientModale *ngIf="enregistrement==true" class="ajoutPatient-modale"></app-ajoutPatientModale>
+
+</div>
