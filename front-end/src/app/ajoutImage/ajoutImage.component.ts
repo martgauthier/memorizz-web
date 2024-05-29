@@ -24,6 +24,9 @@ export class AjoutImage implements OnInit {
 
     public availableCards: Card[]=[];
 
+    private userUrl = "http://localhost:9428/api/users/";
+    private imageUrl = "http://localhost:9428/api/images/";
+
     constructor(private userService: UserService, private http : HttpClient) {
         this.imageSrc = 'assets/chargez-votre-image.png';
         this.loadedImage = null;
@@ -53,9 +56,15 @@ export class AjoutImage implements OnInit {
     }
 
     onItemClick(card: Card) {
-      let currentCards=this.availableCards;
-      currentCards.splice(this.availableCards.indexOf(card), 1);
-      this.userService.availableCards$.next(currentCards);
+      this.http.delete(this.userUrl+this.user.id+"/cards/"+card.id).subscribe({
+        next: (data) => {
+            console.log("SUCCESS!", data);
+            this.userService.setAvailableCards(this.user.id);
+        },
+        error: (err) => {
+            console.error("Delete Eroor", err)
+        }
+      })
     }
 
     sendImage(){
@@ -71,7 +80,7 @@ export class AjoutImage implements OnInit {
 
         console.log(body)
 
-        this.http.post<any>("http://localhost:9428/api/users/"+this.user.id+"/cards", body).subscribe({
+        this.http.post<any>(this.userUrl+this.user.id+"/cards", body).subscribe({
             next: (data) => {
                 console.log("SUCCESS!", data);
                 (document.querySelector("#desc") as HTMLInputElement).value = "";
@@ -87,6 +96,6 @@ export class AjoutImage implements OnInit {
     }
 
     getImageUrlForCard(card:Card){
-        return "http://localhost:9428/api/images/"+card.imgValue;
+        return this.imageUrl+card.imgValue;
     }
 }

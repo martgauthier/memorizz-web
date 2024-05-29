@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { Identification } = require('../../models/user')
-const { getPresetDict, getCards, updatePresetDict, addToCards } = require('./manager')
+const { getPresetDict, getCards, updatePresetDict, addToCards, delFromCards } = require('./manager')
 
 const router = new Router()
 // obtenir id nom et prenom de chaque patient
@@ -26,6 +26,10 @@ router.get('/:id/cards', (req, res) => {
 //ajouter une carte aux cartes d'un user
 router.post('/:id/cards', (req, res) => {
   addToCards(req, res, req.params.id)
+})
+
+router.delete('/:id/cards/:idCard', (req,res)=>{
+  delFromCards(req,res)
 })
 module.exports = router
 

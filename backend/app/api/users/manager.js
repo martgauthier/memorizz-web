@@ -1,5 +1,6 @@
 const { User, PresetDict, Card } = require('../../models/user')
 const {formidable} = require("formidable")
+const fs = require("fs");
 
 const getPresetDict = (userId) => {
   const user = User.getById(userId)
@@ -42,6 +43,26 @@ const addToCards = (req, res, userId) => {
   });
 }
 
+const delFromCards = (req,res) =>{
+  let user = User.getById(req.params.id)
+
+  let cardsOfUser = user.cardsId;
+  cardsOfUser = cardsOfUser.filter(function(item) {
+    return item != req.params.idCard;
+  })
+  User.update(user.id,{"cardsId":cardsOfUser})
+
+  let traget = Card.getById(req.params.idCard)
+  fs.unlinkSync('./database/Images/'+traget.imgValue, (err) => {
+    if (err){
+      res.status(304).json("Error while trying to delete the picture associated with the card")
+      throw err;
+    }
+  });
+  Card.delete(req.params.idCard)
+  res.status(200).json("OK")
+}
+
 module.exports = {
-  getPresetDict, getCards, addToCards,
+  getPresetDict, getCards, addToCards, delFromCards, updatePresetDict
 }
