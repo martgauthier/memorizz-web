@@ -7,6 +7,7 @@ import {
   PROFILS_LIST
 } from "../../mocks/user.mock";
 import {Injectable} from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -46,16 +47,23 @@ export class UserService {
 
   public idSoignant$:  BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
+  private statUrl  = "http://localhost:9428/api/users"
+
+  constructor(private http: HttpClient){
+    
+  }
+
   setFullDataForUser(id: number) {
     if(id<0) {
-      this.setIdentification({prenom : "", nom : "" , id : -1 , src : "assets/icon.png"});
+      //this.setIdentification({prenom : "", nom : "" , id : -1 , src : "assets/icon.png"});
       console.log("id incorrect");
       return;
     }
     this.setIdSoignant();
-    this.setIdentification(PROFILS_LIST[ID_SOIGNANT][id]);
-    this.setAvailableCards(AVAILABLE_CARDS[id]);
-    this.setPresetDict(PRESET_DICTS[id]);
+    this.setIdentification(id);
+    this.setProfilsList();
+    this.setAvailableCards(id);
+    this.setPresetDict(id);
   }
   /**
    * Initialise la liste de patient d'un soignant
@@ -70,27 +78,62 @@ export class UserService {
    */
   setProfilsList(){
     if(ID_SOIGNANT < 0) alert("id soignant pas bon");
-    //changer avec du back :
-    this.setAvailableProfil(PROFILS_LIST[ID_SOIGNANT]);
+    this.http.get<Identification[]>(this.statUrl+"/").subscribe({
+      next: (data) => {
+        console.log(data)
+        this.availableProfil$.next(data);
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+      }
+    });
   }
   /**
    * Change le patient séléctionné
    * @param identification id d'un patient
    */
-  setIdentification(identification: Identification) {
-    this.identification$.next(identification);
+  setIdentification(id: number) {
+    this.http.get<Identification>(this.statUrl+"/"+id).subscribe({
+      next: (data) => {
+        console.log(data)
+        this.identification$.next(data);
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+      }
+    });
   }
 
-  setPresetDict(presetDict: PresetDict) {
-    this.presetDict$.next(presetDict);
+  setPresetDict(id: number) {
+    this.http.get<any>(this.statUrl+"/"+id+"/presetDict").subscribe({
+      next: (data) => {
+        console.log(data)
+        this.presetDict$.next(data);
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+      }
+    });
+  }
+
+  updatePresetDict(presetDict : PresetDict){
+    this.http.put(this.statUrl+"/"+this.identification$.value.id+"/presetDict",presetDict);
   }
 
   setConfig(preset : Preset){
     this.presetConfig$.next(preset);
   }
-
-  setAvailableCards(cards: Card[]) {
-    this.availableCards$.next(cards);
+  
+  setAvailableCards(id : number) {
+    this.http.get<Card[]>(this.statUrl+"/"+id+"/cards").subscribe({
+      next: (data) => {
+        console.log(data)
+        this.availableCards$.next(data);
+      },
+      error: (err) => {
+        console.log("Erreur attrapée !", err)
+      }
+    });
   }
 
   setDifficultyMode(difficultyMode: "simple" | "medium" | "hard") {
@@ -105,10 +148,6 @@ export class UserService {
     let availableCards: Card[] = this.availableCards$.getValue();
     availableCards.push(card);
     this.availableCards$.next(availableCards);
-  }
-
-  setAvailableProfil(profils: Identification[]) {
-    this.availableProfil$.next(profils);
   }
 
   addCardToAvailableProfil(profils: Identification) {

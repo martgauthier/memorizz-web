@@ -18,10 +18,10 @@
 
         <div id="texte">
             <p>Titre/Description de l'image :</p>
-            <input type="text" id="desc" placeholder="Ecrivez ici" size=40/>
+            <input type="text" id="desc" placeholder="Ecrivez ici" size=40 maxlength="24"/>
         </div>
         <div id="description">
-            <button id="envoyer" class = "bouton">Ajouter l'image</button>
+            <button id="envoyer" class = "bouton" (click)="sendImage();">Ajouter l'image</button>
         </div>
     </div>
 

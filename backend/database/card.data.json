@@ -1,8 +1,8 @@
 [
   {
-  "id": 1,
-  "textValue": "Ma maison",
-  "imgValue": "assets/maison_jacqueline.png"
+    "id": 1,
+    "textValue": "Ma maison",
+    "imgValue": "assets/maison_jacqueline.png"
   },
   {
     "id": 2,
@@ -50,22 +50,18 @@
     "imgValue": "assets/maison_jacqueline.png"
   },
   {
-  "id": 11,
-  "textValue": "Rantanplan",
-  "imgValue": "assets/rantanplan.png"
-
+    "id": 11,
+    "textValue": "Rantanplan",
+    "imgValue": "assets/rantanplan.png"
   },
   {
     "id": 12,
     "textValue": "Arbre",
     "imgValue": "assets/arbre.png"
-
   },
   {
-  "id": 13,
-  "textValue": "Moi",
-  "imgValue": "assets/icon.png"
-
-}
+    "id": 13,
+    "textValue": "Moi",
+    "imgValue": "assets/icon.png"
+  }
 ]
-
