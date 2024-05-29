@@ -1,23 +1,43 @@
 [
   {
     "id": 0,
-    "presetDictId" : 0,
-    "cardsId" : [1,2,3]
+    "presetDictId": 0,
+    "cardsId": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": 1,
-    "presetDictId" : 1,
-    "cardsId" : [4,5,6,7,8,9]
+    "presetDictId": 1,
+    "cardsId": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
   },
   {
     "id": 2,
-    "presetDictId" : 2,
-    "cardsId" : [10,11,12,13]
+    "presetDictId": 2,
+    "cardsId": [
+      10,
+      11,
+      12,
+      13
+    ]
   },
   {
     "id": 3,
-    "presetDictId" : 3,
-    "cardsId" : [10,11,12,13]
+    "presetDictId": 3,
+    "cardsId": [
+      10,
+      11,
+      12,
+      13
+    ]
   }
 ]
-
