@@ -1,6 +1,6 @@
 <header id="global-header">
     <div id="top">
-        <img src="assets/icon.png" alt="logo" id="logo">
+        <img [src]="getProfilePicUrl()" alt="logo" id="logo">
         <h1 id="profil_name">{{user.prenom}} {{user.nom}}</h1>
     </div>
     <h1 id = "titre-site">
