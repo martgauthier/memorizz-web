@@ -13,6 +13,9 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class UserService {
+
+  private usersUrl: string = "http://localhost:9428/api/users/";
+
   /**
    * Observable that contains data about identification, mostly used in HeaderComponent
    */
@@ -50,7 +53,7 @@ export class UserService {
   private statUrl  = "http://localhost:9428/api/users"
 
   constructor(private http: HttpClient){
-    
+
   }
 
   setFullDataForUser(id: number) {
@@ -123,7 +126,7 @@ export class UserService {
   setConfig(preset : Preset){
     this.presetConfig$.next(preset);
   }
-  
+
   setAvailableCards(id : number) {
     this.http.get<Card[]>(this.statUrl+"/"+id+"/cards").subscribe({
       next: (data) => {
@@ -156,8 +159,5 @@ export class UserService {
     this.availableProfil$.next(availableProfil);
   }
 
-  addPatient(surname: string, name: string) {
-    //TODO : requete post à user, avec presetDict de base, 0 cartes, et identification recue via component
 
-  }
 }

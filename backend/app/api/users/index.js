@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { Identification } = require('../../models/user')
-const { getPresetDict, getCards, updatePresetDict, addToCards } = require('./manager')
+const { getPresetDict, getCards, updatePresetDict, addToCards, addUser } = require('./manager')
 
 const router = new Router()
 // obtenir id nom et prenom de chaque patient
@@ -10,6 +10,11 @@ router.get('/', (req, res) => {
 // obtenir les infos d'un user
 router.get('/:id', (req, res) => {
   res.status(200).json(Identification.getById(req.params.id))
+})
+
+//ajouter un user
+router.post('/', (req, res) => {
+  res.status(200).json(addUser(req, res))
 })
 // obtenir les presetDict d'un user
 router.get('/:id/presetDict', (req, res) => {

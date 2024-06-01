@@ -12,8 +12,10 @@
       </div>
     </div>
     <div id="add-img">
-      <div id="img-div" (click)="onclick_photo($event)">
-           <img id="img" src="../assets/add-photo.png"/>
+      <div id="img-div">
+         <img id="img" [src]="imageSrc"/>
+        <input type="file" id="file-input" accept="image/*" (change)="readURL($event);"/>
+
       </div>
       <h3 id="img-txt"> Ajouter une photo de profil</h3>
     </div>
