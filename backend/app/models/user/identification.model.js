@@ -4,7 +4,7 @@ const BaseModel = require('../../utils/base-model.js')
 const Identification = new BaseModel('Identification', {
   nom: Joi.string().required(),
   prenom: Joi.string().required(),
-  id: Joi.number().required(),
+  userId: Joi.number().required(),
   src: Joi.string(),
 })
 

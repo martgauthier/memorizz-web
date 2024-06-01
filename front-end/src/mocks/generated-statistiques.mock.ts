@@ -11,16 +11,16 @@ const MEAN_CARD: Card = {
 }
 
 for (let identification of PROFILS_LIST[0]) {
-  MOCKED_STAT_DATA[identification.id]={};
-  MOCKED_COURBE_DATA[identification.id]={};
-  for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.id])]) {
-    MOCKED_STAT_DATA[identification.id][card.id]={};
-    MOCKED_COURBE_DATA[identification.id][card.id]={};
+  MOCKED_STAT_DATA[identification.userId]={};
+  MOCKED_COURBE_DATA[identification.userId]={};
+  for(let card of [MEAN_CARD, ...(AVAILABLE_CARDS[identification.userId])]) {
+    MOCKED_STAT_DATA[identification.userId][card.id]={};
+    MOCKED_COURBE_DATA[identification.userId][card.id]={};
     for(let statType of ["errorsPerGame", "timeToDiscoverFullPair", "preferredDifficultyMode", "errorsOnWholeGame", "gameDuration"]) {
-      MOCKED_STAT_DATA[identification.id][card.id][statType]={};
-      MOCKED_COURBE_DATA[identification.id][card.id][statType]={};
+      MOCKED_STAT_DATA[identification.userId][card.id][statType]={};
+      MOCKED_COURBE_DATA[identification.userId][card.id][statType]={};
       for (let duration of ["1", "2", "3", "6", "8", "12"]) {
-        MOCKED_STAT_DATA[identification.id][card.id][statType][duration] = {
+        MOCKED_STAT_DATA[identification.userId][card.id][statType][duration] = {
           statType: statType,
           duration: duration,
           difficulty: {
@@ -30,25 +30,25 @@ for (let identification of PROFILS_LIST[0]) {
           }
         };
 
-        MOCKED_COURBE_DATA[identification.id][card.id][statType][duration] = {
+        MOCKED_COURBE_DATA[identification.userId][card.id][statType][duration] = {
           simple: generateRandomCourbeValues('simple', parseInt(duration)),
           medium: generateRandomCourbeValues('medium', parseInt(duration)),
           hard: generateRandomCourbeValues('hard', parseInt(duration))
         }
 
-        let difficultyObject: any = MOCKED_STAT_DATA[identification.id][card.id][statType][duration].difficulty;
+        let difficultyObject: any = MOCKED_STAT_DATA[identification.userId][card.id][statType][duration].difficulty;
         for (let difficulty of ["simple", "medium", "hard"]) {
           difficultyObject[difficulty].lastTimeValue = getRandomFloat(8, 18);
           difficultyObject[difficulty].nowValue = difficultyObject[difficulty].lastTimeValue + getRandomInt(-1, 10) + getRandomFloat(-1, 1);
           switch (difficulty) {
             case "simple":
-              difficultyObject[difficulty].gamesQuantity = 4 - 2 * identification.id;//these adds little differences between each person
+              difficultyObject[difficulty].gamesQuantity = 4 - 2 * identification.userId;//these adds little differences between each person
               break;
             case "medium":
-              difficultyObject[difficulty].gamesQuantity = 6 - 3 * identification.id;
+              difficultyObject[difficulty].gamesQuantity = 6 - 3 * identification.userId;
               break;
             case "hard":
-              difficultyObject[difficulty].gamesQuantity = 5 + 2 * identification.id;
+              difficultyObject[difficulty].gamesQuantity = 5 + 2 * identification.userId;
               break;
           }
 

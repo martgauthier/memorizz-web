@@ -13,7 +13,7 @@ export class PageNavComponent {
     constructor(private router: Router, private userService : UserService){
         this.choosedUser= -1;
         userService.identification$.subscribe((identification) => {
-          this.choosedUser=identification.id;
+          this.choosedUser=identification.userId;
         });
     }
 

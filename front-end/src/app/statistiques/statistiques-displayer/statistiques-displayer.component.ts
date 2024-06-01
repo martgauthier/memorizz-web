@@ -11,7 +11,7 @@ import {StatistiquesService} from "../../../services/statistiques/statistiques.s
 })
 export class StatistiquesDisplayerComponent implements AfterViewInit {
   public user: Identification = {
-    id: -1,
+    userId: -1,
     prenom: "",
     nom: "",
     src : ""
@@ -22,7 +22,7 @@ export class StatistiquesDisplayerComponent implements AfterViewInit {
   constructor(private userService: UserService, private router: Router, private statsService: StatistiquesService) {
     userService.identification$.subscribe((identification) => {
       this.user=identification;
-      if(identification.id===-1) {
+      if(identification.userId===-1) {
         router.navigate(["/nav"]);
       }
     });
@@ -32,7 +32,7 @@ export class StatistiquesDisplayerComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(this.user.id===-1) {
+    if(this.user.userId===-1) {
       this.router.navigate(["/nav"]);
     }
   }

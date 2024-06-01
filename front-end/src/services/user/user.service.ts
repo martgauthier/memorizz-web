@@ -20,7 +20,7 @@ export class UserService {
    * Observable that contains data about identification, mostly used in HeaderComponent
    */
   public identification$: BehaviorSubject<Identification> = new BehaviorSubject({
-    id: -1,
+    userId: -1,
     nom: "",
     prenom: "",
     src:""
@@ -120,7 +120,7 @@ export class UserService {
   }
 
   updatePresetDict(presetDict : PresetDict){
-    this.http.put(this.statUrl+"/"+this.identification$.value.id+"/presetDict",presetDict);
+    this.http.put(this.statUrl+"/"+this.identification$.value.userId+"/presetDict",presetDict);
   }
 
   setConfig(preset : Preset){

@@ -25,7 +25,7 @@ export class ClientSelector implements AfterViewInit {
     });
     this.choosedUser= -1;
     userService.identification$.subscribe((identification) => {
-      this.choosedUser=identification.id;
+      this.choosedUser=identification.userId;
     });
     this.idSoignant = -1;
     userService.idSoignant$.subscribe((id) => {
@@ -34,7 +34,7 @@ export class ClientSelector implements AfterViewInit {
     userService.setProfilsList();//A changer avec id soignant connecté
     //(document.querySelector("#boutonsNav .niveau h3:hover") as HTMLHRElement).style.color = "white";
     setTimeout(() => {
-      if(this.userService.identification$.value.id != -1){
+      if(this.userService.identification$.value.userId != -1){
         (document.querySelector("#pageNavMain") as HTMLDivElement).classList.add("animation-slide");
         document.querySelector("#jouer_nav h3")!.classList.remove("pas_cocher");
         document.querySelector("#jouer_nav h3")!.classList.add("cocher");
@@ -48,11 +48,11 @@ export class ClientSelector implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(this.userService.identification$.value.id == -1){
+    if(this.userService.identification$.value.userId == -1){
       this.setCardSelected(0);
     }else{
       //rentre bien quand un user a été choisit
-      this.setCardSelected(this.userService.identification$.value.id+1);
+      this.setCardSelected(this.userService.identification$.value.userId+1);
     }
   }
 
@@ -122,6 +122,6 @@ export class ClientSelector implements AfterViewInit {
   }
 
   getProfilePicUrl(user:Identification){
-    return "http://localhost:9428/api/images/"+user.id+"/pfp.png";
+    return "http://localhost:9428/api/images/"+user.userId+"/pfp.png";
   }
 }
