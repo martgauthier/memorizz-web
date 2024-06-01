@@ -1,26 +1,26 @@
 [
   {
-    "nom" : "STADCAT",
-    "prenom" : "Jacqueline",
-    "userId" : 0,
+    "userId": 0,
+    "nom": "STADCAT",
+    "prenom": "Jacqueline",
     "imgValue": "0/pfp.png"
   },
   {
+    "userId": 1,
     "nom": "STADECISSE",
     "prenom": "Jean-michel",
-    "userId": 1,
     "imgValue": "/assets/icon.png"
   },
   {
+    "userId": 2,
     "nom": "RICHARD",
     "prenom": "Claude",
-    "userId": 2,
     "imgValue": "/assets/icon.png"
   },
   {
+    "userId": 3,
     "nom": "JULES",
     "prenom": "Richard",
-    "userId": 3,
     "imgValue": "/assets/icon.png"
   }
 ]

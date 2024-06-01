@@ -88,7 +88,7 @@ export class ClientSelector implements AfterViewInit {
       (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "0px";
     }
     this.choosedUser = this.cardSelectedIndex-1;
-    this.userService.setFullDataForUser(this.cardSelectedIndex-1);
+    this.userService.setFullDataForUser(this.clientList[this.cardSelectedIndex-1].userId);
   }
 
   onBlur() {

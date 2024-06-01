@@ -70,6 +70,7 @@ export class HeaderComponent {
     }
 
     getProfilePicUrl(){
+      console.log(this.user.userId)
       return "http://localhost:9428/api/images/"+this.user.userId+"/pfp.png";
     }
 }

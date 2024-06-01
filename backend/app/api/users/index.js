@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 })
 // obtenir les infos d'un user
 router.get('/:id', (req, res) => {
-  res.status(200).json(Identification.get().filter((item) => {return item.userId === req.params.id}))
+  res.status(200).json(Identification.get().filter((item) => {return item.userId == req.params.id})[0])
 })
 
 //ajouter un user
