@@ -69,7 +69,12 @@ function createEmptyPresetDict() {
 }
 
 const addUser = (req, res) => {
-  let UserId = new Date().getTime();
+  let newUser = User.create({
+    presetDictId : createEmptyPresetDict(),
+    cardsId : []
+  });
+  console.log("id : "+newUser.id);
+  let UserId = newUser.id;
   //créer le dossier associé au patient
   if (!fs.existsSync('./database/Images/'+UserId)){
     fs.mkdirSync('./database/Images/'+UserId);
@@ -84,14 +89,9 @@ const addUser = (req, res) => {
       let identification = Identification.create({
         nom:fields.surname[0],
         prenom:fields.name[0],
-        id: UserId,
+        userId: UserId,
         src: UserId+"/pfp.png"
       })
-      let newUser = User.create({
-        id:UserId,
-        presetDictId : createEmptyPresetDict(),
-        cardsId : []
-      });
       res.status(200).json("OK")
     }catch(err){
       console.error(err)

@@ -1,39 +1,39 @@
 [
   {
-  "id": 0,
-  "simple": {
-    "pairsNumber" : 3,
-    "cardsAreBothImage": true,
-    "cardsAreVisible": true
+    "id": 0,
+    "simple": {
+      "pairsNumber": 3,
+      "cardsAreBothImage": true,
+      "cardsAreVisible": true
+    },
+    "medium": {
+      "pairsNumber": 5,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
   },
-  "medium": {
-    "pairsNumber": 5,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": false
-  },
-  "hard": {
-    "pairsNumber": 8,
-    "cardsAreVisible": false,
-    "cardsAreBothImage": false
-  }
-},
   {
-  "id" : 1,
-  "simple": {
-    "pairsNumber": 4,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": true
-  },
-  "medium": {
-    "pairsNumber": 6,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": false
-  },
-  "hard": {
-    "pairsNumber": 8,
-    "cardsAreVisible": false,
-    "cardsAreBothImage": false
-  }
+    "id": 1,
+    "simple": {
+      "pairsNumber": 4,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
+    },
+    "medium": {
+      "pairsNumber": 6,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
   },
   {
     "id": 2,
@@ -54,7 +54,7 @@
     }
   },
   {
-    "id" : 3,
+    "id": 3,
     "simple": {
       "pairsNumber": 3,
       "cardsAreVisible": true,
@@ -69,6 +69,90 @@
       "pairsNumber": 8,
       "cardsAreVisible": false,
       "cardsAreBothImage": false
+    }
+  },
+  {
+    "id": 1717254876959,
+    "simple": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717254876954
+    },
+    "medium": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717254876956
+    },
+    "hard": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717254876957
+    }
+  },
+  {
+    "id": 1717255655469,
+    "simple": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255655465
+    },
+    "medium": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255655468
+    },
+    "hard": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255655469
+    }
+  },
+  {
+    "id": 1717255969125,
+    "simple": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255969121
+    },
+    "medium": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255969124
+    },
+    "hard": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717255969125
+    }
+  },
+  {
+    "id": 1717256318517,
+    "simple": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717256318510
+    },
+    "medium": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717256318516
+    },
+    "hard": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717256318516
     }
   }
 ]
