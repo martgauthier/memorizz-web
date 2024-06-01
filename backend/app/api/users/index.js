@@ -14,7 +14,7 @@ router.get('/:id', (req, res) => {
 
 //ajouter un user
 router.post('/', (req, res) => {
-  res.status(200).json(addUser(req, res))
+  addUser(req, res)
 })
 // obtenir les presetDict d'un user
 router.get('/:id/presetDict', (req, res) => {

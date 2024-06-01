@@ -80,7 +80,7 @@ const addUser = (req, res) => {
 
   form.parse(req, (err, fields, files) => {
     try{
-      console.log("fields : "+fields);
+      console.log(fields);
       let identification = Identification.create({
         nom:fields.surname[0],
         prenom:fields.name[0],
@@ -89,7 +89,7 @@ const addUser = (req, res) => {
       })
       let newUser = User.create({
         id:UserId,
-        preseDictId : createEmptyPresetDict(),
+        presetDictId : createEmptyPresetDict(),
         cardsId : []
       });
       res.status(200).json("OK")
