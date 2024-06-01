@@ -1,7 +1,7 @@
 export interface Identification {
+    userId : number;
     nom : string;
     prenom : string;
-    id : number;
     src : string;
 }
 

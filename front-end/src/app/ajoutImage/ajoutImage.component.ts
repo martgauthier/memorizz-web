@@ -14,7 +14,7 @@ export class AjoutImage implements OnInit {
 
     imageSrc: any;
     user: Identification = {
-        id: 0,
+        userId: 0,
         nom: "NOMSOIGNANTE",
         prenom: "Prenomsoignante",
         src:"/assets/icon.png"
@@ -56,10 +56,10 @@ export class AjoutImage implements OnInit {
     }
 
     onItemClick(card: Card) {
-      this.http.delete(this.userUrl+this.user.id+"/cards/"+card.id).subscribe({
+      this.http.delete(this.userUrl+this.user.userId+"/cards/"+card.id).subscribe({
         next: (data) => {
             console.log("SUCCESS!", data);
-            this.userService.setAvailableCards(this.user.id);
+            this.userService.setAvailableCards(this.user.userId);
         },
         error: (err) => {
             console.error("Delete Eroor", err)
@@ -80,14 +80,14 @@ export class AjoutImage implements OnInit {
 
         console.log(body)
 
-        this.http.post<any>(this.userUrl+this.user.id+"/cards", body).subscribe({
+        this.http.post<any>("http://localhost:9428/api/users/"+this.user.userId+"/cards", body).subscribe({
             next: (data) => {
                 console.log("SUCCESS!", data);
                 (document.querySelector("#desc") as HTMLInputElement).value = "";
                 (document.querySelector("#file-input") as HTMLInputElement).value = "";
                 this.imageSrc = 'assets/chargez-votre-image.png';
                 document.getElementById("preview")?.classList.remove("loaded");
-                this.userService.setAvailableCards(this.user.id);
+                this.userService.setAvailableCards(this.user.userId);
             },
             error: (err) => {
                 console.error("Post Eroor", err)

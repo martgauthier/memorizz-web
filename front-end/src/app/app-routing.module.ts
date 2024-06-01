@@ -11,6 +11,7 @@ import {GamesDataContainerComponent} from "./statistiques/games-data-container/g
 import { MemorytemplateComponent } from './memory/memorytemplate.component';
 import { Login } from './login/login.component';
 import { SignIn } from './signin/signin.component';
+import {AjoutPatient} from "./ajoutPatient/ajoutPatient.component";
 
 const routes: Routes = [
   {path : "login", component: Login},
@@ -29,6 +30,7 @@ const routes: Routes = [
     ]},
   {path : "nav", component : PageNavComponent},
   {path : "ajoutImage", component : AjoutImage},
+  {path : "ajoutPatient", component : AjoutPatient},
   {path : "memoryGame", component : MemorytemplateComponent},
   {path: '', redirectTo : '/login', pathMatch : "full"}
 ];

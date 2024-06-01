@@ -11,7 +11,7 @@ import {HeaderService} from "../../services/header/header.service";
 })
 export class HeaderComponent {
     user: Identification = {
-      id: 0,
+      userId: 0,
       nom: "NOMSOIGNANTE",
       prenom: "Prenomsoignante",
       src:"/assets/icon.png"
@@ -54,7 +54,7 @@ export class HeaderComponent {
     }
 
     navigateAndStopDisplay(path: string) {
-      if(this.user.id!==-1) {
+      if(this.user.userId!==-1) {
         this.router.navigate([path]);
         this.stopDisplay();
       }
@@ -70,6 +70,7 @@ export class HeaderComponent {
     }
 
     getProfilePicUrl(){
-      return "http://localhost:9428/api/images/"+this.user.id+"/pfp.png";
+      console.log(this.user.userId)
+      return "http://localhost:9428/api/images/"+this.user.userId+"/pfp.png";
     }
 }

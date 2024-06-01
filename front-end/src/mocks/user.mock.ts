@@ -1,17 +1,17 @@
 import {Card, Identification, PresetDict} from "src/models/user.model";
 
 const JACQUELINE_IDENTIFICATION : Identification = {
+    userId : 0,
     nom : "STADCAT",
     prenom : "Jacqueline",
-    id : 0,
     src : "/assets/marine.png"
 }
 
 
 const JEANMICHEL_IDENTIFICATION: Identification = {
+  userId: 1,
   nom: "STADECISSE",
   prenom: "Jean-michel",
-  id: 1,
   src: "/assets/icon.png"
 }
 
@@ -169,15 +169,15 @@ export const PROFILS_LIST : Identification[][] = [
   [
     JACQUELINE_IDENTIFICATION,JEANMICHEL_IDENTIFICATION,
     {
+      userId: 2,
       nom: "RICHARD",
       prenom: "Claude",
-      id: 2,
       src: "/assets/icon.png"
     },
     {
+      userId: 3,
       nom: "JULES",
       prenom: "Richard",
-      id: 3,
       src: "/assets/icon.png"
     }
   ] //Soignant 1 à ces profils

@@ -25,7 +25,7 @@ export class Template extends GestionFront  implements OnInit {
         this.presets = data;
       });
       userService.identification$.subscribe((identification) => {
-        this.choosedUser=identification.id;
+        this.choosedUser=identification.userId;
       });
       userService.presetConfig$.subscribe((data) => {
         this.config=data;

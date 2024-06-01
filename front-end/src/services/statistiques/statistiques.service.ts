@@ -57,17 +57,17 @@ export class StatistiquesService {
 
   constructor(private userService: UserService, private http: HttpClient) {
     this.userService.identification$.subscribe((identification) => {
-      if(identification.id>=0) {//l'id est bien un id utilisateur correct
-        this.identificationId=identification.id;
-        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsPerGame"][this.duration$.getValue().toString()]);
-        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.id][0]["timeToDiscoverFullPair"][this.duration$.getValue().toString()]);
-        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.id][0]["preferredDifficultyMode"][this.duration$.getValue().toString()]);
-        this.data["errorsOnWholeGame"].next(MOCKED_STAT_DATA[identification.id][0]["errorsOnWholeGame"][this.duration$.getValue().toString()]);
-        this.data["gameDuration"].next(MOCKED_STAT_DATA[identification.id][0]["gameDuration"][this.duration$.getValue().toString()]);
-        this.availableCards$.next(AVAILABLE_CARDS[identification.id]);
+      if(identification.userId>=0) {//l'id est bien un id utilisateur correct
+        this.identificationId=identification.userId;
+        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.userId][0]["errorsPerGame"][this.duration$.getValue().toString()]);
+        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.userId][0]["timeToDiscoverFullPair"][this.duration$.getValue().toString()]);
+        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.userId][0]["preferredDifficultyMode"][this.duration$.getValue().toString()]);
+        this.data["errorsOnWholeGame"].next(MOCKED_STAT_DATA[identification.userId][0]["errorsOnWholeGame"][this.duration$.getValue().toString()]);
+        this.data["gameDuration"].next(MOCKED_STAT_DATA[identification.userId][0]["gameDuration"][this.duration$.getValue().toString()]);
+        this.availableCards$.next(AVAILABLE_CARDS[identification.userId]);
 
         this.selectedStat$.next({
-          userId: identification.id,
+          userId: identification.userId,
           cardId: 0,
           statType: "errorsPerGame"
         });
@@ -84,10 +84,10 @@ export class StatistiquesService {
     let url: string="";
 
     if(statType === "errorsPerGame" || statType === "timeToDiscoverFullPair") {//card-specific statistic
-      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/${this.selectedCardIndex}?stattype=${statType}&duration=${this.duration$.getValue()}`;
+      url=`${this.statUrl}/${this.userService.identification$.getValue().userId}/${this.selectedCardIndex}?stattype=${statType}&duration=${this.duration$.getValue()}`;
     }
     else {//game-specific statistic
-      url=`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=${statType}&duration=${this.duration$.getValue()}`
+      url=`${this.statUrl}/${this.userService.identification$.getValue().userId}/fullgames?stattype=${statType}&duration=${this.duration$.getValue()}`
     }
 
     console.log("Sent this request: ", url)
@@ -105,7 +105,7 @@ export class StatistiquesService {
   }
 
   public retrieveGamesQuantity() {
-    this.http.get<GamesQuantity>(`${this.statUrl}/${this.userService.identification$.getValue().id}/fullgames?stattype=preferredDifficultyMode&duration=${this.duration$.getValue()}`)
+    this.http.get<GamesQuantity>(`${this.statUrl}/${this.userService.identification$.getValue().userId}/fullgames?stattype=preferredDifficultyMode&duration=${this.duration$.getValue()}`)
       .subscribe((gamesQuantity) => {
         this.gamesQuantity$.next(gamesQuantity)
       })
@@ -173,7 +173,7 @@ export class StatistiquesService {
   }
 
   updateCourbeData(statType?: string, duration?: number): void {
-    let url: string = this.statUrl+"/"+this.userService.identification$.getValue().id+"/";
+    let url: string = this.statUrl+"/"+this.userService.identification$.getValue().userId+"/";
 
     if((["errorsPerGame", "timeToDiscoverFullPair"].includes(this.selectedStat$.getValue().statType))) {//stat for a specific card
       url+=this.selectedStat$.getValue().cardId+"/courbe?stattype="+ (statType ?? this.selectedStat$.getValue().statType) +"&duration="+(duration ?? this.duration$.getValue().toString());

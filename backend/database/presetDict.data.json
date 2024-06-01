@@ -1,39 +1,39 @@
 [
   {
-  "id": 0,
-  "simple": {
-    "pairsNumber" : 3,
-    "cardsAreBothImage": true,
-    "cardsAreVisible": true
+    "id": 0,
+    "simple": {
+      "pairsNumber": 3,
+      "cardsAreBothImage": true,
+      "cardsAreVisible": true
+    },
+    "medium": {
+      "pairsNumber": 5,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
   },
-  "medium": {
-    "pairsNumber": 5,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": false
-  },
-  "hard": {
-    "pairsNumber": 8,
-    "cardsAreVisible": false,
-    "cardsAreBothImage": false
-  }
-},
   {
-  "id" : 1,
-  "simple": {
-    "pairsNumber": 4,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": true
-  },
-  "medium": {
-    "pairsNumber": 6,
-    "cardsAreVisible": true,
-    "cardsAreBothImage": false
-  },
-  "hard": {
-    "pairsNumber": 8,
-    "cardsAreVisible": false,
-    "cardsAreBothImage": false
-  }
+    "id": 1,
+    "simple": {
+      "pairsNumber": 4,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": true
+    },
+    "medium": {
+      "pairsNumber": 6,
+      "cardsAreVisible": true,
+      "cardsAreBothImage": false
+    },
+    "hard": {
+      "pairsNumber": 8,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false
+    }
   },
   {
     "id": 2,
@@ -54,7 +54,7 @@
     }
   },
   {
-    "id" : 3,
+    "id": 3,
     "simple": {
       "pairsNumber": 3,
       "cardsAreVisible": true,

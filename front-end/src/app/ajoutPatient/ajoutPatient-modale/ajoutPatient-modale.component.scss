@@ -1,0 +1,59 @@
+@import "../../../styles/variables.scss";
+
+.ajoutPatient-modale {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-content {
+  background-color:#209188;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  text-align: center;
+  align-items: center;
+}
+
+.modal-content p{
+  font-size: 40px;
+  font-family : "Poppins", sans-serif;
+  color : white;
+}
+
+.rejouer{
+  width : auto;
+  color: white;
+  background-color:#01274a ;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px;
+  font-family : "Poppins", sans-serif;
+  border: none;
+  transition: box-shadow 0.5s, background-color 0.2s;
+}
+
+.rejouer:hover,
+.rejouer:focus {
+  background-color: #005c75;
+  text-decoration: none;
+  box-shadow: 0 0 1px 1px white;
+  cursor: pointer;
+}
+
+#confettis {
+  width : 100%;
+  height: 100%;
+  z-index : -1;
+}
+button{
+  margin : 40px;
+}
+
+

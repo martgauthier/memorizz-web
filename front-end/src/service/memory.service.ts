@@ -61,7 +61,7 @@ export class MemoryService {
   }
 
   public getAvailableCards() : Observable<Card[]> {
-    return this.http.get<Card[]>(this.usersUrl+this.userService.identification$.getValue().id+"/cards").pipe(tap(cards=>{
+    return this.http.get<Card[]>(this.usersUrl+this.userService.identification$.getValue().userId+"/cards").pipe(tap(cards=>{
       this.availableCards = cards;
 
     }));
@@ -354,7 +354,7 @@ export class MemoryService {
     let postBody: any = {
       "difficulty": this.userService.getDifficultyMode(),
       "gameDuration": Math.floor((new Date().getTime() - this.startTimestamp) / 1000),
-      "userid": this.userService.identification$.getValue().id
+      "userid": this.userService.identification$.getValue().userId
     }
 
     Object.values(this.statsCounter).forEach(statCounter => {
@@ -364,7 +364,7 @@ export class MemoryService {
     console.log("post game results : ")
     console.log(postBody)
 
-    this.http.post<any>(this.statsUrl + this.identification!.id + "/addgamedata", postBody).subscribe({
+    this.http.post<any>(this.statsUrl + this.identification!.userId + "/addgamedata", postBody).subscribe({
       next: (data) => {
         console.log("successfully posted game data !")
       },

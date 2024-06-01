@@ -13,11 +13,14 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class UserService {
+
+  private usersUrl: string = "http://localhost:9428/api/users/";
+
   /**
    * Observable that contains data about identification, mostly used in HeaderComponent
    */
   public identification$: BehaviorSubject<Identification> = new BehaviorSubject({
-    id: -1,
+    userId: -1,
     nom: "",
     prenom: "",
     src:""
@@ -50,7 +53,7 @@ export class UserService {
   private statUrl  = "http://localhost:9428/api/users"
 
   constructor(private http: HttpClient){
-    
+
   }
 
   setFullDataForUser(id: number) {
@@ -117,13 +120,13 @@ export class UserService {
   }
 
   updatePresetDict(presetDict : PresetDict){
-    this.http.put(this.statUrl+"/"+this.identification$.value.id+"/presetDict",presetDict);
+    this.http.put(this.statUrl+"/"+this.identification$.value.userId+"/presetDict",presetDict);
   }
 
   setConfig(preset : Preset){
     this.presetConfig$.next(preset);
   }
-  
+
   setAvailableCards(id : number) {
     this.http.get<Card[]>(this.statUrl+"/"+id+"/cards").subscribe({
       next: (data) => {
@@ -155,4 +158,6 @@ export class UserService {
     availableProfil.push(profils);
     this.availableProfil$.next(availableProfil);
   }
+
+
 }

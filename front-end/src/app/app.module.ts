@@ -43,6 +43,8 @@ import {FormatHourPipe} from "./statistiques/hour-pipe/format-hour.pipe";
 import { Login } from './login/login.component';
 import {provideHttpClient} from "@angular/common/http";
 import { SignIn } from './signin/signin.component';
+import {AjoutPatient} from "./ajoutPatient/ajoutPatient.component";
+import {AjoutPatientModaleComponent} from "./ajoutPatient/ajoutPatient-modale/ajoutPatient-modale.component";
 
 
 
@@ -51,6 +53,8 @@ import { SignIn } from './signin/signin.component';
     AppComponent,
     HeaderComponent,
     AjoutImage,
+    AjoutPatient,
+    AjoutPatientModaleComponent,
     AppComponent,
     Template,
     NbCard,

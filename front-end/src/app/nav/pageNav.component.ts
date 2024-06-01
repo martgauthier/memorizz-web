@@ -13,7 +13,7 @@ export class PageNavComponent {
     constructor(private router: Router, private userService : UserService){
         this.choosedUser= -1;
         userService.identification$.subscribe((identification) => {
-          this.choosedUser=identification.id;
+          this.choosedUser=identification.userId;
         });
     }
 
@@ -23,6 +23,10 @@ export class PageNavComponent {
             this.router.navigate([str]);
         }
         else{
+          if(str=="ajoutPatient"){
+            this.router.navigate([str]);
+            return;
+          }
             alert("Veuillez choisir un User avant de continuer.");
         }
     }
