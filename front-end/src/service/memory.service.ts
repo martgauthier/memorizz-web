@@ -43,7 +43,9 @@ export class MemoryService {
     this.userService.identification$.subscribe(identification => {
       this.identification = identification;
     });
-
+    this.userService.availableCards$.subscribe(availableCards => {
+      this.availableCards = availableCards;
+    });
     // récupérer toutes les cartes du user :
     this.userService.presetConfig$.subscribe((data) => {
       this.config = data;
@@ -55,15 +57,18 @@ export class MemoryService {
     this.soundOn = false;
     this.musicOn = false;
     this.shuffleMemoryCards();
+
   }
 
   public getAvailableCards() : Observable<Card[]> {
     return this.http.get<Card[]>(this.usersUrl+this.userService.identification$.getValue().id+"/cards").pipe(tap(cards=>{
       this.availableCards = cards;
+
     }));
 
   }
   createMemoryCardList(): MemoryCardWithUniqueId[]{
+
     console.log("Dans create memorycardList ");
     //TO DO: il faudrat :
     // - regarder combien de cartes mettres dans la memory list en focntion des configs,
@@ -77,6 +82,7 @@ export class MemoryService {
           this.availableCards = data;
         });
     }
+
     console.log("Available cards :"+this.availableCards);
     let totalcards = this.availableCards;
 
