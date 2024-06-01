@@ -22,5 +22,12 @@
     "nom": "JULES",
     "prenom": "Richard",
     "imgValue": "/assets/icon.png"
+  },
+  {
+    "nom": "velma",
+    "prenom": "smith",
+    "userId": 1717275801968,
+    "src": "1717275801968/pfp.png",
+    "id": 1717275801984
   }
 ]
