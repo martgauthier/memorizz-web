@@ -16,6 +16,8 @@ export class CardsSelectorComponent implements AfterViewInit {
 
   public availableCards: Card[]=[];
 
+  private imageUrl = "http://localhost:9428/api/images/";
+
   constructor(private el: ElementRef, private statsService: StatistiquesService) {
     statsService.availableCards$.subscribe((availableCards) => {
       this.availableCards=availableCards;
@@ -54,5 +56,9 @@ export class CardsSelectorComponent implements AfterViewInit {
 
     this.ul.nativeElement.scrollTo(0, childNode.offsetTop);
     this.cardSelectedIndex=index;
+  }
+
+  getImageUrlForCard(card:Card){
+    return this.imageUrl+card.imgValue;
   }
 }
