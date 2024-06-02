@@ -9,19 +9,19 @@
     "userId": 1,
     "nom": "STADECISSE",
     "prenom": "Jean-michel",
-    "imgValue": "/assets/icon.png"
+    "imgValue": "1/pfp.png"
   },
   {
     "userId": 2,
     "nom": "RICHARD",
     "prenom": "Claude",
-    "imgValue": "/assets/icon.png"
+    "imgValue": "2/pfp.png"
   },
   {
     "userId": 3,
     "nom": "JULES",
     "prenom": "Richard",
-    "imgValue": "/assets/icon.png"
+    "imgValue": "3/pfp.png"
   },
   {
     "nom": "velma",

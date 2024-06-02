@@ -11,7 +11,7 @@ import {HeaderService} from "../../services/header/header.service";
 })
 export class HeaderComponent {
     user: Identification = {
-      userId: 0,
+      userId: -1,
       nom: "NOMSOIGNANTE",
       prenom: "Prenomsoignante",
       src:"/assets/icon.png"
