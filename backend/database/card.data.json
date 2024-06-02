@@ -17,52 +17,52 @@
   {
     "id": 4,
     "textValue": "Marine",
-    "imgValue": "assets/marine.png"
+    "imgValue": "1/marine.png"
   },
   {
     "id": 5,
     "textValue": "Ma voiture",
-    "imgValue": "assets/voitureJeanMich.png"
+    "imgValue": "1/voitureJeanMich.png"
   },
   {
     "id": 6,
     "textValue": "Arbre",
-    "imgValue": "assets/arbre.png"
+    "imgValue": "1/arbre.png"
   },
   {
     "id": 7,
     "textValue": "Ma maison",
-    "imgValue": "assets/maison.png"
+    "imgValue": "1/maison.png"
   },
   {
     "id": 8,
     "textValue": "George",
-    "imgValue": "assets/george.png"
+    "imgValue": "1/george.png"
   },
   {
     "id": 9,
     "textValue": "Mon chien",
-    "imgValue": "assets/rantanplan.png"
+    "imgValue": "1/rantanplan.png"
   },
   {
     "id": 10,
     "textValue": "Ma maison",
-    "imgValue": "assets/maison_jacqueline.png"
+    "imgValue": "2/maison_jacqueline.png"
   },
   {
     "id": 11,
     "textValue": "Rantanplan",
-    "imgValue": "assets/rantanplan.png"
+    "imgValue": "2/rantanplan.png"
   },
   {
     "id": 12,
     "textValue": "Arbre",
-    "imgValue": "assets/arbre.png"
+    "imgValue": "2/arbre.png"
   },
   {
     "id": 13,
     "textValue": "Moi",
-    "imgValue": "assets/icon.png"
+    "imgValue": "2/icon.png"
   },
   {
     "textValue": "Automate à pile",
