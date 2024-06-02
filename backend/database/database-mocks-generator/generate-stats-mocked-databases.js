@@ -1,5 +1,6 @@
 const generateStatsPerCards = require("./generate-stats-per-cards")
 const generateStatsPerGames = require("./generate-stats-per-games")
+const IDENTIFICATIONS=require("../identification.data")
 
 const FIRST_TIMESTAMP_TO_GENERATE_FROM = 1684234879533 // 16 mai 2023, il y a plus d'un an
 
@@ -25,7 +26,12 @@ for(let i = 0; i < 400; i++) {
 }
 
 
-const USER_IDS = [1,2,3,4,5]
+const USER_IDS = []
+IDENTIFICATIONS.forEach(id => {
+    USER_IDS.push(id.userId)
+})
 
-generateStatsPerCards(arrayOfTimestamps, USER_IDS)
-generateStatsPerGames(arrayOfTimestamps, USER_IDS)
+module.exports={
+    StatsPerCardsData: generateStatsPerCards(arrayOfTimestamps, USER_IDS),
+    StatsPerGamesData: generateStatsPerGames(arrayOfTimestamps, USER_IDS)
+}

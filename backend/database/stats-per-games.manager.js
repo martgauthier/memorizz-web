@@ -1,4 +1,4 @@
-const StatPerGamesData = require("./stats-per-games.data.json");
+const {StatPerGamesData} = require("./database-mocks-generator/generate-stats-mocked-databases");
 
 //https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
 function isNumeric(value) {

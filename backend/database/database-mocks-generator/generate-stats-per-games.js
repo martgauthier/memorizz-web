@@ -14,5 +14,6 @@ module.exports= (arrayOfTimestamps, userIds) => {
     }
   })
 
-  fs.writeFileSync(`${__dirname}/../database/${process.env.DB_FOLDER ?? ''}stats-per-games.data.json`, JSON.stringify(returnedObject, null, 2), 'utf8')
+  //fs.writeFileSync(`${__dirname}/../database/${process.env.DB_FOLDER ?? ''}stats-per-games.data.json`, JSON.stringify(returnedObject, null, 2), 'utf8')
+  return returnedObject
 }
