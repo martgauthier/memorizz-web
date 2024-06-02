@@ -83,7 +83,11 @@ export class Template extends GestionFront  implements OnInit {
           super.setNbCard(this.presets.simple.pairsNumber,this.userService.availableCards$.value.length);
           super.setPosition(this.presets.simple.cardsAreVisible);
           super.setType(this.presets.simple.cardsAreBothImage);
-          this.userService.setConfig(this.presets.simple);
+          this.userService.setConfig({
+            ...this.presets.simple,
+            pairsNumber: (this.userService.availableCards$.getValue().length < this.presets.simple.pairsNumber || this.presets.simple.pairsNumber === 0) ? this.userService.availableCards$.getValue().length : this.presets.simple.pairsNumber
+          });
+          console.log("set difficulty to this: ", this.userService.presetConfig$.getValue())
           super.changementFrontDifficultyGauche(niveau);
           break;
         case 'moyen':
@@ -91,7 +95,10 @@ export class Template extends GestionFront  implements OnInit {
             super.setNbCard(this.presets.medium.pairsNumber,this.userService.availableCards$.value.length);
             super.setPosition(this.presets.medium.cardsAreVisible);
             super.setType(this.presets.medium.cardsAreBothImage);
-            this.userService.setConfig(this.presets.medium);
+            this.userService.setConfig({
+              ...this.presets.medium,
+              pairsNumber: (this.userService.availableCards$.getValue().length < this.presets.medium.pairsNumber || this.presets.medium.pairsNumber === 0) ? this.userService.availableCards$.getValue().length : this.presets.medium.pairsNumber
+            });
             super.changementFrontDifficultyGauche(niveau);
           }
           break;
@@ -100,7 +107,10 @@ export class Template extends GestionFront  implements OnInit {
             super.setNbCard(this.presets.hard.pairsNumber,this.userService.availableCards$.value.length);
             super.setPosition(this.presets.hard.cardsAreVisible);
             super.setType(this.presets.hard.cardsAreBothImage);
-            this.userService.setConfig(this.presets.hard);
+            this.userService.setConfig({
+              ...this.presets.hard,
+              pairsNumber: (this.userService.availableCards$.getValue().length < this.presets.hard.pairsNumber || this.presets.hard.pairsNumber === 0) ? this.userService.availableCards$.getValue().length : this.presets.hard.pairsNumber
+            });
             super.changementFrontDifficultyGauche(niveau);
           }
           break;
