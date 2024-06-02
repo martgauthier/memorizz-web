@@ -15,7 +15,12 @@ import { SlidesOutputData } from 'ngx-owl-carousel-o';
 
 export class NbCard extends GestionFront implements OnInit {
     public config : Preset = createEmptyPresetStart();
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      //la condition suivante est vraie si on a moins de 4 cartes, alors que la sélection par défaut est 4 cartes
+      if(this.userService.availableCards$.value.length <= this.config.pairsNumber) {
+        super.setNbCard(this.userService.availableCards$.value.length, this.userService.availableCards$.value.length);
+      }
+    }
     constructor(public userService : UserService){
         super();
         userService.presetConfig$.subscribe((data) => {
@@ -35,7 +40,10 @@ export class NbCard extends GestionFront implements OnInit {
                 super.setNbCard( newValue,this.userService.availableCards$.value.length);
                 break;
         }
-        this.userService.setConfig({pairsNumber : newValue < this.userService.availableCards$.value.length ? newValue : this.userService.availableCards$.value.length, cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage });
+        //vérifie qu'on ne peut jouer qu'avec un nombre de paires inférieure à notre nombre de cartes, et uniquement au dessus de 2
+        if(newValue <= this.userService.availableCards$.value.length && 2 < newValue) {
+          this.userService.setConfig({pairsNumber : newValue, cardsAreVisible : this.config.cardsAreVisible , cardsAreBothImage : this.config.cardsAreBothImage });
+        }
     }
     public changeInputNum(event : any){
         (document.querySelector(".input-number") as HTMLSpanElement).style.caretColor = "transparent";
