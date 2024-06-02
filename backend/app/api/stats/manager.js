@@ -20,12 +20,6 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 
     nowDateRange[0].setDate(nowDateRange[0].getDate() - 14)//set it to now time minus two weeks
 
-    if(userid==="0") {
-        userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
-    }
-
-
-
     if(!Object.keys(StatsPerCardsManager.getData()).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"
@@ -164,10 +158,6 @@ const respondWithCardStat = (res, userid, idcarte, stattype, duration) => {
 };
 
 const respondWithGameStat = (res, userid, stattype, duration) => {
-    if(userid==="0") {
-        userid="1"//replace the first user calculus by the first user. SUITABLE FOR DEVELOPMENT ONLY TODO remove it
-    }
-
     if(!Object.keys(StatsPerGamesManager.getData()).includes(userid)) {
         res.status(400).json({
             "message": "Specified user doesn't have stat !"

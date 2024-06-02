@@ -1,5 +1,4 @@
-const StatPerCardsData = require("./stats-per-cards.data.json");
-
+const {StatsPerCardsData} = require("./database-mocks-generator/generate-stats-mocked-databases");
 
 //https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
 function isNumeric(value) {
@@ -7,7 +6,7 @@ function isNumeric(value) {
 }
 
 module.exports = class {
-    static items = StatPerCardsData
+    static items = StatsPerCardsData
 
     static addStatForCards(body) {
         let timestamp=new Date().getTime().toString()
