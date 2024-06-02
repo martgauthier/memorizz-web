@@ -1,10 +1,13 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {FullDataForSingleStat, GamesQuantity, SelectedStat} from "../../models/stats-data.model";
+import {
+  createEmptyFullDataForSingleStat,
+  FullDataForSingleStat,
+  GamesQuantity,
+  SelectedStat
+} from "../../models/stats-data.model";
 import {BehaviorSubject} from "rxjs";
 import {UserService} from "../user/user.service";
-import {AVAILABLE_CARDS} from "../../mocks/user.mock";
 import {Card} from "../../models/user.model";
-import {MOCKED_STAT_DATA, MOCKED_COURBE_DATA} from "../../mocks/generated-statistiques.mock";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -18,11 +21,11 @@ export class StatistiquesService {
    * Keys are in string format, to make it easy for BigSingleStatComponent to choose programmatically which data to listen to
    */
   public data: {[statTitle: string]: BehaviorSubject<FullDataForSingleStat>}= {
-    "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsPerGame"]["1"]),
-    "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["timeToDiscoverFullPair"]["1"]),
-    "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["preferredDifficultyMode"]["1"]),
-    "errorsOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["errorsOnWholeGame"]["1"]),
-    "gameDuration": new BehaviorSubject<FullDataForSingleStat>(MOCKED_STAT_DATA[0][0]["gameDuration"]["1"])
+    "errorsPerGame": new BehaviorSubject<FullDataForSingleStat>(createEmptyFullDataForSingleStat("errorsPerGame")),
+    "timeToDiscoverFullPair": new BehaviorSubject<FullDataForSingleStat>(createEmptyFullDataForSingleStat("timeToDiscoverFullPair")),
+    "preferredDifficultyMode": new BehaviorSubject<FullDataForSingleStat>(createEmptyFullDataForSingleStat("preferredDifficultyMode")),
+    "errorsOnWholeGame": new BehaviorSubject<FullDataForSingleStat>(createEmptyFullDataForSingleStat("errorsOnWholeGame")),
+    "gameDuration": new BehaviorSubject<FullDataForSingleStat>(createEmptyFullDataForSingleStat("gameDuration"))
   };
 
   public selectedCardHasValidData$: BehaviorSubject<boolean>=new BehaviorSubject<boolean>(true);
@@ -41,7 +44,7 @@ export class StatistiquesService {
 
   private identificationId: number=0;//jacqueline par défaut
 
-  public availableCards$: BehaviorSubject<Card[]>=new BehaviorSubject<Card[]>(AVAILABLE_CARDS[0]);
+  public availableCards$: BehaviorSubject<Card[]>=new BehaviorSubject<Card[]>([]);
 
   public selectedStat$: BehaviorSubject<SelectedStat> = new BehaviorSubject({
     userId: 0,
@@ -59,12 +62,6 @@ export class StatistiquesService {
     this.userService.identification$.subscribe((identification) => {
       if(identification.userId>=0) {//l'id est bien un id utilisateur correct
         this.identificationId=identification.userId;
-        this.data["errorsPerGame"].next(MOCKED_STAT_DATA[identification.userId][0]["errorsPerGame"][this.duration$.getValue().toString()]);
-        this.data["timeToDiscoverFullPair"].next(MOCKED_STAT_DATA[identification.userId][0]["timeToDiscoverFullPair"][this.duration$.getValue().toString()]);
-        this.data["preferredDifficultyMode"].next(MOCKED_STAT_DATA[identification.userId][0]["preferredDifficultyMode"][this.duration$.getValue().toString()]);
-        this.data["errorsOnWholeGame"].next(MOCKED_STAT_DATA[identification.userId][0]["errorsOnWholeGame"][this.duration$.getValue().toString()]);
-        this.data["gameDuration"].next(MOCKED_STAT_DATA[identification.userId][0]["gameDuration"][this.duration$.getValue().toString()]);
-        this.availableCards$.next(AVAILABLE_CARDS[identification.userId]);
 
         this.selectedStat$.next({
           userId: identification.userId,
@@ -72,12 +69,20 @@ export class StatistiquesService {
           statType: "errorsPerGame"
         });
 
+        this.retrieveStat("errorsPerGame");
+        this.retrieveStat("timeToDiscoverFullPair");
+        this.retrieveStat("preferredDifficultyMode");
+        this.retrieveStat("errorsOnWholeGame");
+        this.retrieveStat("gameDuration");
+
         this.updateCourbeData();
       }
       else {
         console.log("invalid id");
       }
     });
+
+    this.userService.availableCards$.subscribe(availableCards => this.availableCards$.next(availableCards));
   }
 
   public retrieveStat(statType: string) {
