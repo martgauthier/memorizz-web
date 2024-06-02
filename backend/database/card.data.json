@@ -63,5 +63,20 @@
     "id": 13,
     "textValue": "Moi",
     "imgValue": "assets/icon.png"
+  },
+  {
+    "textValue": "Automate à pile",
+    "imgValue": "1717275801968/1717275838075.png",
+    "id": 1717275838077
+  },
+  {
+    "textValue": "plus",
+    "imgValue": "1717275801968/1717275852710.png",
+    "id": 1717275852717
+  },
+  {
+    "textValue": "son",
+    "imgValue": "1717275801968/1717275867290.png",
+    "id": 1717275867292
   }
 ]

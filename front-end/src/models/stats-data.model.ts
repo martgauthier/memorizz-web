@@ -41,6 +41,27 @@ export function createDefaultDataPerDifficultyForSingleStat(): DataPerDifficulty
   }
 }
 
+export function createEmptyFullDataForSingleStat(statType: "errorsPerGame" | "timeToDiscoverFullPair" | "preferredDifficultyMode" | "errorsOnWholeGame" | "gameDuration"): FullDataForSingleStat {
+  return {
+    statType: statType,
+    duration: 1,
+    difficulty: {
+      simple: {
+        lastTimeValue: 0,
+        nowValue: 0
+      },
+      medium: {
+        lastTimeValue: 0,
+        nowValue: 0
+      },
+      hard: {
+        lastTimeValue: 0,
+        nowValue: 0
+      }
+    }
+  }
+}
+
 /**
  * Interface qui stocke une sélection de statistique particulière (utile pour savoir quelle statistique afficher dans la courbe)
  */

@@ -70,5 +70,26 @@
       "cardsAreVisible": false,
       "cardsAreBothImage": false
     }
+  },
+  {
+    "simple": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717275801965
+    },
+    "medium": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717275801967
+    },
+    "hard": {
+      "pairsNumber": 0,
+      "cardsAreVisible": false,
+      "cardsAreBothImage": false,
+      "id": 1717275801968
+    },
+    "id": 1717275801968
   }
 ]

@@ -40,9 +40,27 @@
   grid-row : 3;
 }
 
-h3{
-  margin: 0;
+label{
+  width : auto;
+  grid-row: 2;
   color: $dark-blue;
+  border: 2px solid $dark-blue;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  display : flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(32, 145, 136,0.7);
+  margin-top : 30px;
+  padding: 6px;
+}
+label:hover {
+  background-color: rgb(32, 145, 136,0.5) ;
+  box-shadow: 3px 3px 3px 3px rgb(32, 145, 136,0.2);
+}
+input[type="file"] {
+  display: none;
 }
 
 .input{
@@ -58,23 +76,25 @@ h3{
 #add-img{
   grid-column: 2;
   grid-row : 2/4;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr;
+  //display: grid;
+  //grid-template-rows: 1fr 1fr;
+  //grid-template-columns: 1fr;
+  display : flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#img-div{
+
+
+#img{
+  width: 50px;
   grid-row : 1;
   display : flex;
   align-items: center;
   justify-content: center;
-  cursor : pointer;
+  margin-top : 30px;
 }
 
-#img{
-  width: 50px;
-
-}
 #img-txt{
   text-align: center;
   grid-row: 2;
