@@ -1,17 +1,12 @@
-const fs = require("fs");
+const USER_CARDS=require("../user.data.json");
+
 module.exports= (arrayOfTimestamps, userIds) => {
   let returnedObject = {}
 
   userIds.forEach(userid => {
-    let cards_id = []
+    let cards_id = USER_CARDS.find((identification) => identification.id === userid).cardsId
     returnedObject[userid]={}
-    for(let i = 0; i < 7; i++) {
-      let card_id = Math.floor(Math.random() * 100)
-      while(cards_id.includes(card_id)) {
-        card_id = Math.floor(Math.random() * 100)
-      }
-      cards_id.push(card_id)
-    }
+
 
     for(let timestampAndDifficulty of arrayOfTimestamps) {
       for (let cardId of cards_id) {

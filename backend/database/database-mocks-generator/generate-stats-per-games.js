@@ -1,4 +1,3 @@
-const fs = require("fs");
 module.exports= (arrayOfTimestamps, userIds) => {
   let returnedObject = {}
 
