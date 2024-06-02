@@ -46,7 +46,6 @@ export class CardsSelectorComponent implements AfterViewInit {
   }
 
   setCardSelected(index: number) {
-    console.log("set element selected to " + index)
     this.statsService.updateSelectedCard((this.cardSelectedIndex === 0) ? 0 : this.availableCards[this.cardSelectedIndex-1].id);
     let childNode=this.ul.nativeElement.childNodes[(index===0) ? 0 : index+1];
 

@@ -83,7 +83,6 @@ export class UserService {
     if(ID_SOIGNANT < 0) alert("id soignant pas bon");
     this.http.get<Identification[]>(this.statUrl+"/").subscribe({
       next: (data) => {
-        console.log(data)
         this.availableProfil$.next(data);
       },
       error: (err) => {
@@ -98,7 +97,6 @@ export class UserService {
   setIdentification(id: number) {
     this.http.get<Identification>(this.statUrl+"/"+id).subscribe({
       next: (data) => {
-        console.log(data)
         this.identification$.next(data);
       },
       error: (err) => {
@@ -110,7 +108,6 @@ export class UserService {
   setPresetDict(id: number) {
     this.http.get<any>(this.statUrl+"/"+id+"/presetDict").subscribe({
       next: (data) => {
-        console.log(data)
         this.presetDict$.next(data);
       },
       error: (err) => {
@@ -130,7 +127,6 @@ export class UserService {
   setAvailableCards(id : number) {
     this.http.get<Card[]>(this.statUrl+"/"+id+"/cards").subscribe({
       next: (data) => {
-        console.log(data)
         this.availableCards$.next(data);
       },
       error: (err) => {
