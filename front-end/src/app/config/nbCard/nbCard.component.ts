@@ -17,7 +17,7 @@ export class NbCard extends GestionFront implements OnInit {
     public config : Preset = createEmptyPresetStart();
     ngOnInit(): void {
       //la condition suivante est vraie si on a moins de 4 cartes, alors que la sélection par défaut est 4 cartes
-      if(this.userService.availableCards$.value.length <= this.config.pairsNumber) {
+      if(this.userService.availableCards$.value.length <= this.config.pairsNumber || this.config.pairsNumber === 0) {
         super.setNbCard(this.userService.availableCards$.value.length, this.userService.availableCards$.value.length);
       }
     }
