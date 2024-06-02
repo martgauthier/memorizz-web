@@ -167,11 +167,7 @@ export class CourbeComponent {
       (chartOptionsCopy.series![2] as any).data = courbeData.hard.map((value: number) => value === 0 ? null : value);
       (chartOptionsCopy.series![3] as any).data = this.calculateMeanValues().map((value: number) => value === 0 ? null : value);
 
-      console.log(this.chartOptions)
-
       this.chartOptions=chartOptionsCopy;
-
-      console.log("Copie: ", chartOptionsCopy)
 
       this.updateChart=true;
     });

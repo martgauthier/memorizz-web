@@ -52,7 +52,7 @@ export class ClientSelector implements AfterViewInit {
       this.setCardSelected(0);
     }else{
       //rentre bien quand un user a été choisit
-      this.setCardSelected(this.userService.identification$.value.userId+1);
+      this.setCardSelected(this.clientList.findIndex(client => client.userId === this.userService.identification$.getValue().userId)+1);
     }
   }
 
@@ -62,7 +62,6 @@ export class ClientSelector implements AfterViewInit {
       (document.querySelector("#pageNavMain") as HTMLDivElement).classList.remove("animation-slide");
     }
     this.cardSelectedIndex=index>=0?index : this.cardSelectedIndex;
-    console.log("on click called index : "+this.cardSelectedIndex);
     if(this.isFocused) {
       document.body.focus();
       setTimeout(() => {
@@ -88,7 +87,8 @@ export class ClientSelector implements AfterViewInit {
       (document.querySelector(".menu-button") as HTMLDivElement).style.marginTop = "0px";
     }
     this.choosedUser = this.cardSelectedIndex-1;
-    this.userService.setFullDataForUser(this.clientList[this.cardSelectedIndex-1].userId);
+    if(index!==0) console.log("User id", this.clientList[this.cardSelectedIndex-1].userId)
+    if(index!==0) this.userService.setFullDataForUser(this.clientList[this.cardSelectedIndex-1].userId);
   }
 
   onBlur() {
